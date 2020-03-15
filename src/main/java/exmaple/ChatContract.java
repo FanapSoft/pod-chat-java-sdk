@@ -29,6 +29,9 @@ public interface ChatContract {
         default void onGetThreadHistory(ChatResponse<ResultHistory> history) {
         }
 
+        default void onGetCurrentUserRoles(ChatResponse<ResultCurrentUserRoles> response) {
+        }
+
         default void onGetContacts(ChatResponse<ResultContact> response) {
         }
 
@@ -215,14 +218,6 @@ public interface ChatContract {
 
         void connect(RequestConnect requestConnect) throws ConnectionException;
 
-        void mapSearch(String searchTerm, Double latitude, Double longitude);
-
-        void mapRouting(String origin, String destination);
-
-        void mapStaticImage(RequestMapStaticImage request);
-
-        void mapReverse(RequestMapReverse request);
-
         void getUserInfo();
 
         void getHistory(History history, long threadId);
@@ -271,9 +266,11 @@ public interface ChatContract {
 
         void getThreadParticipant(RequestThreadParticipant request);
 
-        void get(int count, Long offset, long threadId);
+        void getMentionedList(RequestGetMentionedList requestGetMentionedList);
 
-        void addContact(String firstName, String lastName, String cellphoneNumber, String email, String typeCode);
+        void getCurrentUserRoles(RequestCurrentUserRoles requestCurrentUserRoles);
+
+        void get(int count, Long offset, long threadId);
 
         void addContact(RequestAddContact request);
 

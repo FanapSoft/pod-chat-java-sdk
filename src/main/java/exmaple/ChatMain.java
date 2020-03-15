@@ -13,6 +13,7 @@ import podChat.model.*;
 import podChat.requestobject.*;
 import podChat.util.InviteType;
 import podChat.util.RoleType;
+import podChat.util.TextMessageType;
 import podChat.util.ThreadType;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.List;
  */
 public class ChatMain implements ChatContract.view {
     public static String platformHost = "https://sandbox.pod.ir:8043";
-    public static String token = "670c89bd097141789c1596334ec2a95a";
+    public static String token = "3cfd9a6a359d4288b082b777984a9328";
     public static String ssoHost = "https://accounts.pod.ir";
     public static String fileServer = "https://core.pod.ir";
     public static String serverName = "chat-server";
@@ -61,7 +62,7 @@ public class ChatMain implements ChatContract.view {
 
             chatController.connect(requestConnect);
 
-//            addContact();
+            addContact();
 //            Thread.sleep(2000);
 //            getcontact();
 //            Thread.sleep(2000);
@@ -103,7 +104,7 @@ public class ChatMain implements ChatContract.view {
 //            Thread.sleep(2000);
 //            unmute();
 
-            getHistory();
+//            getHistory();
 //            clearHistory();
 
 //            block();
@@ -162,6 +163,11 @@ public class ChatMain implements ChatContract.view {
             Thread.sleep(2000);
 //            unPinMessage();
 //            chatController.getUserInfo();
+
+//            getCurrentUserRoles();
+
+//            getMentionedList();
+
         } catch (ConnectionException | InterruptedException e) {
             System.out.println(e);
         }
@@ -215,6 +221,16 @@ public class ChatMain implements ChatContract.view {
 
         chatController.addAuditor(requestSetAuditor);
 
+    }
+
+
+    void getCurrentUserRoles() {
+        RequestCurrentUserRoles requestCurrentUserRoles = new RequestCurrentUserRoles
+                .Builder(6629)
+                .build();
+
+
+        chatController.getCurrentUserRoles(requestCurrentUserRoles);
     }
 
     /**
@@ -278,7 +294,7 @@ public class ChatMain implements ChatContract.view {
     void addContact() {
         RequestAddContact requestAddContact = new RequestAddContact
                 .Builder()
-                .cellphoneNumber("09157770684")
+                .userName("fkheirkhah")
                 .lastName("خیرخواه")
                 .build();
         chatController.addContact(requestAddContact);
@@ -456,6 +472,18 @@ public class ChatMain implements ChatContract.view {
 
     }
 
+    private void getMentionedList() {
+        RequestGetMentionedList requestGetMentionedList = new RequestGetMentionedList
+                .Builder(7108)
+//                .allMentioned(true)
+                .unreadMentioned(true)
+                .build();
+
+
+        chatController.getMentionedList(requestGetMentionedList);
+    }
+
+
     /**
      * create thread with file message
      */
@@ -504,7 +532,7 @@ public class ChatMain implements ChatContract.view {
      */
     private void sendMessage() {
         RequestMessage requestThread = new RequestMessage
-                .Builder("@ma.amjadi", 7108)
+                .Builder("hi @fkheirkhah", 5182, TextMessageType.TEXT)
                 .build();
 
         chatController.sendTextMessage(requestThread);
@@ -516,6 +544,7 @@ public class ChatMain implements ChatContract.view {
     private void getThreads() {
         RequestThread requestThread = new RequestThread
                 .Builder()
+                .isNew(true)
                 .build();
 
         chatController.getThreads(requestThread);
@@ -580,7 +609,7 @@ public class ChatMain implements ChatContract.view {
 
         Invitee[] invitees = new Invitee[1];
         Invitee invitee = new Invitee();
-        invitee.setIdType(InviteType.TO_BE_USER_CONTACT_ID);
+        invitee.setIdType(InviteType.TO_BE_USER_CELLPHONE_NUMBER);
         invitee.setId("13812");
 
 //        Invitee invitee2 = new Invitee();
@@ -880,7 +909,6 @@ public class ChatMain implements ChatContract.view {
 
     @Override
     public void onSetRole(ChatResponse<ResultSetRole> chatResponse) {
-         chatResponse.getJson(chatResponse);
         System.out.println("helllo");
     }
 
@@ -890,4 +918,8 @@ public class ChatMain implements ChatContract.view {
         System.out.println("helllo");
     }
 
+    @Override
+    public void onGetCurrentUserRoles(ChatResponse<ResultCurrentUserRoles> response) {
+        System.out.println("d");
+    }
 }
