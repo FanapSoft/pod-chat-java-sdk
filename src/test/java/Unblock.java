@@ -8,6 +8,8 @@ import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
 import podChat.requestobject.RequestUnBlock;
 
+import java.util.ArrayList;
+
 /**
  * Created By Khojasteh on 8/6/2019
  */
@@ -16,15 +18,13 @@ import podChat.requestobject.RequestUnBlock;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
 public class Unblock implements ChatContract.view {
-    long userId = 4781;
-    long contactId = 13882;
-    long threadId = 5461;
-
     @Mock
     static ChatContract.view chatContract;
     @InjectMocks
     static ChatController chatController = Mockito.mock(ChatController.class);
-
+    long userId = 4781;
+    long contactId = 13882;
+    long threadId = 5461;
     Gson gson = new Gson();
 
     @BeforeEach
@@ -39,8 +39,9 @@ public class Unblock implements ChatContract.view {
             chatController = new ChatController(chatContract);
 
             RequestConnect requestConnect = new RequestConnect
-                    .Builder(Constant.queueServer,
-                    Constant.queuePort,
+                    .Builder(new ArrayList<String>() {{
+                add(Constant.socketAddress);
+            }},
                     Constant.queueInput,
                     Constant.queueOutput,
                     Constant.queueUserName,

@@ -45,8 +45,9 @@ public class CreateThreadWithMessage implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
             RequestConnect requestConnect = new RequestConnect
-                    .Builder(Constant.queueServer,
-                    Constant.queuePort,
+                    .Builder(new ArrayList<String>() {{
+                add(Constant.socketAddress);
+            }},
                     Constant.queueInput,
                     Constant.queueOutput,
                     Constant.queueUserName,
