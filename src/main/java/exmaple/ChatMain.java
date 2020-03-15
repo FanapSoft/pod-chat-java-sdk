@@ -62,9 +62,9 @@ public class ChatMain implements ChatContract.view {
 
             chatController.connect(requestConnect);
 
-            addContact();
+//            addContact();
 //            Thread.sleep(2000);
-//            getcontact();
+            getcontact();
 //            Thread.sleep(2000);
 //            removeContact();
 //            Thread.sleep(2000);
