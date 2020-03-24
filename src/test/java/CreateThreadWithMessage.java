@@ -46,7 +46,7 @@ public class CreateThreadWithMessage implements ChatContract.view {
             chatController = new ChatController(chatContract);
             RequestConnect requestConnect = new RequestConnect
                     .Builder(new ArrayList<String>() {{
-                add(Constant.uris);
+                add(Constant.uri);
             }},
                     Constant.queueInput,
                     Constant.queueOutput,
