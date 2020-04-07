@@ -128,4 +128,27 @@ public class AddContact implements ChatContract.view {
 
     }
 
+    @Test
+    @Order(2)
+    void addContactUserName() throws InterruptedException {
+        RequestAddContact requestAddContact = new RequestAddContact
+                .Builder()
+                .userName("f.khojasteh")
+                .firstName("فاطمه")
+                .cellphoneNumber("09151242904")
+                .build();
+        chatController.addContact(requestAddContact);
+
+        Thread.sleep(3000);
+
+        ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
+
+        Mockito.verify(chatContract, Mockito.times(1)).onAddContact(argument.capture());
+
+        ChatResponse chatResponse = argument.getValue();
+
+        Assertions.assertTrue(!chatResponse.hasError());
+
+    }
+
 }

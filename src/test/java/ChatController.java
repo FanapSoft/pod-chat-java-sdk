@@ -122,7 +122,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
     @Override
     public void getUserInfo() {
-
+        chat.getUserInfo();
     }
 
     @Override
@@ -446,22 +446,22 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
     @Override
     public void updateProfile(RequestUpdateProfile request) {
-
+        chat.updateProfile(request);
     }
 
     @Override
     public void isNameAvailable(RequestIsNameAvailable request) {
-
+        chat.isNameAvailable(request);
     }
 
     @Override
     public void joinThead(RequestJoinThread request) {
-
+        chat.joinThread(request);
     }
 
     @Override
     public void countUnreadMessage(RequestUnreadMessageCount request) {
-
+        chat.countUnreadMessage(request);
     }
 
     //View
@@ -485,6 +485,18 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     public void onGetContacts(ChatResponse<ResultContact> outPutContact) {
         super.onGetContacts(outPutContact);
         view.onGetContacts(outPutContact);
+    }
+
+    @Override
+    public void onIsNameAvailable(ChatResponse<ResultIsNameAvailable> outPutIsNameAvailable) {
+        super.onIsNameAvailable(outPutIsNameAvailable);
+        view.onIsNameAvailable(outPutIsNameAvailable);
+    }
+
+    @Override
+    public void onCountUnreadMessage(ChatResponse<ResultUnreadMessageCount> outPutUnread) {
+        super.onCountUnreadMessage(outPutUnread);
+        view.onCountUnreadMessage(outPutUnread);
     }
 
     @Override
@@ -530,11 +542,28 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
         super.onMuteThread(outPutMute);
         view.onMuteThread(outPutMute);
     }
+    @Override
+    public void onUserInfo(ChatResponse<ResultUserInfo> outPutUserInfo) {
+        super.onUserInfo(outPutUserInfo);
+        view.onUserInfo(outPutUserInfo);
+    }
 
     @Override
     public void onUnmuteThread(ChatResponse<ResultMute> outPutMute) {
         super.onUnmuteThread(outPutMute);
         view.onUnMuteThread(outPutMute);
+    }
+
+    @Override
+    public void onJoinThread(ChatResponse<ResultThread> outPutJoin) {
+        super.onJoinThread(outPutJoin);
+        view.onJoinThread(outPutJoin);
+    }
+
+    @Override
+    public void OnInteractMessage(ChatResponse<ResultInteractMessage> outPutInteract) {
+        super.OnInteractMessage(outPutInteract);
+        view.OnInteractMessage(outPutInteract);
     }
 
     @Override
@@ -553,6 +582,12 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     public void onUpdateContact(ChatResponse<ResultUpdateContact> chatResponse) {
         super.onUpdateContact(chatResponse);
         view.onUpdateContact(chatResponse);
+    }
+
+    @Override
+    public void onUpdateProfile(ChatResponse<ResultUpdateProfile> chatResponse) {
+        super.onUpdateProfile(chatResponse);
+        view.onUpdateProfile(chatResponse);
     }
 
     @Override

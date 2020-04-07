@@ -100,6 +100,24 @@ public class SendMessage implements ChatContract.view {
         Assertions.assertTrue(argument.getValue().isHasError());
 
     }
+    @Test
+    @Order(2)
+    void sendMessageWithMentionUser() throws InterruptedException {
+
+        RequestMessage requestThread = new RequestMessage
+                .Builder("this is mention test @f.khojasteh", 5461L, TextMessageType.TEXT)
+                .build();
+
+        chatController.sendTextMessage(requestThread);
+
+        Thread.sleep(5000);
+
+        ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
+
+        Mockito.verify(chatContract, Mockito.times(1)).onSentMessage(argument.capture());
+        Mockito.verify(chatContract, Mockito.times(1)).onNewMessage(argument.capture());
+        Mockito.verify(chatContract, Mockito.times(1)).onGetDeliverMessage(argument.capture());
+        Mockito.verify(chatContract, Mockito.times(1)).OnSeenMessageList(argument.capture());
 
 
-}
+}}

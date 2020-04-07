@@ -25,6 +25,8 @@ public interface ChatContract {
 
         default void onGetThreadList(ChatResponse<ResultThreads> thread) {
         }
+        default void onUserInfo(ChatResponse<ResultUserInfo> thread) {
+        }
 
         default void onGetThreadHistory(ChatResponse<ResultHistory> history) {
         }
@@ -59,6 +61,12 @@ public interface ChatContract {
         default void onMuteThread(ChatResponse<ResultMute> outPut) {
         }
 
+        default void onJoinThread(ChatResponse<ResultThread> response) {
+        }
+
+        default void onCountUnreadMessage(ChatResponse<ResultUnreadMessageCount> response) {
+        }
+
         default void onUnMuteThread(ChatResponse<ResultMute> response) {
         }
 
@@ -69,6 +77,8 @@ public interface ChatContract {
         }
 
         default void onUpdateContact(ChatResponse<ResultUpdateContact> chatResponse) {
+        }
+        default void onUpdateProfile(ChatResponse<ResultUpdateProfile> chatResponse) {
         }
 
         default void onUploadFile(ChatResponse<ResultFile> response) {
@@ -160,12 +170,15 @@ public interface ChatContract {
 
         default void onUnPinThread(ChatResponse<ResultPinThread> chatResponse) {
         }
-
+        default void onIsNameAvailable(ChatResponse<ResultIsNameAvailable> chatResponse) {
+        }
 
         default void onPinMessage(ChatResponse<ResultPinMessage> chatResponse) {
         }
 
         default void onUnPinMessage(ChatResponse<ResultPinMessage> chatResponse) {
+        }
+        default void onThreadInfoUpdated(ChatResponse<ResultThread> chatResponse) {
         }
 
 

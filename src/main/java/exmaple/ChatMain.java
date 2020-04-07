@@ -150,7 +150,7 @@ public class ChatMain implements ChatContract.view {
 //            pinThread();
 //            Thread.sleep(2000);
 //            getThreads();
-
+//
 
 //            unPinThread();
 //            Thread.sleep(2000);
@@ -180,7 +180,7 @@ public class ChatMain implements ChatContract.view {
 //            Thread.sleep(2000);
 
 //            getParticipant();
-
+            updateThreadInfo();
 //            pinMessage();
 //            Thread.sleep(2000);
 //            getThreads();
@@ -841,10 +841,37 @@ public class ChatMain implements ChatContract.view {
 
     private void isNameAvailable() {
         RequestIsNameAvailable requestIsNameAvailable = new RequestIsNameAvailable
-                .Builder("test")
+                .Builder("sdf")
                 .build();
 
         chatController.isNameAvailable(requestIsNameAvailable);
+    }
+
+
+    /**
+     * get history
+     */
+    private void updateThreadInfo() {
+    /*    RequestGetHistory requestGetHistory = new RequestGetHistory
+                .Builder(5461)
+                .build();
+
+        chatController.getHistory(requestGetHistory);*/
+        RequestThreadInfo requestThreadInfo = new RequestThreadInfo
+                .Builder()
+                .description("test")
+                .threadId(7149)
+                .setTitle("test")
+//                .uniqueIds(new String[]{"a98d00af-6cb7-4174-a82a-a8ec68af0bb1"})
+                .build();
+
+        chatController.updateThreadInfo(requestThreadInfo);
+
+     /*   RequestGetHistory requestGetHistory1 = new RequestGetHistory
+                .Builder(5461)
+                .build();
+
+        chatController.getHistory(requestGetHistory1, null);*/
     }
 
     /******************************************************************

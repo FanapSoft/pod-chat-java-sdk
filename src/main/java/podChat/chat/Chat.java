@@ -1616,6 +1616,7 @@ public class Chat extends AsyncAdapter {
      * description;
      * metadata;
      */
+    @Deprecated
     public String updateThreadInfo(long threadId, ThreadInfoVO threadInfoVO) {
         String uniqueId;
         uniqueId = generateUniqueId();
@@ -1623,38 +1624,22 @@ public class Chat extends AsyncAdapter {
             if (chatReady) {
                 JsonObject jObj = new JsonObject();
 
-                jObj.addProperty("name", threadInfoVO.getTitle());
+                jObj.addProperty("title", threadInfoVO.getTitle());
                 jObj.addProperty("description", threadInfoVO.getDescription());
                 jObj.addProperty("metadata", threadInfoVO.getMetadata());
                 jObj.addProperty("image", threadInfoVO.getImage());
+//                jObj.addProperty("typeCode", threadInfoVO.getTypeCode());
 
                 String content = jObj.toString();
-
-                ChatMessage chatMessage = new ChatMessage();
-                chatMessage.setContent(content);
-
-                chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
-                chatMessage.setToken(getToken());
-                chatMessage.setSubjectId(threadId);
-                chatMessage.setUniqueId(uniqueId);
-                chatMessage.setType(ChatMessageType.UPDATE_THREAD_INFO);
-
-                JsonObject jsonObject = (JsonObject) gson.toJsonTree(chatMessage);
-                jsonObject.remove("contentCount");
-                jsonObject.remove("systemMetadata");
-                jsonObject.remove("metadata");
-                jsonObject.remove("repliedTo");
-
-                if (Util.isNullOrEmpty(typeCode)) {
-                    if (Util.isNullOrEmpty(getTypeCode())) {
-                        jsonObject.remove("typeCode");
-                    } else {
-                        jsonObject.addProperty("typeCode", getTypeCode());
-                    }
-                } else {
-                }
-
-                sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "SEND_UPDATE_THREAD_INFO");
+                BaseMessage baseMessage=new BaseMessage();
+                baseMessage.setType(ChatMessageType.UPDATE_THREAD_INFO);
+                baseMessage.setToken(getToken());
+                baseMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
+                baseMessage.setSubjectId(threadId);
+                baseMessage.setTypeCode(!Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());
+                baseMessage.setUniqueId(uniqueId);
+                baseMessage.setContent(content);
+                sendAsyncMessage(gson.toJson(baseMessage), AsyncMessageType.MESSAGE, "SEND_UPDATE_THREAD_INFO");
 
             } else {
                 getErrorOutPut(ChatConstant.ERROR_CHAT_READY, ChatConstant.ERROR_CODE_CHAT_READY, uniqueId);
@@ -1675,10 +1660,11 @@ public class Chat extends AsyncAdapter {
      */
 
     public String updateThreadInfo(RequestThreadInfo request) {
-        ThreadInfoVO threadInfoVO = new ThreadInfoVO.Builder().title(request.getName())
+        ThreadInfoVO threadInfoVO = new ThreadInfoVO.Builder().title(request.getTitle())
                 .description(request.getDescription())
                 .image(request.getImage())
                 .metadat(request.getMetadata())
+                .setTypeCode(request.getTypeCode())
                 .build();
 
 

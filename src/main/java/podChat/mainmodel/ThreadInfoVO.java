@@ -3,31 +3,35 @@ package podChat.mainmodel;
 
 public class ThreadInfoVO {
     private String image;
-    private String name;
+    private String title;
     private String description;
     private String metadata;
+    private String typeCode;
 
     public ThreadInfoVO(Builder threadInfoVOBuilder) {
         this.description = threadInfoVOBuilder.description;
         this.image = threadInfoVOBuilder.image;
         this.metadata = threadInfoVOBuilder.metadata;
-        this.name = threadInfoVOBuilder.name;
+        this.title = threadInfoVOBuilder.title;
+        this.typeCode=threadInfoVOBuilder.typeCode;
     }
 
     public String getTitle() {
-        return name;
+        return title;
     }
 
     public void setTitle(String title) {
-        this.name = title;
+        this.title = title;
     }
+
 
     public static class Builder {
 
         private String image;
         private String description;
         private String metadata;
-        private String name;
+        private String title;
+        private String typeCode;
 
 
         public Builder image(String image) {
@@ -37,7 +41,7 @@ public class ThreadInfoVO {
 
 
         public Builder title(String title) {
-            this.name = title;
+            this.title = title;
             return this;
         }
 
@@ -53,11 +57,23 @@ public class ThreadInfoVO {
             return this;
         }
 
+        public String getTypeCode() {
+            return typeCode;
+        }
+
+        public Builder setTypeCode(String typeCode) {
+            this.typeCode = typeCode;
+            return this;
+        }
 
         public ThreadInfoVO build() {
             return new ThreadInfoVO(this);
         }
 
+    }
+
+    public String getTypeCode() {
+        return typeCode;
     }
 
     public String getImage() {
