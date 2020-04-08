@@ -360,7 +360,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
     @Override
     public void updateThreadInfo(RequestThreadInfo request) {
-
+        chat.updateThreadInfo(request);
     }
 
     @Override
@@ -479,6 +479,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
     @Override
     public void onThreadInfoUpdated(ChatResponse<ResultThread> response) {
+        super.onThreadInfoUpdated(response);
+        view.onThreadInfoUpdated(response);
     }
 
     @Override
@@ -542,6 +544,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
         super.onMuteThread(outPutMute);
         view.onMuteThread(outPutMute);
     }
+
     @Override
     public void onUserInfo(ChatResponse<ResultUserInfo> outPutUserInfo) {
         super.onUserInfo(outPutUserInfo);

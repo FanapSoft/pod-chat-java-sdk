@@ -852,26 +852,15 @@ public class ChatMain implements ChatContract.view {
      * get history
      */
     private void updateThreadInfo() {
-    /*    RequestGetHistory requestGetHistory = new RequestGetHistory
-                .Builder(5461)
-                .build();
-
-        chatController.getHistory(requestGetHistory);*/
         RequestThreadInfo requestThreadInfo = new RequestThreadInfo
                 .Builder()
-                .description("test")
+                .description("توضیح")
                 .threadId(7149)
-                .setTitle("test")
-//                .uniqueIds(new String[]{"a98d00af-6cb7-4174-a82a-a8ec68af0bb1"})
+                .metadat("test")
+                .image("img")
                 .build();
 
         chatController.updateThreadInfo(requestThreadInfo);
-
-     /*   RequestGetHistory requestGetHistory1 = new RequestGetHistory
-                .Builder(5461)
-                .build();
-
-        chatController.getHistory(requestGetHistory1, null);*/
     }
 
     /******************************************************************

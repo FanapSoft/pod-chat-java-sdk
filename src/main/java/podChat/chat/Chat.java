@@ -1660,7 +1660,8 @@ public class Chat extends AsyncAdapter {
      */
 
     public String updateThreadInfo(RequestThreadInfo request) {
-        ThreadInfoVO threadInfoVO = new ThreadInfoVO.Builder().title(request.getTitle())
+        ThreadInfoVO threadInfoVO = new ThreadInfoVO.Builder()
+                .title(request.getTitle())
                 .description(request.getDescription())
                 .image(request.getImage())
                 .metadat(request.getMetadata())

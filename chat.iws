@@ -2,29 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c390fb23-3c25-45a1-882d-667d74abb0dd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/CountUnreadMessageTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/CreatePublicGroupOrChannelThreadTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/GetCurrentUserRolesTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/GetMentionedListTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/GetUserInfoTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/InteractiveMessageTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/IsNameAvailableTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/JoinThreadTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/UpdateProfileTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat.iml" beforeDir="false" afterPath="$PROJECT_DIR$/chat.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/chat.ipr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/UpdateThreadInfoTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat.iws" beforeDir="false" afterPath="$PROJECT_DIR$/chat.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/exmaple/ChatContract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/exmaple/ChatContract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/exmaple/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/exmaple/ChatController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/exmaple/ChatMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/exmaple/ChatMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/podChat/chat/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/podChat/chat/Chat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/podChat/mainmodel/ThreadInfoVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/podChat/mainmodel/ThreadInfoVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/podChat/requestobject/RequestThreadInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/podChat/requestobject/RequestThreadInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/AddContact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/AddContact.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ChatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Constant/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Constant/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/GetThreadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GetThreadTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SendMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SendMessage.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -281,7 +264,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.InteractiveMessageTest">
+  <component name="RunManager" selected="JUnit.UpdateThreadInfoTest">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -308,10 +291,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GetUserInfoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Unblock" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="chat" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="GetUserInfoTest" />
+      <option name="MAIN_CLASS_NAME" value="Unblock" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -322,39 +305,40 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="InteractiveMessageTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="chat" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="InteractiveMessageTest" />
-      <option name="TEST_OBJECT" value="class" />
+    <configuration name="UpdateProfileTest,connect and 1 more (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <option name="TEST_OBJECT" value="pattern" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="wholeProject" />
       </option>
+      <patterns>
+        <pattern testClass="UpdateProfileTest,connect" />
+        <pattern testClass="UpdateProfileTest,updateProfile" />
+      </patterns>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="InteractiveMessageTest.interactiveMessage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="chat" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="InteractiveMessageTest" />
-      <option name="METHOD_NAME" value="interactiveMessage" />
-      <option name="TEST_OBJECT" value="method" />
+    <configuration name="UpdateProfileTest,connect and 1 more" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <option name="TEST_OBJECT" value="pattern" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="wholeProject" />
       </option>
+      <patterns>
+        <pattern testClass="UpdateProfileTest,connect" />
+        <pattern testClass="UpdateProfileTest,updateProfile" />
+      </patterns>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SendMessage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UpdateThreadInfoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="chat" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="SendMessage" />
+      <option name="MAIN_CLASS_NAME" value="UpdateThreadInfoTest" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -378,11 +362,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.InteractiveMessageTest" />
-        <item itemvalue="JUnit.InteractiveMessageTest.interactiveMessage" />
-        <item itemvalue="JUnit.GetUserInfoTest" />
+        <item itemvalue="JUnit.UpdateThreadInfoTest" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.SendMessage" />
+        <item itemvalue="JUnit.Unblock" />
+        <item itemvalue="JUnit.UpdateProfileTest,connect and 1 more (1)" />
+        <item itemvalue="JUnit.UpdateProfileTest,connect and 1 more" />
       </list>
     </recent_temporary>
   </component>
@@ -420,8 +404,17 @@
       <option name="presentableId" value="Default" />
       <updated>1586080694720</updated>
       <workItem from="1586080695903" duration="8219000" />
-      <workItem from="1586148582353" duration="25301000" />
+      <workItem from="1586148582353" duration="27709000" />
+      <workItem from="1586255995454" duration="5995000" />
     </task>
+    <task id="LOCAL-00001" summary="test &amp; update user Info">
+      <created>1586246332144</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1586246332144</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -451,6 +444,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="test &amp; update user Info" />
+    <option name="LAST_COMMIT_MESSAGE" value="test &amp; update user Info" />
   </component>
   <component name="VssConfiguration">
     <CheckoutOptions>
@@ -536,6 +533,26 @@
           <url>file://$PROJECT_DIR$/src/main/java/exmaple/ChatMain.java</url>
           <line>182</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/exmaple/ChatMain.java</url>
+          <line>849</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/UpdateThreadInfoTest.java</url>
+          <line>81</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/UpdateThreadInfoTest.java</url>
+          <line>79</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/UpdateThreadInfoTest.java</url>
+          <line>77</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

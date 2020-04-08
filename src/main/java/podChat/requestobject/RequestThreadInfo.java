@@ -1,42 +1,34 @@
 package podChat.requestobject;
 
 
-public class RequestThreadInfo  extends GeneralRequestObject{
+public class RequestThreadInfo extends GeneralRequestObject {
     private String image;
     private long threadId;
     private String title;
-//    private String name;
+    //    private String name;
     private String description;
     private String metadata;
-    private String typeCode;
 
-    RequestThreadInfo (Builder builder){
+    RequestThreadInfo(Builder builder) {
         super(builder);
         this.description = builder.description;
         this.image = builder.image;
         this.metadata = builder.metadata;
 //        this.name = builder.name;
         this.threadId = builder.threadId;
-        this.title=builder.getTitle();
-        this.typeCode=builder.getTypeCode();
+        this.title = builder.getTitle();
     }
 
     public String getTitle() {
         return title;
     }
 
-    @Override
-    public String getTypeCode() {
-        return typeCode;
-    }
-
     public static class Builder extends GeneralRequestObject.Builder<Builder> {
         private String image;
-//        private String name;
+        //        private String name;
         private String description;
         private String metadata;
         private long threadId;
-        private String typeCode;
         private String title;
 
 
@@ -69,15 +61,6 @@ public class RequestThreadInfo  extends GeneralRequestObject{
             return this;
         }
 
-        public String getTypeCode() {
-            return typeCode;
-        }
-
-        public Builder setTypeCode(String typeCode) {
-            this.typeCode = typeCode;
-            return this;
-        }
-
         public String getTitle() {
             return title;
         }
@@ -87,7 +70,7 @@ public class RequestThreadInfo  extends GeneralRequestObject{
             return this;
         }
 
-        public RequestThreadInfo build(){
+        public RequestThreadInfo build() {
             return new RequestThreadInfo(this);
         }
 
@@ -142,8 +125,4 @@ public class RequestThreadInfo  extends GeneralRequestObject{
         this.title = title;
     }
 
-    @Override
-    public void setTypeCode(String typeCode) {
-        this.typeCode = typeCode;
-    }
 }
