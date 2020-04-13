@@ -68,9 +68,9 @@ public class ForwardMessage implements ChatContract.view {
     @Order(2)
     void forwardMessage() throws InterruptedException {
         RequestForwardMessage forwardMessage = new RequestForwardMessage
-                .Builder(5461, new ArrayList<Long>() {{
-            add(47403l);
-            add(47402l);
+                .Builder(7129, new ArrayList<Long>() {{
+            add(94291L);
+//            add(47402l);
         }})
                 .build();
 
@@ -79,6 +79,8 @@ public class ForwardMessage implements ChatContract.view {
         Thread.sleep(5000);
 
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
+        ArgumentCaptor<ChatResponse> argument1 = ArgumentCaptor.forClass(ChatResponse.class);
+        Mockito.verify(chatContract, Mockito.times(2)).onThreadInfoUpdated(argument1.capture());
 
         Mockito.verify(chatContract, Mockito.times(2)).onSentMessage(argument.capture());
         Mockito.verify(chatContract, Mockito.times(2)).onNewMessage(argument.capture());

@@ -67,7 +67,7 @@ public class SendFileMessage implements ChatContract.view {
     void sendImageFileMessage() throws InterruptedException {
 
         RequestFileMessage requestFileMessage = new RequestFileMessage
-                .Builder(5461, "C:\\Users\\fanap-10\\Pictures\\Saved Pictures\\a.jpg", TextMessageType.PICTURE)
+                .Builder(7129, "resultFinal.jpg", TextMessageType.PICTURE)
                 .description("this is test image")
                 .xC(0)
                 .yC(0)
@@ -81,32 +81,34 @@ public class SendFileMessage implements ChatContract.view {
         Thread.sleep(20000);
 
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
+        ArgumentCaptor<ChatResponse> argument1 = ArgumentCaptor.forClass(ChatResponse.class);
 
         Mockito.verify(chatContract, Mockito.times(1)).onSentMessage(argument.capture());
         Mockito.verify(chatContract, Mockito.times(1)).onNewMessage(argument.capture());
+        Mockito.verify(chatContract, Mockito.times(1)).onThreadInfoUpdated(argument1.capture());
 
     }
 
 
-    @Test
-    @Order(2)
-    void sendTextFileMessage() throws InterruptedException {
-
-        RequestFileMessage requestFileMessage = new RequestFileMessage
-                .Builder(5461, "F:\\models.txt", TextMessageType.TEXT)
-                .description("this is test image")
-                .build();
-
-        chatController.uploadFileMessage(requestFileMessage, null);
-
-
-        Thread.sleep(20000);
-
-        ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
-
-        Mockito.verify(chatContract, Mockito.times(1)).onSentMessage(argument.capture());
-        Mockito.verify(chatContract, Mockito.times(1)).onNewMessage(argument.capture());
-    }
+//    @Test
+//    @Order(2)
+//    void sendTextFileMessage() throws InterruptedException {
+//
+//        RequestFileMessage requestFileMessage = new RequestFileMessage
+//                .Builder(5461, "F:\\models.txt", TextMessageType.TEXT)
+//                .description("this is test image")
+//                .build();
+//
+//        chatController.uploadFileMessage(requestFileMessage, null);
+//
+//
+//        Thread.sleep(20000);
+//
+//        ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
+//
+//        Mockito.verify(chatContract, Mockito.times(1)).onSentMessage(argument.capture());
+//        Mockito.verify(chatContract, Mockito.times(1)).onNewMessage(argument.capture());
+//    }
 
 
 }

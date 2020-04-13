@@ -88,7 +88,7 @@ public class ReplyMessage implements ChatContract.view {
     @Order(2)
     void replyMessage() throws InterruptedException {
         RequestReplyMessage requestReplyMessage = new RequestReplyMessage
-                .Builder("hi ", 3042, 46862,TextMessageType.TEXT)
+                .Builder("hi ", 7129, 94291,TextMessageType.TEXT)
                 .build();
 
         chatController.replyMessage(requestReplyMessage);
@@ -98,10 +98,20 @@ public class ReplyMessage implements ChatContract.view {
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
 
         Mockito.verify(chatContract).onSentMessage(argument.capture());
+        ArgumentCaptor<ChatResponse> argument1 = ArgumentCaptor.forClass(ChatResponse.class);
 
+        Mockito.verify(chatContract).onNewMessage(argument1.capture());
+        ArgumentCaptor<ChatResponse> argument2 = ArgumentCaptor.forClass(ChatResponse.class);
+
+        Mockito.verify(chatContract).onSentMessage(argument2.capture());
         ChatResponse chatResponse = argument.getValue();
+        ChatResponse chatResponse1 = argument1.getValue();
+        ChatResponse chatResponse2 = argument2.getValue();
 
         Assertions.assertTrue(!chatResponse.hasError());
+
+        Assertions.assertTrue(!chatResponse1.hasError());
+        Assertions.assertTrue(!chatResponse2.hasError());
 
     }
 

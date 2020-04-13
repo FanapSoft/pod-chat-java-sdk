@@ -25,6 +25,7 @@ public interface ChatContract {
 
         default void onGetThreadList(ChatResponse<ResultThreads> thread) {
         }
+
         default void onUserInfo(ChatResponse<ResultUserInfo> thread) {
         }
 
@@ -78,10 +79,16 @@ public interface ChatContract {
 
         default void onUpdateContact(ChatResponse<ResultUpdateContact> chatResponse) {
         }
+
         default void onUpdateProfile(ChatResponse<ResultUpdateProfile> chatResponse) {
         }
 
         default void onUploadFile(ChatResponse<ResultFile> response) {
+        }
+
+        default void onGetFile(ChatResponse<ResultFile> response) {
+        }
+        default void onGetImage(ChatResponse<ResultImageFile> response) {
         }
 
         default void onUploadImageFile(ChatResponse<ResultImageFile> response) {
@@ -170,6 +177,7 @@ public interface ChatContract {
 
         default void onUnPinThread(ChatResponse<ResultPinThread> chatResponse) {
         }
+
         default void onIsNameAvailable(ChatResponse<ResultIsNameAvailable> chatResponse) {
         }
 
@@ -178,6 +186,7 @@ public interface ChatContract {
 
         default void onUnPinMessage(ChatResponse<ResultPinMessage> chatResponse) {
         }
+
         default void onThreadInfoUpdated(ChatResponse<ResultThread> chatResponse) {
         }
 
@@ -198,8 +207,10 @@ public interface ChatContract {
 
         void uploadFile(RequestUploadFile requestUploadFile);
 
+        void getFile(RequestGetFile requestGetFile);
 
         //void retryUpload(RetryUpload retry, ProgressHandler.sendFileMessage handler);
+        void getImage(RequestGetImage requestGetImage);
 
         void resendMessage(String uniqueId);
 

@@ -57,6 +57,16 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
         chat.uploadFile(requestUploadFile);
     }
 
+    @Override
+    public void getFile(RequestGetFile requestGetFile) {
+chat.getFile(requestGetFile);
+    }
+
+    @Override
+    public void getImage(RequestGetImage requestGetImage) {
+        chat.getImage(requestGetImage);
+    }
+
 
     @Override
     public void resendMessage(String uniqueId) {
@@ -475,6 +485,18 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     public void onGetThread(ChatResponse<ResultThreads> thread) {
         super.onGetThread(thread);
         view.onGetThreadList(thread);
+    }
+
+    @Override
+    public void onGetImage(ChatResponse<ResultImageFile> outputImage) {
+        super.onGetImage(outputImage);
+        view.onGetImage(outputImage);
+    }
+
+    @Override
+    public void onGetFile(ChatResponse<ResultFile> outputFile) {
+        super.onGetFile(outputFile);
+        view.onGetFile(outputFile);
     }
 
     @Override

@@ -74,6 +74,9 @@ class PinUnPinMessage implements ChatContract.view {
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
 
         Mockito.verify(chatContract).onPinMessage(argument.capture());
+        ArgumentCaptor<ChatResponse> argument1 = ArgumentCaptor.forClass(ChatResponse.class);
+
+        Mockito.verify(chatContract).onThreadInfoUpdated(argument1.capture());
 
         ChatResponse chatResponse = argument.getValue();
 
@@ -95,6 +98,9 @@ class PinUnPinMessage implements ChatContract.view {
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
 
         Mockito.verify(chatContract).onUnPinMessage(argument.capture());
+        ArgumentCaptor<ChatResponse> argument1 = ArgumentCaptor.forClass(ChatResponse.class);
+
+        Mockito.verify(chatContract).onThreadInfoUpdated(argument1.capture());
 
         ChatResponse chatResponse = argument.getValue();
 

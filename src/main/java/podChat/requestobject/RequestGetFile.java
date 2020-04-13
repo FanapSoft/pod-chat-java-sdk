@@ -5,22 +5,26 @@ public class RequestGetFile {
     private long fileId;
     private String hashCode;
     private boolean downloadable;
+    private String outputPath;
 
      RequestGetFile(Builder builder) {
         this.fileId =  builder.fileId;
         this.hashCode = builder.hashCode;
         this.downloadable = builder.downloadable;
+        this.outputPath=builder.outputPath;
     }
 
     public static class Builder {
         private long fileId;
         private String hashCode;
         private boolean downloadable;
+        private String outputPath;
 
-        public Builder(long fileId, String hashCode, boolean downloadable) {
+        public Builder(long fileId, String hashCode, boolean downloadable,String outputPath) {
         this.fileId = fileId;
         this.hashCode = hashCode;
         this.downloadable = downloadable;
+        this.outputPath=outputPath;
         }
 
         public RequestGetFile build(){
@@ -50,5 +54,13 @@ public class RequestGetFile {
 
     public void setDownloadable(boolean downloadable) {
         this.downloadable = downloadable;
+    }
+
+    public String getOutputPath() {
+        return outputPath;
+    }
+
+    public void setOutputPath(String outputPath) {
+        this.outputPath = outputPath;
     }
 }

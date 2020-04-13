@@ -12,6 +12,12 @@ public interface ChatListener {
     default void onGetContacts(ChatResponse<ResultContact> response) {
     }
 
+    default void onGetFile(ChatResponse<ResultFile> response) {
+    }
+
+    default void onGetImage(ChatResponse<ResultImageFile> response) {
+    }
+
     default void onGetHistory(ChatResponse<ResultHistory> history) {
     }
 

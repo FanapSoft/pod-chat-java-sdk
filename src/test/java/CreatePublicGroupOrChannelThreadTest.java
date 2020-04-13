@@ -8,7 +8,6 @@ import podChat.mainmodel.Invitee;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
 import podChat.requestobject.RequestCreatePublicGroupOrChannelThread;
-import podChat.requestobject.RequestUnreadMessageCount;
 import podChat.util.InviteType;
 import podChat.util.ThreadType;
 
@@ -73,7 +72,7 @@ public class CreatePublicGroupOrChannelThreadTest implements ChatContract.view {
         RequestCreatePublicGroupOrChannelThread requestCreateThread = new RequestCreatePublicGroupOrChannelThread
                 .Builder(ThreadType.PUBLIC_GROUP, new ArrayList<Invitee>() {{
             add(invitee);
-        }}, "bv2n")
+        }}, "bv2bbbbn")
                 .build();
 
         chatController.createThread(requestCreateThread);

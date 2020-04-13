@@ -5,28 +5,40 @@ public class RequestGetImage {
     private long imageId;
     private String hashCode;
     private boolean downloadable;
+    private String outputPath;
 
-     RequestGetImage(Builder builder) {
+    RequestGetImage(Builder builder) {
         this.imageId = builder.imageId;
         this.hashCode = builder.hashCode;
         this.downloadable = builder.downloadable;
+        this.outputPath = builder.outputPath;
     }
 
     public static class Builder {
         private long imageId;
         private String hashCode;
         private boolean downloadable;
+        private String outputPath;
 
 
-        public Builder(long imageId, String hashCode, boolean downloadable) {
+        public Builder(long imageId, String hashCode, boolean downloadable, String outputPath) {
             this.imageId = imageId;
             this.hashCode = hashCode;
             this.downloadable = downloadable;
+            this.outputPath = outputPath;
         }
 
         public RequestGetImage build() {
             return new RequestGetImage(this);
         }
+    }
+
+    public String getOutputPath() {
+        return outputPath;
+    }
+
+    public void setOutputPath(String outputPath) {
+        this.outputPath = outputPath;
     }
 
     public long getImageId() {

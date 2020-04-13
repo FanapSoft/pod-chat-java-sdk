@@ -5,20 +5,15 @@ import exmaple.ChatContract;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
-import podChat.model.ResultRemoveContact;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestRemoveContact;
+import podChat.requestobject.RequestGetFile;
+import podChat.requestobject.RequestGetImage;
 
 import java.util.ArrayList;
 
-/**
- * Created By Khojasteh on 8/6/2019
- */
-
 @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-
-public class RemoveConatct implements ChatContract.view {
+public class GetFileTest  implements ChatContract.view {
     @Mock
     static ChatContract.view chatContract;
     @InjectMocks
@@ -64,27 +59,16 @@ public class RemoveConatct implements ChatContract.view {
 
     @Test
     @Order(2)
-    void removeContact() throws InterruptedException {
-        RequestRemoveContact requestRemoveContact = new RequestRemoveContact
-                .Builder(13812)
+    void getFile() throws InterruptedException {
+        RequestGetFile requestGetFile = new RequestGetFile
+                .Builder(12512, "17158ccd289-0.3253966932798973", true, "C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.txt")
                 .build();
-
-        chatController.removeContact(requestRemoveContact);
-
-        Thread.sleep(3000);
-
+        chatController.getFile(requestGetFile);
+        Thread.sleep(10000);
 
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
-
-        Mockito.verify(chatContract, Mockito.times(1)).onRemoveContact(argument.capture());
-        ArgumentCaptor<ChatResponse> argument1 = ArgumentCaptor.forClass(ChatResponse.class);
-
-        Mockito.verify(chatContract).onThreadInfoUpdated(argument1.capture());
-
-
-        ResultRemoveContact resultRemoveContact = (ResultRemoveContact) argument.getValue().getResult();
-
-        Assertions.assertTrue(resultRemoveContact.isResult());
+        Mockito.verify(chatContract).onGetFile(argument.capture());
+        ChatResponse chatResponse = argument.getValue();
+        Assertions.assertTrue(!chatResponse.hasError());
     }
-
 }

@@ -84,6 +84,9 @@ public class DeleteMessage implements ChatContract.view {
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
 
         Mockito.verify(chatContract, Mockito.atLeast(0)).onDeleteMessage(argument.capture());
+        ArgumentCaptor<ChatResponse> argument1 = ArgumentCaptor.forClass(ChatResponse.class);
+
+        Mockito.verify(chatContract, Mockito.atLeast(0)).onThreadInfoUpdated(argument1.capture());
 
         ArgumentCaptor<ErrorOutPut> argument2 = ArgumentCaptor.forClass(ErrorOutPut.class);
 

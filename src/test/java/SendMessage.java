@@ -61,25 +61,25 @@ public class SendMessage implements ChatContract.view {
         }
     }
 
-    @Test
-    @Order(2)
-    void sendMessage() throws InterruptedException {
-
-        RequestMessage requestThread = new RequestMessage
-                .Builder("this is final test", 5461L, TextMessageType.TEXT)
-                .build();
-
-        chatController.sendTextMessage(requestThread);
-
-        Thread.sleep(5000);
-
-        ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
-
-        Mockito.verify(chatContract, Mockito.times(1)).onSentMessage(argument.capture());
-        Mockito.verify(chatContract, Mockito.times(1)).onNewMessage(argument.capture());
-
-
-    }
+//    @Test
+//    @Order(2)
+//    void sendMessage() throws InterruptedException {
+//
+//        RequestMessage requestThread = new RequestMessage
+//                .Builder("this is final test", 5461L, TextMessageType.TEXT)
+//                .build();
+//
+//        chatController.sendTextMessage(requestThread);
+//
+//        Thread.sleep(5000);
+//
+//        ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
+//
+//        Mockito.verify(chatContract, Mockito.times(1)).onSentMessage(argument.capture());
+//        Mockito.verify(chatContract, Mockito.times(1)).onNewMessage(argument.capture());
+//
+//
+//    }
 
     @Test
     @Order(2)
@@ -105,7 +105,7 @@ public class SendMessage implements ChatContract.view {
     void sendMessageWithMentionUser() throws InterruptedException {
 
         RequestMessage requestThread = new RequestMessage
-                .Builder("this is mention test @f.khojasteh", 5461L, TextMessageType.TEXT)
+                .Builder("this is mention test @f.khojasteh", 7129, TextMessageType.TEXT)
                 .build();
 
         chatController.sendTextMessage(requestThread);
@@ -113,11 +113,26 @@ public class SendMessage implements ChatContract.view {
         Thread.sleep(5000);
 
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
-
+        ArgumentCaptor<ChatResponse> argument1 = ArgumentCaptor.forClass(ChatResponse.class);
+        ArgumentCaptor<ChatResponse> argument2 = ArgumentCaptor.forClass(ChatResponse.class);
+        ArgumentCaptor<ChatResponse> argument3 = ArgumentCaptor.forClass(ChatResponse.class);
+        ArgumentCaptor<ChatResponse> argument4 = ArgumentCaptor.forClass(ChatResponse.class);
         Mockito.verify(chatContract, Mockito.times(1)).onSentMessage(argument.capture());
-        Mockito.verify(chatContract, Mockito.times(1)).onNewMessage(argument.capture());
-        Mockito.verify(chatContract, Mockito.times(1)).onGetDeliverMessage(argument.capture());
-        Mockito.verify(chatContract, Mockito.times(1)).OnSeenMessageList(argument.capture());
+        Mockito.verify(chatContract, Mockito.times(1)).onNewMessage(argument1.capture());
+        Mockito.verify(chatContract, Mockito.times(1)).onThreadInfoUpdated(argument4.capture());
+//        Mockito.verify(chatContract, Mockito.times(1)).onGetDeliverMessage(argument2.capture());
+//        Mockito.verify(chatContract, Mockito.times(1)).OnSeenMessageList(argument3.capture());
+        ChatResponse chatResponse = argument.getValue();
+        ChatResponse chatResponse1 = argument1.getValue();
+//        ChatResponse chatResponse2 = argument2.getValue();
+//        ChatResponse chatResponse3 = argument1.getValue();
+        ChatResponse chatResponse4 = argument4.getValue();
 
+        Assertions.assertTrue(!chatResponse.hasError());
+
+        Assertions.assertTrue(!chatResponse1.hasError());
+//        Assertions.assertTrue(!chatResponse2.hasError());
+//        Assertions.assertTrue(!chatResponse3.hasError());
+        Assertions.assertTrue(!chatResponse4.hasError());
 
 }}

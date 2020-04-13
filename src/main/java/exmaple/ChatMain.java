@@ -94,7 +94,7 @@ public class ChatMain implements ChatContract.view {
 //            searchContact();
 
 
-//            createThread();
+            createThread();
 //            getThreads();
 //            sendMessage();
 
@@ -126,7 +126,7 @@ public class ChatMain implements ChatContract.view {
 
 //            mute();
 //            Thread.sleep(2000);
-//            unmute();
+            unmute();
 
 //            getHistory();
 //            clearHistory();
@@ -174,13 +174,14 @@ public class ChatMain implements ChatContract.view {
 
 //            uploadImage();  //checkit
 //            uploadFile();    ///checkit
-
+            getFile();
+//            getImage();
 //            spam();
 
 //            Thread.sleep(2000);
 
 //            getParticipant();
-            updateThreadInfo();
+//            updateThreadInfo();
 //            pinMessage();
 //            Thread.sleep(2000);
 //            getThreads();
@@ -949,7 +950,7 @@ public class ChatMain implements ChatContract.view {
 
     private void uploadImage() {
         RequestUploadImage requestUploadImage = new RequestUploadImage
-                .Builder("D:\\download.jpg")
+                .Builder("trees.jpg")
                 .build();
         System.out.println(gson.toJson(requestUploadImage));
         chatController.uploadImage(requestUploadImage);
@@ -964,6 +965,26 @@ public class ChatMain implements ChatContract.view {
                 .build();
 
         chatController.uploadFile(requestUploadFile);
+
+
+    }
+
+    /**
+     * get file
+     */
+    private void getFile() {
+        RequestGetFile requestGetFile = new RequestGetFile
+                .Builder(12512, "17158ccd289-0.3253966932798973", true, "C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.txt")
+                .build();
+        chatController.getFile(requestGetFile);
+
+
+    }
+    private void getImage() {
+        RequestGetImage requestGetImage = new RequestGetImage
+                .Builder(12516, "17159944353-0.8847278640747307", true, "C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.jpg")
+                .build();
+        chatController.getImage(requestGetImage);
 
 
     }
@@ -1015,7 +1036,7 @@ public class ChatMain implements ChatContract.view {
 //            String token = myObj.nextLine();
 //
 //            chatController.setToke(token);
-//            getThreads();
+            getThreads();
 //
 //        }
     }

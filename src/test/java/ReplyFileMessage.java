@@ -80,10 +80,12 @@ public class ReplyFileMessage implements ChatContract.view {
         Thread.sleep(10000);
 
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
+        ArgumentCaptor<ChatResponse> argument1 = ArgumentCaptor.forClass(ChatResponse.class);
 
         Mockito.verify(chatContract, Mockito.times(1)).onUploadImageFile(argument.capture());
         Mockito.verify(chatContract, Mockito.times(1)).onSentMessage(argument.capture());
         Mockito.verify(chatContract, Mockito.times(1)).onNewMessage(argument.capture());
+        Mockito.verify(chatContract, Mockito.times(1)).onThreadInfoUpdated(argument1.capture());
 
     }
 

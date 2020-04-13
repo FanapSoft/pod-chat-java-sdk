@@ -357,6 +357,26 @@ public class ChatListenerManager {
     }
 
 
+    public void callOnGetFile(ChatResponse<ResultFile> response) {
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onGetFile(response);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
+
+    public void callOnGetImage(ChatResponse<ResultImageFile> response) {
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onGetImage(response);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
+
     public void callOnThreadAddParticipant(ChatResponse<ResultAddParticipant> outPutAddParticipant) {
         for (ChatListener listener : getSynchronizedListeners()) {
             try {

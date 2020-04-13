@@ -78,6 +78,9 @@ public class UpdateContact implements ChatContract.view {
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
 
         Mockito.verify(chatContract).onUpdateContact(argument.capture());
+        ArgumentCaptor<ChatResponse> argument1 = ArgumentCaptor.forClass(ChatResponse.class);
+
+        Mockito.verify(chatContract).onThreadInfoUpdated(argument1.capture());
 
         ChatResponse chatResponse = argument.getValue();
 

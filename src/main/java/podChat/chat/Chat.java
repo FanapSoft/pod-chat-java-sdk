@@ -39,8 +39,9 @@ import retrofit2.Response;
 import javax.activation.MimetypesFileTypeMap;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -1631,7 +1632,7 @@ public class Chat extends AsyncAdapter {
 //                jObj.addProperty("typeCode", threadInfoVO.getTypeCode());
 
                 String content = jObj.toString();
-                BaseMessage baseMessage=new BaseMessage();
+                BaseMessage baseMessage = new BaseMessage();
                 baseMessage.setType(ChatMessageType.UPDATE_THREAD_INFO);
                 baseMessage.setToken(getToken());
                 baseMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
@@ -1937,7 +1938,7 @@ public class Chat extends AsyncAdapter {
 
                                         listenerManager.callOnUploadImageFile(chatResponse);
 
-                                        showInfoLog("RECEIVE_UPLOAD_IMAGE");
+                                        showInfoLog("RECEIVE_UPLOAD_IMAGE"+imageJson);
 
                                         listenerManager.callOnLogEvent(imageJson);
                                     }
@@ -2025,6 +2026,7 @@ public class Chat extends AsyncAdapter {
                                     listenerManager.callOnUploadFile(chatResponse);
                                     showInfoLog("RECEIVE_UPLOAD_FILE" + json);
                                     listenerManager.callOnLogEvent(json);
+
                                 }
 
                             }
@@ -2063,6 +2065,14 @@ public class Chat extends AsyncAdapter {
 
     public String uploadFile(RequestUploadFile requestUploadFile) {
         return uploadFile(requestUploadFile.getFilePath());
+    }
+
+    public String getFile(RequestGetFile requestGetFile) {
+        return downloadFile(getFile(requestGetFile.getFileId(), requestGetFile.getHashCode(), requestGetFile.isDownloadable()), requestGetFile.getOutputPath(),requestGetFile);
+    }
+
+    public String getImage(RequestGetImage requestGetImage) {
+        return downloadImage(getImage(requestGetImage.getImageId(), requestGetImage.getHashCode(), requestGetImage.isDownloadable()),requestGetImage.getOutputPath(),requestGetImage);
     }
 
     /**
@@ -5182,6 +5192,79 @@ public class Chat extends AsyncAdapter {
      */
     public String getFile(long fileId, String hashCode, boolean downloadable) {
         return getFileServer() + "/nzh/file/" + "?fileId=" + fileId + "&downloadable=" + downloadable + "&hashCode=" + hashCode;
+    }
+
+    public String downloadFile(String u, String outputFileName,RequestGetFile requestGetFile) {
+        URL url = null;
+        try {
+            url = new URL(u);
+        } catch (MalformedURLException e) {
+            showErrorLog(e.getMessage());
+            return null;
+        }
+        String uniqueId = generateUniqueId();
+
+        File fileUpload=new File(outputFileName);
+        try {
+            org.apache.commons.io.FileUtils.copyURLToFile(url,fileUpload);
+        } catch (IOException ex) {
+            showErrorLog(ex.getMessage());
+        }
+
+            ResultFile result = new ResultFile();
+            ChatResponse<ResultFile> chatResponse = new ChatResponse<>();
+            result.setHashCode(requestGetFile.getHashCode());
+            result.setId(requestGetFile.getFileId());
+            result.setName(fileUpload.getName());
+            result.setSize(fileUpload.length());
+            chatResponse.setUniqueId(uniqueId);
+            chatResponse.setResult(result);
+            String json = gson.toJson(chatResponse);
+
+            listenerManager.callOnGetFile(chatResponse);
+            showInfoLog("RECEIVE_GET_FILE" + json);
+            listenerManager.callOnLogEvent(json);
+        return uniqueId;
+    }
+
+    public String downloadImage(String u, String outputFileName,RequestGetImage requestGetImage) {
+        URL url = null;
+        try {
+            url = new URL(u);
+        } catch (MalformedURLException e) {
+            showErrorLog(e.getMessage());
+            return null;
+        }
+        String uniqueId = generateUniqueId();
+        File fileImageUpload=new File(outputFileName);
+        try {
+            org.apache.commons.io.FileUtils.copyURLToFile(url,fileImageUpload);
+        } catch (IOException ex) {
+           showErrorLog(ex.getMessage());
+        }
+        ChatResponse<ResultImageFile> chatResponse = new ChatResponse<>();
+            ResultImageFile resultImageFile = new ResultImageFile();
+            chatResponse.setUniqueId(uniqueId);
+        BufferedImage bimg = null;
+        try {
+            bimg = ImageIO.read(fileImageUpload);
+        } catch (IOException ex) {
+            showErrorLog(ex.getMessage());
+        }
+            resultImageFile.setId(requestGetImage.getImageId());
+            resultImageFile.setHashCode(requestGetImage.getHashCode());
+            resultImageFile.setName(fileImageUpload.getName());
+            resultImageFile.setActualHeight(bimg.getHeight());
+            resultImageFile.setActualWidth(bimg.getWidth());
+
+            chatResponse.setResult(resultImageFile);
+            String json = gson.toJson(chatResponse);
+
+            listenerManager.callOnGetImage(chatResponse);
+            showInfoLog("RECEIVE_GET_IMAGE" + json);
+            listenerManager.callOnLogEvent(json);
+
+        return uniqueId;
     }
 
     /**
