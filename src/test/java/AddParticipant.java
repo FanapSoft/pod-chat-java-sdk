@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
-import podChat.requestobject.RequestAddParticipants;
+import podChat.requestobject.AddParticipantsRequestModel;
 import podChat.requestobject.RequestConnect;
 
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class AddParticipant implements ChatContract.view {
     @Order(2)
     void addParticipant() throws InterruptedException {
 
-        RequestAddParticipants addParticipants = new RequestAddParticipants
+        AddParticipantsRequestModel addParticipants = new AddParticipantsRequestModel
                 .Builder(5781, new ArrayList<Long>() {{
             add(15141l);
         }})
@@ -92,7 +92,7 @@ public class AddParticipant implements ChatContract.view {
     @Order(2)
     void addParticipantWithCoreUserId() throws InterruptedException {
 
-        RequestAddParticipants addParticipants = RequestAddParticipants
+        AddParticipantsRequestModel addParticipants = AddParticipantsRequestModel
                 .newBuilder()
                 .threadId(7308L)
                 .withCoreUserIds(1507L,1556L)
@@ -116,7 +116,7 @@ public class AddParticipant implements ChatContract.view {
     @Test
     @Order(2)
     void addParticipantWithError() throws InterruptedException {
-        RequestAddParticipants addParticipants = new RequestAddParticipants
+        AddParticipantsRequestModel addParticipants = new AddParticipantsRequestModel
                 .Builder(57811, new ArrayList<Long>() {{
             add(15141l);
         }})

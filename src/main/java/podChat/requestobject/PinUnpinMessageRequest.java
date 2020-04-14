@@ -1,11 +1,11 @@
 package podChat.requestobject;
 
 
-public class RequestPinMessage extends GeneralRequestObject {
+public class PinUnpinMessageRequest extends GeneralRequestObject {
     private Long messageId;
     private Boolean notifyAll;
 
-    RequestPinMessage(Builder builder) {
+    PinUnpinMessageRequest(Builder builder) {
         super(builder);
         this.messageId = builder.messageId;
         this.notifyAll = builder.notifyAll;
@@ -40,8 +40,8 @@ public class RequestPinMessage extends GeneralRequestObject {
             return this;
         }
 
-        public RequestPinMessage build() {
-            return new RequestPinMessage(this);
+        public PinUnpinMessageRequest build() {
+            return new PinUnpinMessageRequest(this);
         }
 
         @Override

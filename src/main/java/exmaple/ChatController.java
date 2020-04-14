@@ -50,8 +50,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void replyFileMessage(RequestReplyFileMessage requestReplyFileMessage, ProgressHandler.sendFileMessage handler) {
-        chat.replyFileMessage(requestReplyFileMessage, handler);
+    public void replyFileMessage(SendReplyFileMessageRequest sendReplyFileMessageRequest, ProgressHandler.sendFileMessage handler) {
+        chat.replyFileMessage(sendReplyFileMessageRequest, handler);
     }
 
 
@@ -91,12 +91,12 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void seenMessageList(RequestSeenMessageList requestParam) {
+    public void seenMessageList(GetMessageDeliveredSeenListRequest requestParam) {
         chat.getMessageSeenList(requestParam);
     }
 
     @Override
-    public void deliveredMessageList(RequestDeliveredMessageList requestParams) {
+    public void deliveredMessageList(GetMessageDeliveredSeenListRequest requestParams) {
         chat.getMessageDeliveredList(requestParams);
     }
 
@@ -106,8 +106,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void getThreads(RequestThread requestThread) {
-        chat.getThreads(requestThread);
+    public void getThreads(GetThreadsRequest getThreadsRequest) {
+        chat.getThreads(getThreadsRequest);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void getHistory(RequestGetHistory request) {
+    public void getHistory(GetHistoryRequest request) {
         chat.getHistory(request);
     }
 
@@ -155,13 +155,13 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void getContact(Integer count, Long offset, String typeCode) {
-        chat.getContacts(count, offset, typeCode);
+    public void getContact(Integer count, Long offset, String typeCode, String query) {
+        chat.getContacts(count, offset, typeCode,query);
 
     }
 
     @Override
-    public void getContact(RequestGetContact request) {
+    public void getContact(GetContactsRequest request) {
         chat.getContacts(request);
 
     }
@@ -178,25 +178,25 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void sendTextMessage(String textMessage, long threadId, Integer messageType, String metaData, String typeCode) {
-        chat.sendTextMessage(textMessage, threadId, messageType, metaData, typeCode);
+    public void sendTextMessage(String textMessage, long threadId, Integer messageType, String metaData, String typeCode,long repliedTo,String systemMetadata) {
+        chat.sendTextMessage(textMessage, threadId, messageType, metaData, typeCode,repliedTo,systemMetadata);
     }
 
     @Override
-    public void sendTextMessage(RequestMessage requestMessage) {
-        chat.sendTextMessage(requestMessage);
+    public void sendTextMessage(SendTextMessageRequest sendTextMessageRequest) {
+        chat.sendTextMessage(sendTextMessageRequest);
     }
 
     @Override
     public void replyMessage(String messageContent, long threadId, long messageId, String systemMetaData,
                              Integer messageType, String typeCode) {
-        chat.replyMessage(messageContent, threadId, messageId, systemMetaData, messageType, typeCode);
+        chat.replyTextMessage(messageContent, threadId, messageId, systemMetaData, messageType, typeCode);
     }
 
 
     @Override
-    public void replyMessage(RequestReplyMessage request) {
-        chat.replyMessage(request);
+    public void replyMessage(ReplyTextMessageRequest request) {
+        chat.replyTextMessage(request);
     }
 
     @Override
@@ -205,8 +205,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void muteThread(RequestMuteThread requestMuteThread) {
-        chat.muteThread(requestMuteThread);
+    public void muteThread(MuteUnmuteThreadRequest muteUnmuteThreadRequest) {
+        chat.muteThread(muteUnmuteThreadRequest);
     }
 
     @Override
@@ -220,8 +220,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void unMuteThread(RequestMuteThread requestMuteThread) {
-        chat.unMuteThread(requestMuteThread);
+    public void unMuteThread(MuteUnmuteThreadRequest muteUnmuteThreadRequest) {
+        chat.unMuteThread(muteUnmuteThreadRequest);
     }
 
     @Override
@@ -230,7 +230,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void editMessage(RequestEditMessage request) {
+    public void editMessage(EditMessageRequest request) {
         chat.editMessage(request);
     }
 
@@ -241,7 +241,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void getThreadParticipant(RequestThreadParticipant request) {
+    public void getThreadParticipant(GetThreadParticipantsRequest request) {
         chat.getThreadParticipants(request);
     }
 
@@ -251,8 +251,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void getCurrentUserRoles(RequestCurrentUserRoles requestCurrentUserRoles) {
-        chat.getCurrentUserRoles(requestCurrentUserRoles);
+    public void getCurrentUserRoles(GetCurrentUserRolesRequest getCurrentUserRolesRequest) {
+        chat.getCurrentUserRoles(getCurrentUserRolesRequest);
     }
 
     @Override
@@ -261,18 +261,18 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void addContact(RequestAddContact request) {
+    public void addContact(AddContactRequest request) {
         chat.addContact(request);
     }
 
     @Override
-    public void removeContact(RequestRemoveContact requestRemoveContact) {
-        chat.removeContact(requestRemoveContact);
+    public void removeContact(RemoveContactsRequest removeContactsRequest) {
+        chat.removeContact(removeContactsRequest);
     }
 
     @Override
-    public void searchContact(RequestSearchContact requestSearchContact) {
-        chat.searchContact(requestSearchContact);
+    public void searchContact(SearchContactsRequest searchContactsRequest) {
+        chat.searchContacts(searchContactsRequest);
     }
 
     @Override
@@ -302,8 +302,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void spam(RequestSpam requestSpam) {
-        chat.spam(requestSpam);
+    public void spam(SpamPrivateThreadRequest spamPrivateThreadRequest) {
+        chat.spamPrivateThread(spamPrivateThreadRequest);
     }
 
     @Override
@@ -322,7 +322,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void updateContact(RequestUpdateContact updateContact) {
+    public void updateContact(UpdateContactsRequest updateContact) {
         chat.updateContact(updateContact);
     }
 
@@ -352,8 +352,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void addParticipants(RequestAddParticipants requestAddParticipants) {
-        chat.addParticipants(requestAddParticipants);
+    public void addParticipants(AddParticipantsRequestModel addParticipantsRequestModel) {
+        chat.addParticipants(addParticipantsRequestModel);
     }
 
     @Override
@@ -377,12 +377,12 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void deleteMessage(RequestDeleteMessage deleteMessage) {
+    public void deleteMessage(DeleteMessageRequest deleteMessage) {
         chat.deleteMessage(deleteMessage);
     }
 
     @Override
-    public void deleteMultipleMessage(RequestDeleteMessage deleteMessage) {
+    public void deleteMultipleMessage(DeleteMultipleMessagesRequest deleteMessage) {
         chat.deleteMultipleMessage(deleteMessage);
     }
 
@@ -413,8 +413,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void getAdminList(RequestGetAdmin requestGetAdmin) {
-        chat.getAdminList(requestGetAdmin);
+    public void getAdminList(GetAllThreadAdminsRequest getAllThreadAdminsRequest) {
+        chat.getThreadAdmins(getAllThreadAdminsRequest);
     }
 
     @Override
@@ -428,8 +428,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void getBlockList(RequestBlockList request) {
-        chat.getBlockList(request);
+    public void getBlockList(GetBlockedListRequest request) {
+        chat.getBlockedList(request);
     }
 
     @Override
@@ -438,22 +438,22 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void pinThread(RequestPinThread request) {
+    public void pinThread(PinUnpinThreadRequest request) {
         chat.pinThread(request);
     }
 
     @Override
-    public void unPinThread(RequestPinThread request) {
+    public void unPinThread(PinUnpinThreadRequest request) {
         chat.unPinThread(request);
     }
 
     @Override
-    public void pinMessage(RequestPinMessage request) {
+    public void pinMessage(PinUnpinMessageRequest request) {
         chat.pinMessage(request);
     }
 
     @Override
-    public void unPinMessage(RequestPinMessage request) {
+    public void unPinMessage(PinUnpinMessageRequest request) {
         chat.unPinMessage(request);
     }
 
@@ -463,18 +463,18 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void isNameAvailable(RequestIsNameAvailable request) {
-        chat.isNameAvailable(request);
+    public void isNameAvailable(IsPublicThreadNameAvailableRequest request) {
+        chat.isPublicThreadNameAvailable(request);
     }
 
     @Override
-    public void joinThead(RequestJoinThread request) {
-        chat.joinThread(request);
+    public void joinThead(JoinPublicThreadRequest request) {
+        chat.joinPublicThread(request);
     }
 
     @Override
-    public void countUnreadMessage(RequestUnreadMessageCount request) {
-        chat.countUnreadMessage(request);
+    public void countUnreadMessage(GetAllUnreadMessageCountRequest request) {
+        chat.getAllUnreadMessagesCount(request);
     }
 
 

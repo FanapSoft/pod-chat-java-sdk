@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestGetAdmin;
+import podChat.requestobject.GetAllThreadAdminsRequest;
 import podChat.requestobject.RequestRole;
 import podChat.requestobject.RequestSetAdmin;
 import podChat.util.RoleType;
@@ -100,11 +100,11 @@ public class AdminScenario implements ChatContract.view {
     @Order(3)
     void getThreadAdmin2() throws InterruptedException {
 
-        RequestGetAdmin requestGetAdmin = new RequestGetAdmin
+        GetAllThreadAdminsRequest getAllThreadAdminsRequest = new GetAllThreadAdminsRequest
                 .Builder(threadId)
                 .build();
 
-        chatController.getAdminList(requestGetAdmin);
+        chatController.getAdminList(getAllThreadAdminsRequest);
 
         Thread.sleep(2000);
 
@@ -152,11 +152,11 @@ public class AdminScenario implements ChatContract.view {
     @Order(5)
     void getThreadAdmin3() throws InterruptedException {
 
-        RequestGetAdmin requestGetAdmin = new RequestGetAdmin
+        GetAllThreadAdminsRequest getAllThreadAdminsRequest = new GetAllThreadAdminsRequest
                 .Builder(threadId)
                 .build();
 
-        chatController.getAdminList(requestGetAdmin);
+        chatController.getAdminList(getAllThreadAdminsRequest);
 
         Thread.sleep(2000);
 

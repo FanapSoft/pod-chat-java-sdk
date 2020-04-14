@@ -1,10 +1,10 @@
 package podChat.requestobject;
 
-public class RequestReplyFileMessage extends GeneralRequestObject {
+public class SendReplyFileMessageRequest extends GeneralRequestObject {
 
-    private String messageContent;
+    private String content;
     private long threadId;
-    private long messageId;
+    private long repliedTo;
     private String systemMetaData;
     private String filePath;
     private int messageType;
@@ -14,12 +14,12 @@ public class RequestReplyFileMessage extends GeneralRequestObject {
     private int wC;
 
 
-    RequestReplyFileMessage(Builder builder) {
+    SendReplyFileMessageRequest(Builder builder) {
         super(builder);
         this.systemMetaData = builder.systemMetaData;
-        this.messageContent = builder.messageContent;
+        this.content = builder.content;
         this.threadId = builder.threadId;
-        this.messageId = builder.messageId;
+        this.repliedTo = builder.repliedTo;
         this.filePath = builder.filePath;
         this.messageType = builder.messageType;
         this.xC = builder.xC;
@@ -28,12 +28,12 @@ public class RequestReplyFileMessage extends GeneralRequestObject {
         this.wC = builder.wC;
     }
 
-    public String getMessageContent() {
-        return messageContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setMessageContent(String messageContent) {
-        this.messageContent = messageContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public long getThreadId() {
@@ -44,12 +44,12 @@ public class RequestReplyFileMessage extends GeneralRequestObject {
         this.threadId = threadId;
     }
 
-    public long getMessageId() {
-        return messageId;
+    public long getRepliedTo() {
+        return repliedTo;
     }
 
-    public void setMessageId(long messageId) {
-        this.messageId = messageId;
+    public void setRepliedTo(long repliedTo) {
+        this.repliedTo = repliedTo;
     }
 
     public String getSystemMetaData() {
@@ -80,7 +80,7 @@ public class RequestReplyFileMessage extends GeneralRequestObject {
         return xC;
     }
 
-    public RequestReplyFileMessage setxC(int xC) {
+    public SendReplyFileMessageRequest setxC(int xC) {
         this.xC = xC;
         return this;
     }
@@ -89,7 +89,7 @@ public class RequestReplyFileMessage extends GeneralRequestObject {
         return yC;
     }
 
-    public RequestReplyFileMessage setyC(int yC) {
+    public SendReplyFileMessageRequest setyC(int yC) {
         this.yC = yC;
         return this;
     }
@@ -98,7 +98,7 @@ public class RequestReplyFileMessage extends GeneralRequestObject {
         return hC;
     }
 
-    public RequestReplyFileMessage sethC(int hC) {
+    public SendReplyFileMessageRequest sethC(int hC) {
         this.hC = hC;
         return this;
     }
@@ -107,15 +107,15 @@ public class RequestReplyFileMessage extends GeneralRequestObject {
         return wC;
     }
 
-    public RequestReplyFileMessage setwC(int wC) {
+    public SendReplyFileMessageRequest setwC(int wC) {
         this.wC = wC;
         return this;
     }
 
     public static class Builder extends GeneralRequestObject.Builder<Builder> {
-        private String messageContent;
+        private String content;
         private long threadId;
-        private long messageId;
+        private long repliedTo;
         private String systemMetaData;
         private String filePath;
         private int messageType;
@@ -125,10 +125,10 @@ public class RequestReplyFileMessage extends GeneralRequestObject {
         private int wC;
 
 
-        public Builder(String messageContent, long threadId, long messageId, String filePath, int messageType) {
-            this.messageContent = messageContent;
+        public Builder(String content, long threadId, long repliedTo, String filePath, int messageType) {
+            this.content = content;
             this.threadId = threadId;
-            this.messageId = messageId;
+            this.repliedTo = repliedTo;
             this.filePath = filePath;
             this.messageType = messageType;
         }
@@ -158,8 +158,8 @@ public class RequestReplyFileMessage extends GeneralRequestObject {
             return this;
         }
 
-        public RequestReplyFileMessage build() {
-            return new RequestReplyFileMessage(this);
+        public SendReplyFileMessageRequest build() {
+            return new SendReplyFileMessageRequest(this);
         }
 
 

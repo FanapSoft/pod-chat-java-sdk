@@ -3,7 +3,7 @@ package podChat.mainmodel;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RequestSearchContact {
+public class SearchContactsRequest {
     private String firstName;
     private String lastName;
     private String cellphoneNumber;
@@ -14,8 +14,9 @@ public class RequestSearchContact {
     private String id;
     private String offset;
     private String size;
+    private long ownerId;
 
-    public RequestSearchContact(Builder builder) {
+    public SearchContactsRequest(Builder builder) {
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
         this.size = builder.size;
@@ -25,9 +26,10 @@ public class RequestSearchContact {
         this.email = builder.email;
         this.typeCode = builder.typeCode;
         this.query = builder.query;
+        this.ownerId=builder.getOwnerId();
     }
 
-    public RequestSearchContact(String size, String offset) {
+    public SearchContactsRequest(String size, String offset) {
         this.offset = offset;
         this.size = size;
     }
@@ -80,7 +82,13 @@ public class RequestSearchContact {
         this.query = query;
     }
 
+    public long getOwnerId() {
+        return ownerId;
+    }
 
+    public void setOwnerId(long ownerId) {
+        this.ownerId = ownerId;
+    }
 
     public static class Builder {
         private String firstName;
@@ -92,6 +100,7 @@ public class RequestSearchContact {
         private String query;
         private String offset;
         private String size;
+        private long ownerId;
 
         public Builder() {
         }
@@ -146,9 +155,17 @@ public class RequestSearchContact {
             return this;
         }
 
+        public long getOwnerId() {
+            return ownerId;
+        }
 
-        public RequestSearchContact build() {
-            return new RequestSearchContact(this);
+        public Builder setOwnerId(long ownerId) {
+            this.ownerId = ownerId;
+            return this;
+        }
+
+        public SearchContactsRequest build() {
+            return new SearchContactsRequest(this);
         }
     }
 }

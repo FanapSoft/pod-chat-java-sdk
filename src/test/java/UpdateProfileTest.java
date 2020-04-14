@@ -6,7 +6,6 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestUpdateContact;
 import podChat.requestobject.RequestUpdateProfile;
 
 import java.util.ArrayList;

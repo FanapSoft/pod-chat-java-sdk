@@ -6,8 +6,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestCurrentUserRoles;
-import podChat.requestobject.RequestUnreadMessageCount;
+import podChat.requestobject.GetAllUnreadMessageCountRequest;
 
 import java.util.ArrayList;
 
@@ -61,12 +60,12 @@ public class CountUnreadMessageTest implements ChatContract.view {
     @Test
     @Order(2)
     void countUnreadMessage() throws InterruptedException {
-        RequestUnreadMessageCount requestUnreadMessageCount = new RequestUnreadMessageCount
+        GetAllUnreadMessageCountRequest getAllUnreadMessageCountRequest = new GetAllUnreadMessageCountRequest
                 .Builder()
                 .mute(true)
                 .build();
 
-        chatController.countUnreadMessage(requestUnreadMessageCount);
+        chatController.countUnreadMessage(getAllUnreadMessageCountRequest);
         Thread.sleep(2000);
 
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);

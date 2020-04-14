@@ -4,7 +4,7 @@ import exception.ConnectionException;
 import exmaple.ChatContract;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
-import podChat.mainmodel.RequestSearchContact;
+import podChat.mainmodel.SearchContactsRequest;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
 
@@ -65,7 +65,7 @@ public class SearchContact implements ChatContract.view {
     @Test
     @Order(2)
     void searchContactByPhone() throws InterruptedException {
-        RequestSearchContact searchContact = new RequestSearchContact
+        SearchContactsRequest searchContact = new SearchContactsRequest
                 .Builder()
                 .cellphoneNumber("09156452709")
                 .build();
@@ -88,7 +88,7 @@ public class SearchContact implements ChatContract.view {
     @Order(2)
     void searchContactByLastName() throws InterruptedException {
 
-        RequestSearchContact searchContact = new RequestSearchContact
+        SearchContactsRequest searchContact = new SearchContactsRequest
                 .Builder()
                 .lastName("مظلوم")
                 .build();
@@ -111,7 +111,7 @@ public class SearchContact implements ChatContract.view {
     @Order(2)
     void searchContactByFirstName() throws InterruptedException {
 
-        RequestSearchContact searchContact = new RequestSearchContact
+        SearchContactsRequest searchContact = new SearchContactsRequest
                 .Builder()
                 .firstName("زهرا")
                 .build();

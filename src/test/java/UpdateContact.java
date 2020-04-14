@@ -7,7 +7,7 @@ import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestUpdateContact;
+import podChat.requestobject.UpdateContactsRequest;
 
 import java.util.ArrayList;
 
@@ -66,11 +66,11 @@ public class UpdateContact implements ChatContract.view {
     @Order(2)
     void updateContact() throws InterruptedException {
 
-        RequestUpdateContact requestUpdateContact = new RequestUpdateContact
+        UpdateContactsRequest updateContactsRequest = new UpdateContactsRequest
                 .Builder(13882, "زهرا", "مظلوم", "09156452709", "g@gmail.com")
                 .build();
 
-        chatController.updateContact(requestUpdateContact);
+        chatController.updateContact(updateContactsRequest);
 
 
         Thread.sleep(3000);
@@ -92,11 +92,11 @@ public class UpdateContact implements ChatContract.view {
     @Order(2)
     void updateContactError() throws InterruptedException {
 
-        RequestUpdateContact requestUpdateContact = new RequestUpdateContact
+        UpdateContactsRequest updateContactsRequest = new UpdateContactsRequest
                 .Builder(13, "زهرا", "مظلوم", "09156452709", "g@gmail.com")
                 .build();
 
-        chatController.updateContact(requestUpdateContact);
+        chatController.updateContact(updateContactsRequest);
 
 
         Thread.sleep(3000);

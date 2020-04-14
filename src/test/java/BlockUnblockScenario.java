@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestBlock;
-import podChat.requestobject.RequestBlockList;
+import podChat.requestobject.GetBlockedListRequest;
 import podChat.requestobject.RequestConnect;
 import podChat.requestobject.RequestUnBlock;
 
@@ -205,11 +205,11 @@ public class BlockUnblockScenario implements ChatContract.view {
     @AfterEach
     void getBlock() throws InterruptedException {
 
-        RequestBlockList requestBlockList = new RequestBlockList
+        GetBlockedListRequest getBlockedListRequest = new GetBlockedListRequest
                 .Builder()
                 .build();
 
-        chatController.getBlockList(requestBlockList);
+        chatController.getBlockList(getBlockedListRequest);
 
         Thread.sleep(2000);
 

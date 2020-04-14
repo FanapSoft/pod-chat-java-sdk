@@ -5,7 +5,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestPinThread;
+import podChat.requestobject.PinUnpinThreadRequest;
 
 import java.util.ArrayList;
 
@@ -63,11 +63,11 @@ class PinUnPinThread implements ChatContract.view {
     @Order(2)
     void pin() throws InterruptedException {
 
-        RequestPinThread requestPinThread = new RequestPinThread
+        PinUnpinThreadRequest pinUnpinThreadRequest = new PinUnpinThreadRequest
                 .Builder(threadId)
                 .build();
 
-        chatController.pinThread(requestPinThread);
+        chatController.pinThread(pinUnpinThreadRequest);
 
         Thread.sleep(2000);
 
@@ -84,11 +84,11 @@ class PinUnPinThread implements ChatContract.view {
     @Order(3)
     void unPin() throws InterruptedException {
 
-        RequestPinThread requestPinThread = new RequestPinThread
+        PinUnpinThreadRequest pinUnpinThreadRequest = new PinUnpinThreadRequest
                 .Builder(threadId)
                 .build();
 
-        chatController.unPinThread(requestPinThread);
+        chatController.unPinThread(pinUnpinThreadRequest);
 
         Thread.sleep(2000);
 

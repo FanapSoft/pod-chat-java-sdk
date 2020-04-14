@@ -2,7 +2,7 @@ package podChat.requestobject;
 
 import java.util.ArrayList;
 
-public class RequestThread extends BaseRequestObject {
+public class GetThreadsRequest extends BaseRequestObject {
 
     private ArrayList<Integer> threadIds;
     private String threadName;
@@ -10,8 +10,9 @@ public class RequestThread extends BaseRequestObject {
     private long partnerCoreUserId;
     private long partnerCoreContactId;
     private boolean isNew;
+    private String summary;
 
-    RequestThread(Builder builder) {
+    GetThreadsRequest(Builder builder) {
         super(builder);
         this.threadIds = builder.threadIds;
         this.threadName = builder.threadName;
@@ -19,6 +20,7 @@ public class RequestThread extends BaseRequestObject {
         this.partnerCoreUserId = builder.partnerCoreUserId;
         this.partnerCoreContactId = builder.partnerCoreContactId;
         this.isNew = builder.isNew;
+        this.summary=builder.summary;
     }
 
     public ArrayList<Integer> getThreadIds() {
@@ -65,6 +67,13 @@ public class RequestThread extends BaseRequestObject {
         return isNew;
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
 
     public static class Builder extends BaseRequestObject.Builder<Builder> {
         private ArrayList<Integer> threadIds;
@@ -73,6 +82,7 @@ public class RequestThread extends BaseRequestObject {
         private long partnerCoreUserId;
         private long partnerCoreContactId;
         private boolean isNew;
+        private String summary;
 
 
         public Builder threadName(String threadName) {
@@ -108,8 +118,14 @@ public class RequestThread extends BaseRequestObject {
             return this;
         }
 
-        public RequestThread build() {
-            return new RequestThread(this);
+
+        public Builder summary(String summary) {
+            this.summary = summary;
+            return this;
+        }
+
+        public GetThreadsRequest build() {
+            return new GetThreadsRequest(this);
         }
 
 

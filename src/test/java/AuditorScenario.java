@@ -97,7 +97,7 @@ public class AuditorScenario implements ChatContract.view {
     @Order(3)
     void getParticipant() throws InterruptedException {
 
-        RequestThreadParticipant threadParticipant = new RequestThreadParticipant
+        GetThreadParticipantsRequest threadParticipant = new GetThreadParticipantsRequest
                 .Builder(threadId)
                 .build();
 
@@ -151,7 +151,7 @@ public class AuditorScenario implements ChatContract.view {
     @Order(5)
     void getParticipant2() throws InterruptedException {
 
-        RequestThreadParticipant threadParticipant = new RequestThreadParticipant
+        GetThreadParticipantsRequest threadParticipant = new GetThreadParticipantsRequest
                 .Builder(threadId)
                 .build();
 

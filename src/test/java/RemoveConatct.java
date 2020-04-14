@@ -7,7 +7,7 @@ import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ResultRemoveContact;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestRemoveContact;
+import podChat.requestobject.RemoveContactsRequest;
 
 import java.util.ArrayList;
 
@@ -65,11 +65,11 @@ public class RemoveConatct implements ChatContract.view {
     @Test
     @Order(2)
     void removeContact() throws InterruptedException {
-        RequestRemoveContact requestRemoveContact = new RequestRemoveContact
+        RemoveContactsRequest removeContactsRequest = new RemoveContactsRequest
                 .Builder(13812)
                 .build();
 
-        chatController.removeContact(requestRemoveContact);
+        chatController.removeContact(removeContactsRequest);
 
         Thread.sleep(3000);
 

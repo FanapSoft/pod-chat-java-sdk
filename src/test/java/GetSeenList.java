@@ -6,6 +6,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
+import podChat.requestobject.GetMessageDeliveredSeenListRequest;
 import podChat.requestobject.RequestConnect;
 import podChat.requestobject.RequestSeenMessageList;
 
@@ -68,11 +69,11 @@ public class GetSeenList implements ChatContract.view {
     @Order(2)
     void getSeenList() throws InterruptedException {
 
-        RequestSeenMessageList requestSeenMessageList = new RequestSeenMessageList
+        GetMessageDeliveredSeenListRequest getMessageDeliveredSeenListRequest = new GetMessageDeliveredSeenListRequest
                 .Builder(messageId)
                 .build();
 
-        chatController.seenMessageList(requestSeenMessageList);
+        chatController.seenMessageList(getMessageDeliveredSeenListRequest);
 
         Thread.sleep(3000);
 
@@ -89,11 +90,11 @@ public class GetSeenList implements ChatContract.view {
     @Order(2)
     void getSeenListWithInvalidMessageId() throws InterruptedException {
 
-        RequestSeenMessageList requestSeenMessageList = new RequestSeenMessageList
+        GetMessageDeliveredSeenListRequest getMessageDeliveredSeenListRequest = new GetMessageDeliveredSeenListRequest
                 .Builder(123)
                 .build();
 
-        chatController.seenMessageList(requestSeenMessageList);
+        chatController.seenMessageList(getMessageDeliveredSeenListRequest);
 
         Thread.sleep(3000);
 

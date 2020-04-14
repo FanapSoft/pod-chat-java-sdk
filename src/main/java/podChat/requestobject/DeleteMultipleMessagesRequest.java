@@ -2,12 +2,12 @@ package podChat.requestobject;
 
 import java.util.ArrayList;
 
-public class RequestDeleteMessage extends GeneralRequestObject {
+public class DeleteMultipleMessagesRequest extends GeneralRequestObject {
 
     private ArrayList<Long> messageIds;
     private boolean deleteForAll;
 
-    private RequestDeleteMessage(Builder builder) {
+    private DeleteMultipleMessagesRequest(Builder builder) {
         super(builder);
         this.deleteForAll = builder.deleteForAll;
         this.messageIds = builder.messageIds;
@@ -34,8 +34,8 @@ public class RequestDeleteMessage extends GeneralRequestObject {
         }
 
 
-        public RequestDeleteMessage build() {
-            return new RequestDeleteMessage(this);
+        public DeleteMultipleMessagesRequest build() {
+            return new DeleteMultipleMessagesRequest(this);
         }
 
 

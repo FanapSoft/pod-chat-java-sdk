@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestMuteThread;
+import podChat.requestobject.MuteUnmuteThreadRequest;
 
 import java.util.ArrayList;
 
@@ -68,11 +68,11 @@ public class MuteUnmute implements ChatContract.view {
     @Order(2)
     void mute() throws InterruptedException {
 
-        RequestMuteThread requestMuteThread = new RequestMuteThread
+        MuteUnmuteThreadRequest muteUnmuteThreadRequest = new MuteUnmuteThreadRequest
                 .Builder(threadId)
                 .build();
 
-        chatController.muteThread(requestMuteThread);
+        chatController.muteThread(muteUnmuteThreadRequest);
 
         Thread.sleep(2000);
 
@@ -89,11 +89,11 @@ public class MuteUnmute implements ChatContract.view {
     @Order(3)
     void unmute() throws InterruptedException {
 
-        RequestMuteThread requestMuteThread = new RequestMuteThread
+        MuteUnmuteThreadRequest muteUnmuteThreadRequest = new MuteUnmuteThreadRequest
                 .Builder(threadId)
                 .build();
 
-        chatController.unMuteThread(requestMuteThread);
+        chatController.unMuteThread(muteUnmuteThreadRequest);
 
         Thread.sleep(2000);
 

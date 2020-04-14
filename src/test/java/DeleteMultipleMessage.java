@@ -7,7 +7,7 @@ import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestDeleteMessage;
+import podChat.requestobject.DeleteMultipleMessagesRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class DeleteMultipleMessage implements ChatContract.view {
     @Order(2)
     void deleteMessage() throws InterruptedException {
 
-        RequestDeleteMessage requestDeleteMessage = new RequestDeleteMessage
+        DeleteMultipleMessagesRequest deleteMultipleMessagesRequest = new DeleteMultipleMessagesRequest
                 .Builder(new ArrayList<Long>() {{
             add(47582l);
             add(47581l);
@@ -77,7 +77,7 @@ public class DeleteMultipleMessage implements ChatContract.view {
                 .deleteForAll(true)
                 .build();
 
-        chatController.deleteMultipleMessage(requestDeleteMessage);
+        chatController.deleteMultipleMessage(deleteMultipleMessagesRequest);
 
         Thread.sleep(3000);
 
@@ -101,7 +101,7 @@ public class DeleteMultipleMessage implements ChatContract.view {
     @Order(2)
     void deleteMessageError() throws InterruptedException {
 
-        RequestDeleteMessage requestDeleteMessage = new RequestDeleteMessage
+        DeleteMultipleMessagesRequest deleteMultipleMessagesRequest = new DeleteMultipleMessagesRequest
                 .Builder(new ArrayList<Long>() {{
             add(469811L);
             add(469811L);
@@ -109,7 +109,7 @@ public class DeleteMultipleMessage implements ChatContract.view {
                 .deleteForAll(true)
                 .build();
 
-        chatController.deleteMultipleMessage(requestDeleteMessage);
+        chatController.deleteMultipleMessage(deleteMultipleMessagesRequest);
 
         Thread.sleep(3000);
 

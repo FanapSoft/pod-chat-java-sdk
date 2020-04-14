@@ -6,7 +6,7 @@ import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestMessage;
+import podChat.requestobject.SendTextMessageRequest;
 import podChat.util.TextMessageType;
 
 import java.util.ArrayList;
@@ -85,7 +85,7 @@ public class SendMessage implements ChatContract.view {
     @Order(2)
     void sendMessageError() throws InterruptedException {
 
-        RequestMessage requestThread = new RequestMessage
+        SendTextMessageRequest requestThread = new SendTextMessageRequest
                 .Builder("this is final test", 5462, TextMessageType.TEXT)
                 .build();
 
@@ -104,7 +104,7 @@ public class SendMessage implements ChatContract.view {
     @Order(2)
     void sendMessageWithMentionUser() throws InterruptedException {
 
-        RequestMessage requestThread = new RequestMessage
+        SendTextMessageRequest requestThread = new SendTextMessageRequest
                 .Builder("this is mention test @f.khojasteh", 7129, TextMessageType.TEXT)
                 .build();
 

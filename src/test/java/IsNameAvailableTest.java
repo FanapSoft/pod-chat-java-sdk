@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestIsNameAvailable;
+import podChat.requestobject.IsPublicThreadNameAvailableRequest;
 
 import java.util.ArrayList;
 
@@ -60,11 +60,11 @@ public class IsNameAvailableTest implements ChatContract.view {
     @Test
     @Order(2)
     void isNameAvailable() throws InterruptedException {
-        RequestIsNameAvailable requestIsNameAvailable = new RequestIsNameAvailable
+        IsPublicThreadNameAvailableRequest isPublicThreadNameAvailableRequest = new IsPublicThreadNameAvailableRequest
                 .Builder("sdf")
                 .build();
 
-        chatController.isNameAvailable(requestIsNameAvailable);
+        chatController.isNameAvailable(isPublicThreadNameAvailableRequest);
 
         Thread.sleep(2000);
 

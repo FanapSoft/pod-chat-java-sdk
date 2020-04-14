@@ -1,27 +1,27 @@
 package podChat.requestobject;
 
-public class RequestReplyMessage extends GeneralRequestObject {
-    private String messageContent;
+public class ReplyTextMessageRequest extends GeneralRequestObject {
+    private String content;
     private long threadId;
-    private long messageId;
+    private long repliedTo;
     private String systemMetaData;
     private int messageType;
 
-    RequestReplyMessage(Builder builder) {
+    ReplyTextMessageRequest(Builder builder) {
         super(builder);
         this.systemMetaData = builder.systemMetaData;
-        this.messageContent = builder.messageContent;
+        this.content = builder.content;
         this.threadId = builder.threadId;
-        this.messageId = builder.messageId;
+        this.repliedTo = builder.repliedTo;
         this.messageType = builder.messageType;
     }
 
-    public String getMessageContent() {
-        return messageContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setMessageContent(String messageContent) {
-        this.messageContent = messageContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public long getThreadId() {
@@ -32,12 +32,12 @@ public class RequestReplyMessage extends GeneralRequestObject {
         this.threadId = threadId;
     }
 
-    public long getMessageId() {
-        return messageId;
+    public long getRepliedTo() {
+        return repliedTo;
     }
 
-    public void setMessageId(long messageId) {
-        this.messageId = messageId;
+    public void setRepliedTo(long repliedTo) {
+        this.repliedTo = repliedTo;
     }
 
     public String getSystemMetaData() {
@@ -57,16 +57,16 @@ public class RequestReplyMessage extends GeneralRequestObject {
     }
 
     public static class Builder extends GeneralRequestObject.Builder<Builder> {
-        private String messageContent;
+        private String content;
         private long threadId;
-        private long messageId;
+        private long repliedTo;
         private String systemMetaData;
         private int messageType;
 
-        public Builder(String messageContent, long threadId, long messageId, int messageType) {
-            this.messageContent = messageContent;
+        public Builder(String content, long threadId, long repliedTo, int messageType) {
+            this.content = content;
             this.threadId = threadId;
-            this.messageId = messageId;
+            this.repliedTo = repliedTo;
             this.messageType = messageType;
         }
 
@@ -76,8 +76,8 @@ public class RequestReplyMessage extends GeneralRequestObject {
             return this;
         }
 
-        public RequestReplyMessage build() {
-            return new RequestReplyMessage(this);
+        public ReplyTextMessageRequest build() {
+            return new ReplyTextMessageRequest(this);
         }
 
 

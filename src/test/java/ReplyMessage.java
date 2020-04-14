@@ -7,7 +7,7 @@ import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestReplyMessage;
+import podChat.requestobject.ReplyTextMessageRequest;
 import podChat.util.TextMessageType;
 
 import java.util.ArrayList;
@@ -67,11 +67,11 @@ public class ReplyMessage implements ChatContract.view {
     @Test
     @Order(2)
     void replyMessageWithError() throws InterruptedException {
-        RequestReplyMessage requestReplyMessage = new RequestReplyMessage
+        ReplyTextMessageRequest replyTextMessageRequest = new ReplyTextMessageRequest
                 .Builder("hi ", 5461, 1222, TextMessageType.TEXT)
                 .build();
 
-        chatController.replyMessage(requestReplyMessage);
+        chatController.replyMessage(replyTextMessageRequest);
 
         Thread.sleep(3000);
 
@@ -87,11 +87,11 @@ public class ReplyMessage implements ChatContract.view {
     @Test
     @Order(2)
     void replyMessage() throws InterruptedException {
-        RequestReplyMessage requestReplyMessage = new RequestReplyMessage
+        ReplyTextMessageRequest replyTextMessageRequest = new ReplyTextMessageRequest
                 .Builder("hi ", 7129, 94291,TextMessageType.TEXT)
                 .build();
 
-        chatController.replyMessage(requestReplyMessage);
+        chatController.replyMessage(replyTextMessageRequest);
 
         Thread.sleep(3000);
 

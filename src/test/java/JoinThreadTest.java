@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestJoinThread;
+import podChat.requestobject.JoinPublicThreadRequest;
 
 import java.util.ArrayList;
 
@@ -60,11 +60,11 @@ public class JoinThreadTest implements ChatContract.view {
     @Order(2)
     void joinThread() throws InterruptedException {
 
-        RequestJoinThread requestJoinThread = new RequestJoinThread
+        JoinPublicThreadRequest joinPublicThreadRequest = new JoinPublicThreadRequest
                 .Builder("sdf")
                 .build();
 
-        chatController.joinThead(requestJoinThread);
+        chatController.joinThead(joinPublicThreadRequest);
 
         Thread.sleep(2000);
 

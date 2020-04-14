@@ -1,32 +1,36 @@
 package podChat.requestobject;
 
 
-public class RequestGetHistory extends BaseRequestObject {
+public class GetHistoryRequest extends BaseRequestObject {
     private long threadId;
     private String order; // ASC OR DESC
     private long userId;
-    private long id;
+    private long messageId;
     private long fromTime;
     private long fromTimeNanos;
     private long toTime;
     private long toTimeNanos;
-    private long firstMessageId;
-    private long lastMessageId;
     private String[] uniqueIds;
+    private String query;
+    private String allMentioned;
+    private String unreadMentioned;
+    private String metadataCriteria;
 
-    RequestGetHistory(Builder builder) {
+    GetHistoryRequest(Builder builder) {
         super(builder);
         this.threadId = builder.threadId;
         this.order = builder.order;
-        this.firstMessageId = builder.firstMessageId;
-        this.lastMessageId = builder.lastMessageId;
         this.userId = builder.userId;
-        this.id = builder.id;
+        this.messageId = builder.messageId;
         this.fromTime = builder.fromTime;
         this.fromTimeNanos = builder.fromTimeNanos;
         this.toTime = builder.toTime;
         this.toTimeNanos = builder.toTimeNanos;
         this.uniqueIds = builder.uniqueIds;
+        this.query=builder.query;
+        this.allMentioned=builder.allMentioned;
+        this.unreadMentioned=builder.unreadMentioned;
+        this.metadataCriteria=builder.metadataCriteria;
 
     }
 
@@ -46,22 +50,6 @@ public class RequestGetHistory extends BaseRequestObject {
         this.order = order;
     }
 
-    public long getFirstMessageId() {
-        return firstMessageId;
-    }
-
-    public void setFirstMessageId(long firstMessageId) {
-        this.firstMessageId = firstMessageId;
-    }
-
-    public long getLastMessageId() {
-        return lastMessageId;
-    }
-
-    public void setLastMessageId(long lastMessageId) {
-        this.lastMessageId = lastMessageId;
-    }
-
     public long getUserId() {
         return userId;
     }
@@ -70,12 +58,12 @@ public class RequestGetHistory extends BaseRequestObject {
         this.userId = userId;
     }
 
-    public long getId() {
-        return id;
+    public long getMessageId() {
+        return messageId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setMessageId(long messageId) {
+        this.messageId = messageId;
     }
 
     public long getFromTime() {
@@ -118,26 +106,55 @@ public class RequestGetHistory extends BaseRequestObject {
         this.uniqueIds = uniqueIds;
     }
 
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public String getAllMentioned() {
+        return allMentioned;
+    }
+
+    public void setAllMentioned(String allMentioned) {
+        this.allMentioned = allMentioned;
+    }
+
+    public String getUnreadMentioned() {
+        return unreadMentioned;
+    }
+
+    public void setUnreadMentioned(String unreadMentioned) {
+        this.unreadMentioned = unreadMentioned;
+    }
+
+    public String getMetadataCriteria() {
+        return metadataCriteria;
+    }
+
+    public void setMetadataCriteria(String metadataCriteria) {
+        this.metadataCriteria = metadataCriteria;
+    }
+
     public static class Builder extends BaseRequestObject.Builder<Builder> {
         private long threadId;
         private String order;
-        private long firstMessageId;
-        private long lastMessageId;
         private long userId;
-        private long id;
+        private long messageId;
         private long fromTime;
         private long fromTimeNanos;
         private long toTime;
         private long toTimeNanos;
         private String[] uniqueIds;
+        private String query;
+        private String allMentioned;
+        private String unreadMentioned;
+        private String metadataCriteria;
 
         public Builder(long threadId) {
             this.threadId = threadId;
-        }
-
-        public Builder firstMessageId(long firstMessageId) {
-            this.firstMessageId = firstMessageId;
-            return this;
         }
 
 
@@ -164,12 +181,6 @@ public class RequestGetHistory extends BaseRequestObject {
         }
 
 
-        public Builder lastMessageId(long lastMessageId) {
-            this.lastMessageId = lastMessageId;
-            return this;
-        }
-
-
         public Builder order(String order) {
             this.order = order;
             return this;
@@ -182,7 +193,7 @@ public class RequestGetHistory extends BaseRequestObject {
         }
 
         public Builder id(long id) {
-            this.id = id;
+            this.messageId = id;
             return this;
         }
 
@@ -191,8 +202,30 @@ public class RequestGetHistory extends BaseRequestObject {
             return this;
         }
 
-        public RequestGetHistory build() {
-            return new RequestGetHistory(this);
+        public Builder query(String query) {
+            this.query = query;
+            return this;
+        }
+
+
+        public Builder allMentioned(String allMentioned) {
+            this.allMentioned = allMentioned;
+            return this;
+        }
+
+        public Builder unreadMentioned(String unreadMentioned) {
+            this.unreadMentioned = unreadMentioned;
+            return this;
+        }
+
+
+        public Builder metadataCriteria(String metadataCriteria) {
+            this.metadataCriteria = metadataCriteria;
+            return this;
+        }
+
+        public GetHistoryRequest build() {
+            return new GetHistoryRequest(this);
         }
 
         @Override

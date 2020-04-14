@@ -7,7 +7,7 @@ import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestGetHistory;
+import podChat.requestobject.GetHistoryRequest;
 
 import java.util.ArrayList;
 
@@ -66,11 +66,11 @@ public class GetHistory implements ChatContract.view {
     @Order(2)
     void getHistory() throws InterruptedException {
 
-        RequestGetHistory requestGetHistory = new RequestGetHistory
+        GetHistoryRequest getHistoryRequest = new GetHistoryRequest
                 .Builder(5461)
                 .build();
 
-        chatController.getHistory(requestGetHistory);
+        chatController.getHistory(getHistoryRequest);
 
         Thread.sleep(5000);
 
@@ -87,11 +87,11 @@ public class GetHistory implements ChatContract.view {
     @Order(2)
     void getHistoryWithError() throws InterruptedException {
 
-        RequestGetHistory requestGetHistory = new RequestGetHistory
+        GetHistoryRequest getHistoryRequest = new GetHistoryRequest
                 .Builder(54611)
                 .build();
 
-        chatController.getHistory(requestGetHistory);
+        chatController.getHistory(getHistoryRequest);
 
 
         Thread.sleep(5000);

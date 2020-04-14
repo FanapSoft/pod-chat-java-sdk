@@ -5,21 +5,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RequestAddParticipants extends GeneralRequestObject {
+public class AddParticipantsRequestModel extends GeneralRequestObject {
     private long threadId;
     private List<Long> contactIds;
-    private List<String> userNames;
+    private List<String> usernames;
     private List<Long> coreUserIds;
 
-    RequestAddParticipants(Builder builder) {
+    AddParticipantsRequestModel(Builder builder) {
         super(builder);
         this.contactIds = builder.contactIds;
         this.threadId = builder.threadId;
-        this.userNames = builder.userNames;
+        this.usernames = builder.usernames;
         this.coreUserIds = builder.coreUserIds;
     }
 
-    public RequestAddParticipants() {
+    public AddParticipantsRequestModel() {
     }
 
     public static ThreadIdStep newBuilder() {
@@ -43,12 +43,12 @@ public class RequestAddParticipants extends GeneralRequestObject {
         this.contactIds = contactIds;
     }
 
-    public List<String> getUserNames() {
-        return userNames;
+    public List<String> getUsernames() {
+        return usernames;
     }
 
-    public void setUserNames(List<String> userNames) {
-        this.userNames = userNames;
+    public void setUsernames(List<String> usernames) {
+        this.usernames = usernames;
     }
 
     public List<Long> getCoreUserIds() {
@@ -93,7 +93,7 @@ public class RequestAddParticipants extends GeneralRequestObject {
     public static interface BuildStep {
 
 
-        RequestAddParticipants build();
+        AddParticipantsRequestModel build();
 
     }
 
@@ -102,7 +102,7 @@ public class RequestAddParticipants extends GeneralRequestObject {
 
         private long threadId;
         private List<Long> contactIds;
-        private List<String> userNames;
+        private List<String> usernames;
         private List<Long> coreUserIds;
 
         @Deprecated
@@ -112,10 +112,10 @@ public class RequestAddParticipants extends GeneralRequestObject {
         }
 
         @Deprecated
-        public Builder(long threadId, List<Long> contactIds, List<String> userNames) {
+        public Builder(long threadId, List<Long> contactIds, List<String> usernames) {
             this.contactIds = contactIds;
             this.threadId = threadId;
-            this.userNames = userNames;
+            this.usernames = usernames;
         }
 
 
@@ -124,8 +124,8 @@ public class RequestAddParticipants extends GeneralRequestObject {
             return this;
         }
 
-        public RequestAddParticipants build() {
-            return new RequestAddParticipants(this);
+        public AddParticipantsRequestModel build() {
+            return new AddParticipantsRequestModel(this);
         }
     }
 
@@ -195,16 +195,16 @@ public class RequestAddParticipants extends GeneralRequestObject {
         }
 
         @Override
-        public RequestAddParticipants build() {
+        public AddParticipantsRequestModel build() {
 
-            RequestAddParticipants request = new RequestAddParticipants();
+            AddParticipantsRequestModel request = new AddParticipantsRequestModel();
 
             request.setThreadId(threadId);
 
             if (contactIds != null) {
                 request.setContactIds(contactIds);
             } else if (userNames != null) {
-                request.setUserNames(userNames);
+                request.setUsernames(userNames);
             } else if (coreUserIds != null) {
                 request.setCoreUserIds(coreUserIds);
             }

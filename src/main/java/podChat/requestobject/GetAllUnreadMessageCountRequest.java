@@ -1,11 +1,11 @@
 package podChat.requestobject;
 
 
-public class RequestUnreadMessageCount extends GeneralRequestObject {
+public class GetAllUnreadMessageCountRequest extends GeneralRequestObject {
 
     private Boolean mute;
 
-    RequestUnreadMessageCount(Builder builder) {
+    GetAllUnreadMessageCountRequest(Builder builder) {
         super(builder);
         this.mute = builder.mute;
     }
@@ -26,8 +26,8 @@ public class RequestUnreadMessageCount extends GeneralRequestObject {
             return this;
         }
 
-        public RequestUnreadMessageCount build() {
-            return new RequestUnreadMessageCount(this);
+        public GetAllUnreadMessageCountRequest build() {
+            return new GetAllUnreadMessageCountRequest(this);
         }
 
 

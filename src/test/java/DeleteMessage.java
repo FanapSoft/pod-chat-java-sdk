@@ -6,8 +6,9 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
+import podChat.requestobject.DeleteMessageRequest;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestDeleteMessage;
+import podChat.requestobject.DeleteMultipleMessagesRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,14 +71,12 @@ public class DeleteMessage implements ChatContract.view {
     @Order(2)
     void deleteMessage() throws InterruptedException {
 
-        RequestDeleteMessage requestDeleteMessage = new RequestDeleteMessage
-                .Builder(new ArrayList<Long>() {{
-            add(47581l);
-        }})
+        DeleteMessageRequest deleteMultipleMessagesRequest = new DeleteMessageRequest
+                .Builder(47581l)
                 .deleteForAll(true)
                 .build();
 
-        chatController.deleteMessage(requestDeleteMessage);
+        chatController.deleteMessage(deleteMultipleMessagesRequest);
 
         Thread.sleep(3000);
 
@@ -104,14 +103,12 @@ public class DeleteMessage implements ChatContract.view {
     @Order(2)
     void deleteMessageError() throws InterruptedException {
 
-        RequestDeleteMessage requestDeleteMessage = new RequestDeleteMessage
-                .Builder(new ArrayList<Long>() {{
-            add(469811L);
-        }})
+        DeleteMessageRequest deleteMessageRequest = new DeleteMessageRequest
+                .Builder(469811L)
                 .deleteForAll(true)
                 .build();
 
-        chatController.deleteMessage(requestDeleteMessage);
+        chatController.deleteMessage(deleteMessageRequest);
 
         Thread.sleep(3000);
 

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestGetContact;
+import podChat.requestobject.GetContactsRequest;
 
 import java.util.ArrayList;
 
@@ -66,12 +66,12 @@ public class GetContact implements ChatContract.view {
     @Test
     @Order(2)
     void getContactWithPagination() throws InterruptedException {
-        RequestGetContact requestGetContact = new RequestGetContact
+        GetContactsRequest getContactsRequest = new GetContactsRequest
                 .Builder()
                 .count(3)
                 .offset(0)
                 .build();
-        chatController.getContact(requestGetContact);
+        chatController.getContact(getContactsRequest);
 
         Thread.sleep(3000);
 
@@ -88,10 +88,10 @@ public class GetContact implements ChatContract.view {
     @Test
     @Order(2)
     void getContactWithoutPagination() throws InterruptedException {
-        RequestGetContact requestGetContact = new RequestGetContact
+        GetContactsRequest getContactsRequest = new GetContactsRequest
                 .Builder()
                 .build();
-        chatController.getContact(requestGetContact);
+        chatController.getContact(getContactsRequest);
 
         Thread.sleep(3000);
 
@@ -108,11 +108,11 @@ public class GetContact implements ChatContract.view {
     @Test
     @Order(2)
     void getContactOnlyCount() throws InterruptedException {
-        RequestGetContact requestGetContact = new RequestGetContact
+        GetContactsRequest getContactsRequest = new GetContactsRequest
                 .Builder()
                 .count(1)
                 .build();
-        chatController.getContact(requestGetContact);
+        chatController.getContact(getContactsRequest);
 
         Thread.sleep(3000);
 

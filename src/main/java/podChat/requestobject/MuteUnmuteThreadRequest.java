@@ -1,10 +1,10 @@
 package podChat.requestobject;
 
 
-public class RequestMuteThread extends GeneralRequestObject {
+public class MuteUnmuteThreadRequest extends GeneralRequestObject {
     private long threadId;
 
-    RequestMuteThread( Builder builder) {
+    MuteUnmuteThreadRequest(Builder builder) {
         super(builder);
         this.threadId = builder.threadId;
     }
@@ -24,8 +24,8 @@ public class RequestMuteThread extends GeneralRequestObject {
             this.threadId = threadId;
         }
 
-        public RequestMuteThread build() {
-            return new RequestMuteThread(this);
+        public MuteUnmuteThreadRequest build() {
+            return new MuteUnmuteThreadRequest(this);
         }
 
         @Override

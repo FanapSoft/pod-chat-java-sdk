@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestCurrentUserRoles;
+import podChat.requestobject.GetCurrentUserRolesRequest;
 
 import java.util.ArrayList;
 
@@ -60,10 +60,10 @@ public class GetCurrentUserRolesTest implements ChatContract.view {
     @Test
     @Order(2)
     void getCurrentUserRoles() throws InterruptedException {
-         RequestCurrentUserRoles requestCurrentUserRoles = new RequestCurrentUserRoles
+         GetCurrentUserRolesRequest getCurrentUserRolesRequest = new GetCurrentUserRolesRequest
                 .Builder(7149)
                 .build();
-        chatController.getCurrentUserRoles(requestCurrentUserRoles);
+        chatController.getCurrentUserRoles(getCurrentUserRolesRequest);
 
 
         Thread.sleep(2000);

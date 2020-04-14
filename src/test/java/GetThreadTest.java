@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestThread;
+import podChat.requestobject.GetThreadsRequest;
 
 import java.util.ArrayList;
 
@@ -66,9 +66,9 @@ public class GetThreadTest implements ChatContract.view {
     @Test
     @Order(2)
     void getThreadList() throws InterruptedException {
-        RequestThread requestThread = new RequestThread.Builder().build();
+        GetThreadsRequest getThreadsRequest = new GetThreadsRequest.Builder().build();
 
-        chatController.getThreads(requestThread);
+        chatController.getThreads(getThreadsRequest);
 
         Thread.sleep(5000);
 
@@ -86,13 +86,13 @@ public class GetThreadTest implements ChatContract.view {
     @Test
     @Order(2)
     void getThreadListWithPagination() throws InterruptedException {
-        RequestThread requestThread = new RequestThread
+        GetThreadsRequest getThreadsRequest = new GetThreadsRequest
                 .Builder()
                 .offset(0)
                 .count(10)
                 .build();
 
-        chatController.getThreads(requestThread);
+        chatController.getThreads(getThreadsRequest);
 
         Thread.sleep(3000);
 
@@ -110,12 +110,12 @@ public class GetThreadTest implements ChatContract.view {
     @Test
     @Order(2)
     void getThreatWithName() throws InterruptedException {
-        RequestThread requestThread = new RequestThread
+        GetThreadsRequest getThreadsRequest = new GetThreadsRequest
                 .Builder()
                 .threadName("sendMessage")
                 .build();
 
-        chatController.getThreads(requestThread);
+        chatController.getThreads(getThreadsRequest);
 
         Thread.sleep(3000);
 
@@ -133,14 +133,14 @@ public class GetThreadTest implements ChatContract.view {
     @Test
     @Order(2)
     void getThreatWithId() throws InterruptedException {
-        RequestThread requestThread = new RequestThread
+        GetThreadsRequest getThreadsRequest = new GetThreadsRequest
                 .Builder()
                 .threadIds(new ArrayList<Integer>() {{
                     add(5462);
                 }})
                 .build();
 
-        chatController.getThreads(requestThread);
+        chatController.getThreads(getThreadsRequest);
 
         Thread.sleep(3000);
 
@@ -158,12 +158,12 @@ public class GetThreadTest implements ChatContract.view {
     @Test
     @Order(2)
     void getThreatWithPartnerContactId() throws InterruptedException {
-        RequestThread requestThread = new RequestThread
+        GetThreadsRequest getThreadsRequest = new GetThreadsRequest
                 .Builder()
                 .partnerCoreContactId(4781)
                 .build();
 
-        chatController.getThreads(requestThread);
+        chatController.getThreads(getThreadsRequest);
 
         Thread.sleep(10000);
 
@@ -181,10 +181,10 @@ public class GetThreadTest implements ChatContract.view {
     @Test
     @Order(2)
     void getThreadIsNewList() throws InterruptedException {
-        RequestThread requestThread = new RequestThread.Builder()
+        GetThreadsRequest getThreadsRequest = new GetThreadsRequest.Builder()
                 .newMessages().build();
 
-        chatController.getThreads(requestThread);
+        chatController.getThreads(getThreadsRequest);
 
         Thread.sleep(5000);
 

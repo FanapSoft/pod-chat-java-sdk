@@ -1,11 +1,10 @@
 package podChat.requestobject;
 
 
-public class RequestJoinThread extends GeneralRequestObject {
+public class IsPublicThreadNameAvailableRequest extends GeneralRequestObject {
+    private String  uniqueName;
 
-    private String uniqueName;
-
-    RequestJoinThread(Builder builder) {
+    IsPublicThreadNameAvailableRequest(Builder builder) {
         super(builder);
         this.uniqueName = builder.uniqueName;
     }
@@ -25,18 +24,13 @@ public class RequestJoinThread extends GeneralRequestObject {
             this.uniqueName = uniqueName;
         }
 
-        public RequestJoinThread build() {
-            return new RequestJoinThread(this);
+        public IsPublicThreadNameAvailableRequest build() {
+            return new IsPublicThreadNameAvailableRequest(this);
         }
-
 
         @Override
         protected Builder self() {
             return this;
         }
-
-
     }
-
-
 }

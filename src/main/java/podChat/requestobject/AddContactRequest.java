@@ -3,22 +3,23 @@ package podChat.requestobject;
 
 import podChat.util.Util;
 
-public class RequestAddContact extends GeneralRequestObject {
+public class AddContactRequest extends GeneralRequestObject {
 
     private String firstName;
     private String lastName;
     private String cellphoneNumber;
     private String email;
     private String userName;
+    private long ownerId;
 
-
-    RequestAddContact(Builder builder) {
+    AddContactRequest(Builder builder) {
         super(builder);
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
         this.cellphoneNumber = builder.cellphoneNumber;
         this.email = builder.email;
         this.userName = builder.userName;
+        this.ownerId=builder.ownerId;
     }
 
     public RequestAddContact() {
@@ -69,6 +70,12 @@ public class RequestAddContact extends GeneralRequestObject {
         this.userName = userName;
     }
 
+    public long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(long ownerId) {
+        this.ownerId = ownerId;}
     public static interface AddContactStep {
 
         ActionStep firstName(String firstName);
@@ -104,6 +111,7 @@ public class RequestAddContact extends GeneralRequestObject {
 
         RequestAddContact build();
 
+
     }
 
     public static class Builder extends GeneralRequestObject.Builder<Builder> {
@@ -112,7 +120,12 @@ public class RequestAddContact extends GeneralRequestObject {
         private String cellphoneNumber;
         private String email;
         private String userName;
+        private long ownerId;
 
+        public Builder ownerId(long ownerId) {
+            this.ownerId = ownerId;
+            return this;
+        }
 
         public Builder firstName(String firstName) {
             this.firstName = firstName;
@@ -140,7 +153,7 @@ public class RequestAddContact extends GeneralRequestObject {
         }
 
 
-        public RequestAddContact build() {
+        public AddContactRequest build() {
 
             if (Util.isNullOrEmpty(this.firstName)) {
                 this.firstName = "";
@@ -155,7 +168,7 @@ public class RequestAddContact extends GeneralRequestObject {
                 this.cellphoneNumber = "";
             }
 
-            return new RequestAddContact(this);
+            return new AddContactRequest(this);
         }
 
         @Override

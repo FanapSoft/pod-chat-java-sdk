@@ -7,7 +7,7 @@ import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestDeliveredMessageList;
+import podChat.requestobject.GetMessageDeliveredSeenListRequest;
 
 import java.util.ArrayList;
 
@@ -68,11 +68,11 @@ public class GetDeliveredList implements ChatContract.view {
     @Order(2)
     void getDeliveredList() throws InterruptedException {
 
-        RequestDeliveredMessageList requestDeliveredMessageList = new RequestDeliveredMessageList
+        GetMessageDeliveredSeenListRequest getMessageDeliveredSeenListRequest = new GetMessageDeliveredSeenListRequest
                 .Builder(messageId)
                 .build();
 
-        chatController.deliveredMessageList(requestDeliveredMessageList);
+        chatController.deliveredMessageList(getMessageDeliveredSeenListRequest);
 
         Thread.sleep(2000);
 
@@ -89,11 +89,11 @@ public class GetDeliveredList implements ChatContract.view {
     @Order(2)
     void getDeliveredListWithInvalidMessageId() throws InterruptedException {
 
-        RequestDeliveredMessageList requestDeliveredMessageList = new RequestDeliveredMessageList
+        GetMessageDeliveredSeenListRequest getMessageDeliveredSeenListRequest = new GetMessageDeliveredSeenListRequest
                 .Builder(123)
                 .build();
 
-        chatController.deliveredMessageList(requestDeliveredMessageList);
+        chatController.deliveredMessageList(getMessageDeliveredSeenListRequest);
 
         Thread.sleep(3000);
 

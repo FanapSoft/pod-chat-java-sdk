@@ -1,11 +1,11 @@
 package podChat.requestobject;
 
-public class RequestGetAdmin extends GeneralRequestObject {
+public class GetAllThreadAdminsRequest extends GeneralRequestObject {
     private long count;
     private long offset;
     private long threadId;
 
-    RequestGetAdmin(Builder builder) {
+    GetAllThreadAdminsRequest(Builder builder) {
         super(builder);
         this.count = builder.count;
         this.offset = builder.offset;
@@ -56,8 +56,8 @@ public class RequestGetAdmin extends GeneralRequestObject {
             return this;
         }
 
-        public RequestGetAdmin build() {
-            return new RequestGetAdmin(this);
+        public GetAllThreadAdminsRequest build() {
+            return new GetAllThreadAdminsRequest(this);
         }
 
         @Override

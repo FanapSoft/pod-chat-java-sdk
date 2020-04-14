@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
-import podChat.requestobject.RequestAddContact;
+import podChat.requestobject.AddContactRequest;
 import podChat.requestobject.RequestConnect;
 
 import java.util.ArrayList;
@@ -66,12 +66,12 @@ public class AddContact implements ChatContract.view {
     @Test
     @Order(2)
     void addContactPhoneLName() throws InterruptedException {
-        RequestAddContact requestAddContact = new RequestAddContact
+        AddContactRequest addContactRequest = new AddContactRequest
                 .Builder()
                 .cellphoneNumber("09156452709")
                 .lastName("مظلوم")
                 .build();
-        chatController.addContact(requestAddContact);
+        chatController.addContact(addContactRequest);
 
         Thread.sleep(3000);
 
@@ -92,12 +92,12 @@ public class AddContact implements ChatContract.view {
     @Test
     @Order(2)
     void addContactEmailFName() throws InterruptedException {
-        RequestAddContact requestAddContact = new RequestAddContact
+        AddContactRequest addContactRequest = new AddContactRequest
                 .Builder()
                 .email("m@gmail.com")
                 .firstName("mohammad")
                 .build();
-        chatController.addContact(requestAddContact);
+        chatController.addContact(addContactRequest);
 
         Thread.sleep(3000);
 
@@ -115,11 +115,11 @@ public class AddContact implements ChatContract.view {
     @Test
     @Order(2)
     void addContactError() throws InterruptedException {
-        RequestAddContact requestAddContact = new RequestAddContact
+        AddContactRequest addContactRequest = new AddContactRequest
                 .Builder()
                 .cellphoneNumber("09156452709")
                 .build();
-        chatController.addContact(requestAddContact);
+        chatController.addContact(addContactRequest);
 
         Thread.sleep(3000);
 
@@ -134,13 +134,13 @@ public class AddContact implements ChatContract.view {
     @Test
     @Order(2)
     void addContactUserName() throws InterruptedException {
-        RequestAddContact requestAddContact = new RequestAddContact
+        AddContactRequest addContactRequest = new AddContactRequest
                 .Builder()
                 .userName("f.khojasteh")
                 .firstName("فاطمه")
                 .cellphoneNumber("09151242904")
                 .build();
-        chatController.addContact(requestAddContact);
+        chatController.addContact(addContactRequest);
 
         Thread.sleep(3000);
 

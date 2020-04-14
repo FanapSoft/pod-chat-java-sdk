@@ -7,8 +7,6 @@ import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
 import podChat.requestobject.RequestInteract;
-import podChat.requestobject.RequestJoinThread;
-import podChat.requestobject.RequestPinThread;
 
 import java.util.ArrayList;
 

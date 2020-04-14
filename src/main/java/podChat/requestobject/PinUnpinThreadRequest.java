@@ -1,10 +1,10 @@
 package podChat.requestobject;
 
 
-public class RequestCurrentUserRoles extends GeneralRequestObject {
+public class PinUnpinThreadRequest extends GeneralRequestObject {
     private long threadId;
 
-    RequestCurrentUserRoles(Builder builder) {
+    PinUnpinThreadRequest(Builder builder) {
         super(builder);
         this.threadId = builder.threadId;
     }
@@ -20,13 +20,12 @@ public class RequestCurrentUserRoles extends GeneralRequestObject {
     public static class Builder extends GeneralRequestObject.Builder<Builder> {
         private long threadId;
 
-
         public Builder(long threadId) {
             this.threadId = threadId;
         }
 
-        public RequestCurrentUserRoles build() {
-            return new RequestCurrentUserRoles(this);
+        public PinUnpinThreadRequest build() {
+            return new PinUnpinThreadRequest(this);
         }
 
         @Override
@@ -34,5 +33,4 @@ public class RequestCurrentUserRoles extends GeneralRequestObject {
             return this;
         }
     }
-
 }

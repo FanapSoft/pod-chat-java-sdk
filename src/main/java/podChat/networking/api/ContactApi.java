@@ -38,6 +38,7 @@ public interface ContactApi {
             , @Field("cellphoneNumber") String cellphoneNumber
             , @Field("username") String username
             , @Field("typeCode") String typeCode
+            , @Field("ownerId") long ownerId
     );
 
     /* addContacts With type code*/
@@ -105,10 +106,11 @@ public interface ContactApi {
             , @Field("email") String email
             , @Field("uniqueId") String uniqueId
             , @Field("cellphoneNumber") String cellphoneNumber
-            , @Field("typeCode") String typeCode);
+            , @Field("typeCode") String typeCode
+            , @Field("ownerId") long ownerId);
 
     @GET("nzh/listContacts")
-    Call<SearchContactVO> searchContact(@Header("_token_") String token
+    Call<SearchContactVO> searchContacts(@Header("_token_") String token
             , @Header("_token_issuer_") int tokenIssuer
             , @Query("id") String id
             , @Query("firstName") String firstName
@@ -118,5 +120,6 @@ public interface ContactApi {
             , @Query("size") String size
             , @Query("typeCode") String typeCode
             , @Query("q") String query
-            , @Query("cellphoneNumber") String cellphoneNumber);
+            , @Query("cellphoneNumber") String cellphoneNumber
+            , @Query("ownerId") long ownerId);
 }

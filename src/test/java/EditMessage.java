@@ -7,7 +7,7 @@ import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestEditMessage;
+import podChat.requestobject.EditMessageRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,10 +66,10 @@ public class EditMessage implements ChatContract.view {
     @Test
     @Order(2)
     void editMessage() throws InterruptedException {
-        RequestEditMessage requestEditMessage = new RequestEditMessage
+        EditMessageRequest editMessageRequest = new EditMessageRequest
                 .Builder("hi", 94291)
                 .build();
-        chatController.editMessage(requestEditMessage);
+        chatController.editMessage(editMessageRequest);
 
         Thread.sleep(5000);
 
@@ -95,10 +95,10 @@ public class EditMessage implements ChatContract.view {
     @Test
     @Order(2)
     void editMessageWithError() throws InterruptedException {
-        RequestEditMessage requestEditMessage = new RequestEditMessage
+        EditMessageRequest editMessageRequest = new EditMessageRequest
                 .Builder("hi", 475422)
                 .build();
-        chatController.editMessage(requestEditMessage);
+        chatController.editMessage(editMessageRequest);
 
 
         Thread.sleep(3000);

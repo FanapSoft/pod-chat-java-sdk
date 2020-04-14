@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestThreadParticipant;
+import podChat.requestobject.GetThreadParticipantsRequest;
 
 import java.util.ArrayList;
 
@@ -65,13 +65,13 @@ public class GetParticipant implements ChatContract.view {
     @Order(2)
     void getGroupParticipant() throws InterruptedException {
 
-        RequestThreadParticipant requestThreadParticipant = new RequestThreadParticipant
+        GetThreadParticipantsRequest getThreadParticipantsRequest = new GetThreadParticipantsRequest
                 .Builder(5781)
                 .count(5)
                 .offset(0)
                 .build();
 
-        chatController.getThreadParticipant(requestThreadParticipant);
+        chatController.getThreadParticipant(getThreadParticipantsRequest);
 
         Thread.sleep(5000);
 
@@ -88,11 +88,11 @@ public class GetParticipant implements ChatContract.view {
     @Order(2)
     void getParticipant() throws InterruptedException {
 
-        RequestThreadParticipant requestThreadParticipant = new RequestThreadParticipant
+        GetThreadParticipantsRequest getThreadParticipantsRequest = new GetThreadParticipantsRequest
                 .Builder(5461)
                 .build();
 
-        chatController.getThreadParticipant(requestThreadParticipant);
+        chatController.getThreadParticipant(getThreadParticipantsRequest);
 
         Thread.sleep(5000);
 

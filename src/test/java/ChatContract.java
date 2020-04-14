@@ -152,7 +152,7 @@ public interface ChatContract {
 
         void seenMessageList(RequestSeenMessageList requestParam);
 
-        void deliveredMessageList(RequestDeliveredMessageList requestParams);
+        void deliveredMessageList(GetMessageDeliveredSeenListRequest requestParams);
 
         void createThreadWithMessage(RequestCreateThreadWithMessage threadRequest);
 
@@ -160,7 +160,7 @@ public interface ChatContract {
                 , String metadata);
 
 
-        void getThreads(RequestThread requestThread, ChatHandler handler);
+        void getThreads(GetThreadsRequest getThreadsRequest, ChatHandler handler);
 
         void getThreads(Integer count, Long offset, ArrayList<Integer> threadIds, String threadName,
 
@@ -181,26 +181,26 @@ public interface ChatContract {
 
         void getHistory(History history, long threadId, ChatHandler handler);
 
-        void getHistory(RequestGetHistory request, ChatHandler handler);
+        void getHistory(GetHistoryRequest request, ChatHandler handler);
 
         void searchHistory(NosqlListMessageCriteriaVO messageCriteriaVO, ChatHandler handler);
 
         void getContact(Integer count, Long offset, ChatHandler handler);
 
-        void getContact(RequestGetContact request, ChatHandler handler);
+        void getContact(GetContactsRequest request, ChatHandler handler);
 
         void createThread(int threadType, Invitee[] invitee, String threadTitle, String description, String image
                 , String metaData, ChatHandler handler);
 
         void sendTextMessage(String textMessage, long threadId, Integer messageType, String metaData, ChatHandler handler);
 
-        void sendTextMessage(RequestMessage requestMessage, ChatHandler handler);
+        void sendTextMessage(SendTextMessageRequest sendTextMessageRequest, ChatHandler handler);
 
         void replyMessage(String messageContent, long threadId, long messageId, Integer messageType, ChatHandler handler);
 
         // void replyFileMessage(RequestReplyFileMessage request, ProgressHandler.sendFileMessage handler);
 
-        void replyMessage(RequestReplyMessage request, ChatHandler handler);
+        void replyMessage(ReplyTextMessageRequest request, ChatHandler handler);
 
         void muteThread(int threadId, ChatHandler handler);
 
@@ -214,11 +214,11 @@ public interface ChatContract {
 
         void addContact(String firstName, String lastName, String cellphoneNumber, String email);
 
-        void addContact(RequestAddContact request);
+        void addContact(AddContactRequest request);
 
         void removeContact(long id);
 
-        void searchContact(RequestSearchContact requestSearchContact);
+        void searchContact(SearchContactsRequest searchContactsRequest);
 
         void block(Long contactId, Long userId, Long threadId, ChatHandler handler);
 
@@ -242,7 +242,7 @@ public interface ChatContract {
 
         void updateContact(int id, String firstName, String lastName, String cellphoneNumber, String email);
 
-        void updateContact(RequestUpdateContact updateContact);
+        void updateContact(UpdateContactsRequest updateContact);
 
         //  void uploadImage(Activity activity, Uri fileUri);
 
@@ -258,7 +258,7 @@ public interface ChatContract {
 
         void addParticipants(long threadId, List<Long> contactIds, ChatHandler handler);
 
-        void addParticipants(RequestAddParticipants requestAddParticipants, ChatHandler handler);
+        void addParticipants(AddParticipantsRequestModel addParticipantsRequestModel, ChatHandler handler);
 
         void leaveThread(long threadId, ChatHandler handler);
 
@@ -268,7 +268,7 @@ public interface ChatContract {
 
         void deleteMessage(ArrayList<Long> messageIds, Boolean deleteForAll, ChatHandler handler);
 
-        void deleteMessage(RequestDeleteMessage deleteMessage, ChatHandler handler);
+        void deleteMessage(DeleteMultipleMessagesRequest deleteMessage, ChatHandler handler);
 
 //        void uploadImageProgress(Context context, Activity activity, Uri fileUri, ProgressHandler.onProgress handler);
 //
@@ -278,7 +278,7 @@ public interface ChatContract {
 
         void clearHistory(RequestClearHistory requestClearHistory);
 
-        void getAdminList(RequestGetAdmin requestGetAdmin);
+        void getAdminList(GetAllThreadAdminsRequest getAllThreadAdminsRequest);
 
         String startSignalMessage(RequestSignalMsg requestSignalMsg);
 

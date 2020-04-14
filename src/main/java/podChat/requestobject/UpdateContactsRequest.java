@@ -1,32 +1,35 @@
 package podChat.requestobject;
 
 
-public class RequestUpdateContact extends GeneralRequestObject {
+public class UpdateContactsRequest extends GeneralRequestObject {
 
     private String firstName;
     private String lastName;
     private String cellphoneNumber;
     private String email;
-    private long userId;
+    private long id;
+    private long ownerId;
 
-    private RequestUpdateContact(Builder builder) {
+    private UpdateContactsRequest(Builder builder) {
         super(builder);
-        this.userId = builder.userId;
+        this.id = builder.id;
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
         this.cellphoneNumber = builder.cellphoneNumber;
         this.email = builder.email;
+        this.ownerId=builder.ownerId;
     }
 
     public static class Builder extends GeneralRequestObject.Builder<Builder> {
-        private long userId;
+        private long id;
         private String firstName;
         private String lastName;
         private String cellphoneNumber;
         private String email;
+        private long ownerId;
 
-        public Builder(long userId, String firstName, String lastName, String cellphoneNumber, String email) {
-            this.userId = userId;
+        public Builder(long id, String firstName, String lastName, String cellphoneNumber, String email) {
+            this.id = id;
             this.firstName = firstName;
             this.lastName = lastName;
             this.cellphoneNumber = cellphoneNumber;
@@ -34,8 +37,13 @@ public class RequestUpdateContact extends GeneralRequestObject {
         }
 
 
-        public RequestUpdateContact build() {
-            return new RequestUpdateContact(this);
+        public Builder ownerId(long ownerId) {
+            this.ownerId = ownerId;
+            return this;
+        }
+
+        public UpdateContactsRequest build() {
+            return new UpdateContactsRequest(this);
         }
 
 
@@ -77,13 +85,19 @@ public class RequestUpdateContact extends GeneralRequestObject {
         this.email = email;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getId() {
+        return id;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setId(long id) {
+        this.id = id;
     }
 
+    public long getOwnerId() {
+        return ownerId;
+    }
 
+    public void setOwnerId(long ownerId) {
+        this.ownerId = ownerId;
+    }
 }

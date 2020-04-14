@@ -1,11 +1,11 @@
 package podChat.requestobject;
 
 
-public class RequestDeliveredMessageList extends BaseRequestObject {
+public class GetMessageDeliveredSeenListRequest extends BaseRequestObject {
     private long messageId;
 
 
-    RequestDeliveredMessageList(Builder builder) {
+    GetMessageDeliveredSeenListRequest(Builder builder) {
         super(builder);
         this.messageId = builder.messageId;
     }
@@ -26,8 +26,8 @@ public class RequestDeliveredMessageList extends BaseRequestObject {
         }
 
 
-        public RequestDeliveredMessageList build() {
-            return new RequestDeliveredMessageList(this);
+        public GetMessageDeliveredSeenListRequest build() {
+            return new GetMessageDeliveredSeenListRequest(this);
         }
 
 
