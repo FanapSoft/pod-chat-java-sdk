@@ -155,28 +155,27 @@ public class GetThreadTest implements ChatContract.view {
     }
 
     //Get Thread with partner's contact id
-    @Test
-    @Order(2)
-    void getThreatWithPartnerContactId() throws InterruptedException {
-        GetThreadsRequest getThreadsRequest = new GetThreadsRequest
-                .Builder()
-                .partnerCoreContactId(4781)
-                .build();
-
-        chatController.getThreads(getThreadsRequest);
-
-        Thread.sleep(10000);
-
-        ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
-
-        Mockito.verify(chatContract, Mockito.times(1)).onGetThreadList(argument.capture());
-
-        ChatResponse chatResponse = argument.getValue();
-
-        Assertions.assertTrue(!chatResponse.hasError());
-
-    }
-
+//    @Test
+//    @Order(2)
+//    void getThreatWithPartnerContactId() throws InterruptedException {
+//        GetThreadsRequest getThreadsRequest = new GetThreadsRequest
+//                .Builder()
+//                .build();
+//
+//        chatController.getThreads(getThreadsRequest);
+//
+//        Thread.sleep(10000);
+//
+//        ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
+//
+//        Mockito.verify(chatContract, Mockito.times(1)).onGetThreadList(argument.capture());
+//
+//        ChatResponse chatResponse = argument.getValue();
+//
+//        Assertions.assertTrue(!chatResponse.hasError());
+//
+//    }
+//
 
     @Test
     @Order(2)

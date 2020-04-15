@@ -19,10 +19,10 @@ public class AddContactRequest extends GeneralRequestObject {
         this.cellphoneNumber = builder.cellphoneNumber;
         this.email = builder.email;
         this.userName = builder.userName;
-        this.ownerId=builder.ownerId;
+        this.ownerId = builder.ownerId;
     }
 
-    public RequestAddContact() {
+    public AddContactRequest() {
     }
 
     public static AddContactStep newBuilder() {
@@ -75,7 +75,9 @@ public class AddContactRequest extends GeneralRequestObject {
     }
 
     public void setOwnerId(long ownerId) {
-        this.ownerId = ownerId;}
+        this.ownerId = ownerId;
+    }
+
     public static interface AddContactStep {
 
         ActionStep firstName(String firstName);
@@ -109,7 +111,7 @@ public class AddContactRequest extends GeneralRequestObject {
     public static interface BuildStep {
 
 
-        RequestAddContact build();
+        AddContactRequest build();
 
 
     }
@@ -252,9 +254,9 @@ public class AddContactRequest extends GeneralRequestObject {
         }
 
         @Override
-        public RequestAddContact build() {
+        public AddContactRequest build() {
 
-            RequestAddContact request = new RequestAddContact();
+            AddContactRequest request = new AddContactRequest();
 
             request.setUserName(userName != null ? userName : "");
             request.setLastName(lastName != null ? lastName : "");

@@ -95,7 +95,7 @@ public class ChatMain implements ChatContract.view {
 
 
 //            createThread();
-//            getThreads();
+            getThreads();
 //            sendMessage();
 
 //            deleteMultipleMessage();
@@ -110,7 +110,7 @@ public class ChatMain implements ChatContract.view {
 //chatController.getUserInfo();
 //            createThreadWithMessage();
 //            createThreadWithFileMessage();
-//            createPublicGroupOrChannelThread();
+            createPublicGroupOrChannelThread();
 //            isNameAvailable();
 
 //            joinThread();
@@ -175,7 +175,7 @@ public class ChatMain implements ChatContract.view {
 //            uploadImage();  //checkit
 //            uploadFile();    ///checkit
 //            getFile();
-            getImage();
+//            getImage();
 //            spam();
 
 //            Thread.sleep(2000);

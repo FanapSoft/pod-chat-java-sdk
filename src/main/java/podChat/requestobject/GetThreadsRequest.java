@@ -8,7 +8,6 @@ public class GetThreadsRequest extends BaseRequestObject {
     private String threadName;
     private long creatorCoreUserId;
     private long partnerCoreUserId;
-    private long partnerCoreContactId;
     private boolean isNew;
     private String summary;
 
@@ -18,7 +17,6 @@ public class GetThreadsRequest extends BaseRequestObject {
         this.threadName = builder.threadName;
         this.creatorCoreUserId = builder.creatorCoreUserId;
         this.partnerCoreUserId = builder.partnerCoreUserId;
-        this.partnerCoreContactId = builder.partnerCoreContactId;
         this.isNew = builder.isNew;
         this.summary=builder.summary;
     }
@@ -47,14 +45,6 @@ public class GetThreadsRequest extends BaseRequestObject {
         this.partnerCoreUserId = partnerCoreUserId;
     }
 
-    public long getPartnerCoreContactId() {
-        return partnerCoreContactId;
-    }
-
-    public void setPartnerCoreContactId(long partnerCoreContactId) {
-        this.partnerCoreContactId = partnerCoreContactId;
-    }
-
     public String getThreadName() {
         return threadName;
     }
@@ -80,7 +70,6 @@ public class GetThreadsRequest extends BaseRequestObject {
         private String threadName;
         private long creatorCoreUserId;
         private long partnerCoreUserId;
-        private long partnerCoreContactId;
         private boolean isNew;
         private String summary;
 
@@ -98,12 +87,6 @@ public class GetThreadsRequest extends BaseRequestObject {
 
         public Builder partnerCoreUserId(long partnerCoreUserId) {
             this.partnerCoreUserId = partnerCoreUserId;
-            return this;
-        }
-
-
-        public Builder partnerCoreContactId(long partnerCoreContactId) {
-            this.partnerCoreContactId = partnerCoreContactId;
             return this;
         }
 

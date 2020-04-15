@@ -80,7 +80,41 @@ public class RequestCreateThread extends BaseRequestObject {
         this.metadata = metadata;
     }
 
-    public static class Builder<T extends RequestCreateThread.Builder<T>> extends BaseRequestObject.Builder<Builder> {
+
+
+    public static FromStep builder() {
+
+        return new Steps();
+    }
+
+    public static interface FromStep {
+
+        ActionStep type(int type);
+        ActionStep invitees(List<Invitee> invitees);
+
+
+    }
+    public static interface ActionStep {
+
+        BuildStep ownerSsoId(String ownerSsoId);
+
+        BuildStep title(String title);
+
+        BuildStep description(String description);
+
+        BuildStep image(String image);
+
+        BuildStep metadata(String metadata);
+
+    }
+
+    public static interface BuildStep {
+
+        BuildStep2 uniqueName(String uniqueName);
+
+
+    }
+    public static class Builder<T extends RequestCreateThread.Builder<T>> extends BaseRequestObject.Builder<Builder> implements BuildStep, {
         private final int type;
         private final List<Invitee> invitees;
         private String title;
