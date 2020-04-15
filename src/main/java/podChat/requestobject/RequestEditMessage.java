@@ -3,11 +3,11 @@ package podChat.requestobject;
 public class RequestEditMessage extends GeneralRequestObject {
     private String messageContent;
     private long messageId;
-    private String metaData;
+    private String systemMetaData;
 
      RequestEditMessage( Builder builder) {
         super(builder);
-        this.metaData = builder.metaData;
+        this.systemMetaData = builder.systemMetaData;
         this.messageContent = builder.messageContent;
         this.messageId = builder.messageId;
     }
@@ -15,7 +15,7 @@ public class RequestEditMessage extends GeneralRequestObject {
     public static class Builder extends GeneralRequestObject.Builder<Builder> {
         private String messageContent;
         private long messageId;
-        private String metaData;
+        private String systemMetaData;
 
         public Builder(String messageContent, long messageId) {
             this.messageContent = messageContent;
@@ -23,7 +23,7 @@ public class RequestEditMessage extends GeneralRequestObject {
         }
 
         public Builder metaData(String metaData) {
-            this.metaData = metaData;
+            this.systemMetaData = metaData;
             return this;
         }
 
@@ -53,11 +53,11 @@ public class RequestEditMessage extends GeneralRequestObject {
         this.messageId = messageId;
     }
 
-    public String getMetaData() {
-        return metaData;
+    public String getSystemMetaData() {
+        return systemMetaData;
     }
 
-    public void setMetaData(String metaData) {
-        this.metaData = metaData;
+    public void setSystemMetaData(String systemMetaData) {
+        this.systemMetaData = systemMetaData;
     }
 }

@@ -2653,7 +2653,7 @@ public class Chat extends AsyncAdapter {
 
                 String messageContent = request.getMessageContent();
                 long messageId = request.getMessageId();
-                String metaData = request.getMetaData();
+                String systemMetaData = request.getSystemMetaData();
 
                 ChatMessage chatMessage = new ChatMessage();
                 chatMessage.setType(ChatMessageType.EDIT_MESSAGE);
@@ -2661,13 +2661,12 @@ public class Chat extends AsyncAdapter {
                 chatMessage.setUniqueId(uniqueId);
                 chatMessage.setSubjectId(messageId);
                 chatMessage.setContent(messageContent);
-                chatMessage.setSystemMetadata(metaData);
+                chatMessage.setSystemMetadata(systemMetaData);
                 chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
                 chatMessage.setTypeCode(!Util.isNullOrEmpty(request.getTypeCode()) ? request.getTypeCode() : getTypeCode());
 
                 jsonObject = (JsonObject) gson.toJsonTree(chatMessage);
                 jsonObject.remove("contentCount");
-                jsonObject.remove("systemMetadata");
                 jsonObject.remove("metadata");
                 jsonObject.remove("repliedTo");
 
