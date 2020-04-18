@@ -599,7 +599,7 @@ public class Chat extends AsyncAdapter {
      *                unreadMentioned  set it to ture if you only want to get unread mentioned messages in the thread
      * @return
      */
-    public String getMentionedList(RequestGetMentionedList request) {
+    public String getMentionedMessages(GetMentionedRequest request) {
         String uniqueId = generateUniqueId();
         long threadId = request.getThreadId();
 
@@ -864,8 +864,7 @@ public class Chat extends AsyncAdapter {
                                 String lastName,
                                 String cellphoneNumber,
                                 String email,
-                                String typeCode,
-                                long ownerId) {
+                                String typeCode) {
 
 
         String uniqueId = generateUniqueId();
@@ -896,8 +895,7 @@ public class Chat extends AsyncAdapter {
                     email,
                     uniqueId,
                     cellphoneNumber,
-                    !Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode(),
-                    ownerId);
+                    !Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());
 
 
 
@@ -966,8 +964,7 @@ public class Chat extends AsyncAdapter {
         String cellphoneNumber = request.getCellphoneNumber();
         long userId = request.getId();
         String typeCode = request.getTypeCode();
-        long ownerId = request.getOwnerId();
-        return updateContact(userId, firstName, lastName, cellphoneNumber, email, typeCode, ownerId);
+        return updateContact(userId, firstName, lastName, cellphoneNumber, email, typeCode);
     }
 
     /**
@@ -1476,7 +1473,7 @@ public class Chat extends AsyncAdapter {
      * -------------  List<Long> forwardedMessageIds  [Optional]
      * }
      */
-    public ArrayList<String> createThreadWithMessage(RequestCreateThreadWithMessage threadRequest) {
+    public ArrayList<String> createThreadWithMessage(CreateThreadWithMessageRequest threadRequest) {
         List<String> forwardUniqueIds;
         JsonObject innerMessageObj = null;
 
@@ -2587,23 +2584,22 @@ public class Chat extends AsyncAdapter {
 
                 String messageContent = request.getContent();
                 long messageId = request.getMessageId();
-                String metaData = request.getMetaData();
-                String  systemMetadata=request.getSystemMetadata();
+                String systemMetaData = request.getSystemMetaData();
+
                 ChatMessage chatMessage = new ChatMessage();
                 chatMessage.setType(ChatMessageType.EDIT_MESSAGE);
                 chatMessage.setToken(getToken());
                 chatMessage.setUniqueId(uniqueId);
                 chatMessage.setSubjectId(messageId);
                 chatMessage.setContent(messageContent);
-                chatMessage.setMetadata(metaData);
-                chatMessage.setSystemMetadata(systemMetadata);
+                chatMessage.setSystemMetadata(systemMetaData);
                 chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
                 chatMessage.setTypeCode(!Util.isNullOrEmpty(request.getTypeCode()) ? request.getTypeCode() : getTypeCode());
 
                 jsonObject = (JsonObject) gson.toJsonTree(chatMessage);
                 jsonObject.remove("contentCount");
                 jsonObject.remove("systemMetadata");
-//                jsonObject.remove("metadata");
+                jsonObject.remove("metadata");
                 jsonObject.remove("repliedTo");
 
                 sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "SEND_EDIT_MESSAGE");
@@ -2801,13 +2797,13 @@ public class Chat extends AsyncAdapter {
     /**
      * You can add auditor role to someone in a thread using user id.
      *
-     * @param requestSetAuditor roles   List of userIds and their roles
+     * @param setRemoveRoleRequest roles   List of userIds and their roles
      *                          threadId
      */
-    public String addAuditor(RequestSetAuditor requestSetAuditor) {
+    public String setAuditor(SetRemoveRoleRequest setRemoveRoleRequest) {
         SetRuleVO setRuleVO = new SetRuleVO();
-        BeanUtils.copyProperties(requestSetAuditor, setRuleVO);
-        setRuleVO.setTypeCode(requestSetAuditor.getTypeCode());
+        BeanUtils.copyProperties(setRemoveRoleRequest, setRuleVO);
+        setRuleVO.setTypeCode(setRemoveRoleRequest.getTypeCode());
 
         return setRole(setRuleVO);
     }
@@ -2817,7 +2813,7 @@ public class Chat extends AsyncAdapter {
      *
      * @param requestSetAdmin
      */
-    public String addAdmin(RequestSetAdmin requestSetAdmin) {
+    public String setAdmin(SetRemoveRoleRequest requestSetAdmin) {
         SetRuleVO setRuleVO = new SetRuleVO();
         BeanUtils.copyProperties(requestSetAdmin, setRuleVO);
         setRuleVO.setTypeCode(requestSetAdmin.getTypeCode());
@@ -2833,16 +2829,16 @@ public class Chat extends AsyncAdapter {
      */
     private String setRole(SetRuleVO setRuleVO) {
         long threadId = setRuleVO.getThreadId();
-        ArrayList<RequestRole> roles = setRuleVO.getRoles();
+        ArrayList<RoleModelRequest> roles = setRuleVO.getRoles();
         String uniqueId = generateUniqueId();
 
         if (chatReady) {
             ArrayList<UserRoleVO> userRoleVOS = new ArrayList<>();
 
-            for (RequestRole requestRole : roles) {
+            for (RoleModelRequest roleModelRequest : roles) {
                 UserRoleVO userRoleVO = new UserRoleVO();
-                userRoleVO.setUserId(requestRole.getId());
-                userRoleVO.setRoles(requestRole.getRoleTypes());
+                userRoleVO.setUserId(roleModelRequest.getUserId());
+                userRoleVO.setRoles(roleModelRequest.getRoles());
                 userRoleVOS.add(userRoleVO);
             }
 
@@ -2861,13 +2857,13 @@ public class Chat extends AsyncAdapter {
     }
 
     /**
-     * @param requestSetAuditor You can add auditor role to someone in a thread using user id.
+     * @param setRemoveRoleRequest You can add auditor role to someone in a thread using user id.
      */
-    public String removeAuditor(RequestSetAuditor requestSetAuditor) {
+    public String removeAuditor(SetRemoveRoleRequest setRemoveRoleRequest) {
         SetRuleVO setRuleVO = new SetRuleVO();
 
-        BeanUtils.copyProperties(requestSetAuditor, setRuleVO);
-        setRuleVO.setTypeCode(requestSetAuditor.getTypeCode());
+        BeanUtils.copyProperties(setRemoveRoleRequest, setRuleVO);
+        setRuleVO.setTypeCode(setRemoveRoleRequest.getTypeCode());
 
         return removeRole(setRuleVO);
     }
@@ -2877,7 +2873,7 @@ public class Chat extends AsyncAdapter {
      *
      * @param requestSetAdmin
      */
-    public String removeAdmin(RequestSetAdmin requestSetAdmin) {
+    public String removeAdmin(SetRemoveRoleRequest requestSetAdmin) {
         SetRuleVO setRuleVO = new SetRuleVO();
 
         BeanUtils.copyProperties(requestSetAdmin, setRuleVO);
@@ -2890,16 +2886,16 @@ public class Chat extends AsyncAdapter {
 
     private String removeRole(SetRuleVO setRuleVO) {
         long threadId = setRuleVO.getThreadId();
-        ArrayList<RequestRole> roles = setRuleVO.getRoles();
+        ArrayList<RoleModelRequest> roles = setRuleVO.getRoles();
         String uniqueId = generateUniqueId();
 
         if (chatReady) {
             ArrayList<UserRoleVO> userRoleVOS = new ArrayList<>();
 
-            for (RequestRole requestRole : roles) {
+            for (RoleModelRequest roleModelRequest : roles) {
                 UserRoleVO userRoleVO = new UserRoleVO();
-                userRoleVO.setUserId(requestRole.getId());
-                userRoleVO.setRoles(requestRole.getRoleTypes());
+                userRoleVO.setUserId(roleModelRequest.getUserId());
+                userRoleVO.setRoles(roleModelRequest.getRoles());
                 userRoleVOS.add(userRoleVO);
             }
 
@@ -3441,7 +3437,7 @@ public class Chat extends AsyncAdapter {
         return uniqueId;
     }
 
-    public ArrayList<String> createThreadWithFileMessage(RequestCreateThreadWithFile request) {
+    public ArrayList<String> createThreadWithFileMessage(CreateThreadWithFileRequest request) {
         ArrayList<String> uniqueIds = new ArrayList<>();
 
         String threadUniqId = generateUniqueId();
@@ -3510,7 +3506,7 @@ public class Chat extends AsyncAdapter {
         return uniqueIds;
     }
 
-    private List<String> generateForwardingMessageId(RequestCreateThreadWithMessage request) {
+    private List<String> generateForwardingMessageId(CreateThreadWithMessageRequest request) {
         List<String> forwardUniqueIds = null;
 
         if (request.getMessage() != null && !Util.isNullOrEmptyNumber(request.getMessage().getForwardedMessageIds())) {
@@ -3528,7 +3524,7 @@ public class Chat extends AsyncAdapter {
         return forwardUniqueIds;
     }
 
-    private void createThreadWithMessage(RequestCreateThreadWithMessage threadRequest,
+    private void createThreadWithMessage(CreateThreadWithMessageRequest threadRequest,
                                          String threadUniqueId,
                                          String messageUniqueId,
                                          List<String> forwardUniqueIds) {

@@ -8,7 +8,6 @@ public class UpdateContactsRequest extends GeneralRequestObject {
     private String cellphoneNumber;
     private String email;
     private long id;
-    private long ownerId;
 
     private UpdateContactsRequest(Builder builder) {
         super(builder);
@@ -17,7 +16,6 @@ public class UpdateContactsRequest extends GeneralRequestObject {
         this.lastName = builder.lastName;
         this.cellphoneNumber = builder.cellphoneNumber;
         this.email = builder.email;
-        this.ownerId=builder.ownerId;
     }
 
     public static class Builder extends GeneralRequestObject.Builder<Builder> {
@@ -26,7 +24,6 @@ public class UpdateContactsRequest extends GeneralRequestObject {
         private String lastName;
         private String cellphoneNumber;
         private String email;
-        private long ownerId;
 
         public Builder(long id, String firstName, String lastName, String cellphoneNumber, String email) {
             this.id = id;
@@ -35,13 +32,6 @@ public class UpdateContactsRequest extends GeneralRequestObject {
             this.cellphoneNumber = cellphoneNumber;
             this.email = email;
         }
-
-
-        public Builder ownerId(long ownerId) {
-            this.ownerId = ownerId;
-            return this;
-        }
-
         public UpdateContactsRequest build() {
             return new UpdateContactsRequest(this);
         }
@@ -93,11 +83,4 @@ public class UpdateContactsRequest extends GeneralRequestObject {
         this.id = id;
     }
 
-    public long getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(long ownerId) {
-        this.ownerId = ownerId;
-    }
 }

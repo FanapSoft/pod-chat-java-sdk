@@ -81,7 +81,7 @@ public class ChatMain implements ChatContract.view {
 
             chatController.getUserInfo();
 
-            addContact();
+//            addContact();
 //            Thread.sleep(2000);
 //            getcontact();
 //            Thread.sleep(2000);
@@ -94,8 +94,8 @@ public class ChatMain implements ChatContract.view {
 //            searchContact();
 
 
-//            createThread();
-            getThreads();
+            createThread();
+//            getThreads();
 //            sendMessage();
 
 //            deleteMultipleMessage();
@@ -110,7 +110,7 @@ public class ChatMain implements ChatContract.view {
 //chatController.getUserInfo();
 //            createThreadWithMessage();
 //            createThreadWithFileMessage();
-            createPublicGroupOrChannelThread();
+//            createPublicGroupOrChannelThread();
 //            isNameAvailable();
 
 //            joinThread();
@@ -234,18 +234,18 @@ public class ChatMain implements ChatContract.view {
 
 
     void addAdmin() {
-        RequestRole requestRole = new RequestRole();
-        requestRole.setId(4781);
-        requestRole.setRoleTypes(new ArrayList<String>() {{
+        RoleModelRequest roleModelRequest = new RoleModelRequest();
+        roleModelRequest.setUserId(4781);
+        roleModelRequest.setRoles(new ArrayList<String>() {{
             add(RoleType.THREAD_ADMIN);
         }});
 
 
-        ArrayList<RequestRole> requestRoleArrayList = new ArrayList<>();
-        requestRoleArrayList.add(requestRole);
+        ArrayList<RoleModelRequest> roleModelRequestArrayList = new ArrayList<>();
+        roleModelRequestArrayList.add(roleModelRequest);
 
-        RequestSetAdmin requestSetAdmin = new RequestSetAdmin
-                .Builder(5941, requestRoleArrayList)
+        SetRemoveRoleRequest requestSetAdmin = new SetRemoveRoleRequest
+                .Builder(5941, roleModelRequestArrayList)
                 .build();
 
         chatController.addAdmin(requestSetAdmin);
@@ -253,21 +253,21 @@ public class ChatMain implements ChatContract.view {
     }
 
     void addAuditor() {
-        RequestRole requestRole = new RequestRole();
-        requestRole.setId(1181);
-        requestRole.setRoleTypes(new ArrayList<String>() {{
+        RoleModelRequest roleModelRequest = new RoleModelRequest();
+        roleModelRequest.setUserId(1181);
+        roleModelRequest.setRoles(new ArrayList<String>() {{
             add(RoleType.POST_CHANNEL_MESSAGE);
             add(RoleType.READ_THREAD);
         }});
 
-        ArrayList<RequestRole> requestRoleArrayList = new ArrayList<>();
-        requestRoleArrayList.add(requestRole);
+        ArrayList<RoleModelRequest> roleModelRequestArrayList = new ArrayList<>();
+        roleModelRequestArrayList.add(roleModelRequest);
 
-        RequestSetAuditor requestSetAuditor = new RequestSetAuditor
-                .Builder(5461, requestRoleArrayList)
+        SetRemoveRoleRequest setRemoveRoleRequest = new SetRemoveRoleRequest
+                .Builder(5461, roleModelRequestArrayList)
                 .build();
 
-        chatController.addAuditor(requestSetAuditor);
+        chatController.addAuditor(setRemoveRoleRequest);
 
     }
 
@@ -285,17 +285,17 @@ public class ChatMain implements ChatContract.view {
      * delete role
      */
     void removeAdmin() {
-        RequestRole requestRole = new RequestRole();
-        requestRole.setId(4781);
-        requestRole.setRoleTypes(new ArrayList<String>() {{
+        RoleModelRequest roleModelRequest = new RoleModelRequest();
+        roleModelRequest.setUserId(4781);
+        roleModelRequest.setRoles(new ArrayList<String>() {{
             add(RoleType.THREAD_ADMIN);
         }});
 
-        ArrayList<RequestRole> requestRoleArrayList = new ArrayList<>();
-        requestRoleArrayList.add(requestRole);
+        ArrayList<RoleModelRequest> roleModelRequestArrayList = new ArrayList<>();
+        roleModelRequestArrayList.add(roleModelRequest);
 
-        RequestSetAdmin requestSetAdmin = new RequestSetAdmin
-                .Builder(5941, requestRoleArrayList)
+        SetRemoveRoleRequest requestSetAdmin = new SetRemoveRoleRequest
+                .Builder(5941, roleModelRequestArrayList)
                 .build();
 
         chatController.removeAdmin(requestSetAdmin);
@@ -304,22 +304,22 @@ public class ChatMain implements ChatContract.view {
 
 
     void removeAuditor() {
-        RequestRole requestRole = new RequestRole();
-        requestRole.setId(1181);
-        requestRole.setRoleTypes(new ArrayList<String>() {{
+        RoleModelRequest roleModelRequest = new RoleModelRequest();
+        roleModelRequest.setUserId(1181);
+        roleModelRequest.setRoles(new ArrayList<String>() {{
             add(RoleType.POST_CHANNEL_MESSAGE);
             add(RoleType.READ_THREAD);
         }});
 
-        ArrayList<RequestRole> requestRoleArrayList = new ArrayList<>();
-        requestRoleArrayList.add(requestRole);
+        ArrayList<RoleModelRequest> roleModelRequestArrayList = new ArrayList<>();
+        roleModelRequestArrayList.add(roleModelRequest);
 
-        RequestSetAuditor requestSetAuditor = new RequestSetAuditor
-                .Builder(5461, requestRoleArrayList)
+        SetRemoveRoleRequest setRemoveRoleRequest = new SetRemoveRoleRequest
+                .Builder(5461, roleModelRequestArrayList)
                 .build();
 
 
-        chatController.removeAuditor(requestSetAuditor);
+        chatController.removeAuditor(setRemoveRoleRequest);
 
     }
 
@@ -517,26 +517,26 @@ public class ChatMain implements ChatContract.view {
 //        invitee1.setId(1181);
 //        invitee1.setIdType(InviteType.TO_BE_USER_ID);
 
-        RequestCreateThreadWithMessage requestCreateThreadWithMessage = new RequestCreateThreadWithMessage
+        CreateThreadWithMessageRequest createThreadWithMessageRequest = new CreateThreadWithMessageRequest
                 .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }},
                 TextMessageType.TEXT)
                 .message(requestThreadInnerMessage)
                 .build();
-        chatController.createThreadWithMessage(requestCreateThreadWithMessage);
+        chatController.createThreadWithMessage(createThreadWithMessageRequest);
 
     }
 
     private void getMentionedList() {
-        RequestGetMentionedList requestGetMentionedList = new RequestGetMentionedList
+        GetMentionedRequest getMentionedRequest = new GetMentionedRequest
                 .Builder(7308)
                 .allMentioned(true)
 //                .unreadMentioned(true)
                 .build();
 
 
-        chatController.getMentionedList(requestGetMentionedList);
+        chatController.getMentionedList(getMentionedRequest);
     }
 
 
@@ -559,7 +559,7 @@ public class ChatMain implements ChatContract.view {
                 .build();
 
 
-        RequestCreateThreadWithFile requestCreateThreadWithFile = new RequestCreateThreadWithFile
+        CreateThreadWithFileRequest requestCreateThreadWithFile = new CreateThreadWithFileRequest
                 .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }}, requestUploadFile,
@@ -670,7 +670,7 @@ public class ChatMain implements ChatContract.view {
         Invitee[] invitees = new Invitee[1];
         Invitee invitee = new Invitee();
         invitee.setIdType(InviteType.TO_BE_USER_ID);
-        invitee.setId("15596");
+        invitee.setId("13812");
 
 //        Invitee invitee2 = new Invitee();
 //        invitee2.setIdType(InviteType.TO_BE_USER_CONTACT_ID);
@@ -679,10 +679,12 @@ public class ChatMain implements ChatContract.view {
         invitees[0] = invitee;
 //        invitees[1] = invitee2;
 
-        RequestCreateThread requestCreateThread = new RequestCreateThread
-                .Builder<>(ThreadType.NORMAL, new ArrayList<Invitee>() {{
-            add(invitee);
-        }})
+        RequestCreateThread requestCreateThread = RequestCreateThread
+                .newBuilder()
+                .init(ThreadType.NORMAL, new ArrayList<Invitee>() {{
+                            add(invitee);
+                        }})
+                .description("test step ")
                 .build();
 
         chatController.createThread(requestCreateThread);

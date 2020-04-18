@@ -5,7 +5,7 @@ import podChat.mainmodel.RequestThreadInnerMessage;
 
 import java.util.List;
 
-public class RequestCreateThreadWithMessage extends BaseRequestObject {
+public class CreateThreadWithMessageRequest extends BaseRequestObject {
 
     private int type;
     private String ownerSsoId;
@@ -16,7 +16,7 @@ public class RequestCreateThreadWithMessage extends BaseRequestObject {
     private String image;
     private int messageType;
 
-    RequestCreateThreadWithMessage(Builder<?> builder) {
+    CreateThreadWithMessageRequest(Builder<?> builder) {
         super(builder);
         this.type = builder.type;
         this.message = builder.message;
@@ -92,7 +92,7 @@ public class RequestCreateThreadWithMessage extends BaseRequestObject {
         this.messageType = messageType;
     }
 
-    public static class Builder<T extends Builder<T>> extends BaseRequestObject.Builder<Builder> {
+    public static class Builder<S extends RequestUploadFile> extends BaseRequestObject.Builder<Builder> {
         private final int type;
         private final List<Invitee> invitees;
         private String title;
@@ -100,7 +100,6 @@ public class RequestCreateThreadWithMessage extends BaseRequestObject {
         private String description;
         private String image;
         private int messageType;
-        ;
 
         public Builder(int type, List<Invitee> invitees, int messageType) {
             this.invitees = invitees;
@@ -129,13 +128,13 @@ public class RequestCreateThreadWithMessage extends BaseRequestObject {
         }
 
         @Override
-        protected RequestCreateThreadWithMessage.Builder self() {
+        protected CreateThreadWithMessageRequest.Builder self() {
             return this;
         }
 
 
-        public RequestCreateThreadWithMessage build() {
-            return new RequestCreateThreadWithMessage(this);
+        public CreateThreadWithMessageRequest build() {
+            return new CreateThreadWithMessageRequest(this);
         }
     }
 }

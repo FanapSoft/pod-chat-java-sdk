@@ -22,7 +22,7 @@ public class RequestCreatePublicGroupOrChannelThread extends RequestCreateThread
         this.uniqueName = uniqueName;
     }
 
-    public static class Builder extends RequestCreateThread.Builder<Builder> {
+    public static class Builder extends RequestCreateThread.Builder {
         private String uniqueName;
 
         public Builder(int type, List<Invitee> invitees, String uniqueName) {

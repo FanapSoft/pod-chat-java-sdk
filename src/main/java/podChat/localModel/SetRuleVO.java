@@ -1,13 +1,13 @@
 package podChat.localModel;
 
-import podChat.requestobject.RequestRole;
+import podChat.requestobject.RoleModelRequest;
 
 import java.util.ArrayList;
 
 public class SetRuleVO {
 
     private long threadId;
-    private ArrayList<RequestRole> roles;
+    private ArrayList<RoleModelRequest> roles;
     private String typeCode;
 
     public long getThreadId() {
@@ -18,11 +18,11 @@ public class SetRuleVO {
         this.threadId = threadId;
     }
 
-    public ArrayList<RequestRole> getRoles() {
+    public ArrayList<RoleModelRequest> getRoles() {
         return roles;
     }
 
-    public void setRoles(ArrayList<RequestRole> roles) {
+    public void setRoles(ArrayList<RoleModelRequest> roles) {
         this.roles = roles;
     }
 

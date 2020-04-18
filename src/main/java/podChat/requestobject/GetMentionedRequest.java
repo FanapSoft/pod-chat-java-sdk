@@ -1,13 +1,13 @@
 package podChat.requestobject;
 
 
-public class RequestGetMentionedList extends BaseRequestObject {
+public class GetMentionedRequest extends BaseRequestObject {
     private long threadId;
     private boolean unreadMentioned;
     private boolean allMentioned;
 
 
-    RequestGetMentionedList(Builder builder) {
+    GetMentionedRequest(Builder builder) {
         super(builder);
         this.threadId = builder.threadId;
         this.allMentioned = builder.allMentioned;
@@ -59,8 +59,8 @@ public class RequestGetMentionedList extends BaseRequestObject {
         }
 
 
-        public RequestGetMentionedList build() {
-            return new RequestGetMentionedList(this);
+        public GetMentionedRequest build() {
+            return new GetMentionedRequest(this);
         }
 
         @Override

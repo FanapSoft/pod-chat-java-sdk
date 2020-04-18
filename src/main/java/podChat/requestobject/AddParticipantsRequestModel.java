@@ -63,7 +63,6 @@ public class AddParticipantsRequestModel extends GeneralRequestObject {
 
         ActionStep threadId(Long threadId);
 
-
     }
 
     public static interface ActionStep {

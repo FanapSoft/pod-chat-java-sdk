@@ -5,28 +5,27 @@ import podChat.mainmodel.RequestThreadInnerMessage;
 
 import java.util.List;
 
-public class RequestCreateThreadWithFile extends RequestCreateThreadWithMessage {
-    private RequestUploadFile file;
+public class CreateThreadWithFileRequest<S extends RequestUploadFile> extends CreateThreadWithMessageRequest {
+    private S file;
 
-    RequestCreateThreadWithFile(Builder builder) {
+    CreateThreadWithFileRequest(Builder<S> builder) {
         super(builder);
         this.file = builder.file;
 
     }
 
-    public RequestUploadFile getFile() {
+    public S getFile() {
         return file;
     }
 
-    public void setFile(RequestUploadFile file) {
+    public void setFile(S file) {
         this.file = file;
     }
 
+    public static class Builder<S extends RequestUploadFile> extends CreateThreadWithMessageRequest.Builder<S> {
+        private S file;
 
-    public static class Builder extends RequestCreateThreadWithMessage.Builder<Builder> {
-        private RequestUploadFile file;
-
-        public Builder(int type, List<Invitee> invitees, RequestUploadFile file, int messageType) {
+        public Builder(int type, List<Invitee> invitees, S file, int messageType) {
             super(type, invitees, messageType);
             this.file = file;
         }
@@ -65,8 +64,8 @@ public class RequestCreateThreadWithFile extends RequestCreateThreadWithMessage 
             return this;
         }
 
-        public RequestCreateThreadWithFile build() {
-            return new RequestCreateThreadWithFile(this);
+        public CreateThreadWithFileRequest build() {
+            return new CreateThreadWithFileRequest(this);
         }
     }
 }

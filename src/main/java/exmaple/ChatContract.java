@@ -224,7 +224,7 @@ public interface ChatContract {
 
         void deliveredMessageList(GetMessageDeliveredSeenListRequest requestParams);
 
-        void createThreadWithMessage(RequestCreateThreadWithMessage threadRequest);
+        void createThreadWithMessage(CreateThreadWithMessageRequest threadRequest);
 
 //        String createThread(int threadType, Invitee[] invitee, String threadTitle, String description, String image
 //                , String metadata);
@@ -256,7 +256,7 @@ public interface ChatContract {
 
         void createThread(RequestCreateThread requestCreateThread);
 
-        void createThreadWithFileMessage(RequestCreateThreadWithFile requestCreateThreadWithMessage);
+        void createThreadWithFileMessage(CreateThreadWithFileRequest requestCreateThreadWithMessage);
 
         void sendTextMessage(String textMessage, long threadId, Integer messageType, String metaData, String typeCode,long repliedTo,String  systemMetadata);
 
@@ -287,7 +287,7 @@ public interface ChatContract {
 
         void getThreadParticipant(GetThreadParticipantsRequest request);
 
-        void getMentionedList(RequestGetMentionedList requestGetMentionedList);
+        void getMentionedList(GetMentionedRequest getMentionedRequest);
 
         void getCurrentUserRoles(GetCurrentUserRolesRequest getCurrentUserRolesRequest);
 
@@ -358,13 +358,13 @@ public interface ChatContract {
 //
 //        void uploadFileProgress(Context context, Activity activity, Uri fileUri, ProgressHandler.onProgressFile handler);
 
-        void addAdmin(RequestSetAdmin requestSetAdmin);
+        void addAdmin(SetRemoveRoleRequest requestSetAdmin);
 
-        void removeAdmin(RequestSetAdmin requestSetAdmin);
+        void removeAdmin(SetRemoveRoleRequest requestSetAdmin);
 
-        void addAuditor(RequestSetAuditor requestSetAuditor);
+        void addAuditor(SetRemoveRoleRequest setRemoveRoleRequest);
 
-        void removeAuditor(RequestSetAuditor requestSetAuditor);
+        void removeAuditor(SetRemoveRoleRequest setRemoveRoleRequest);
 
         void clearHistory(RequestClearHistory requestClearHistory);
 

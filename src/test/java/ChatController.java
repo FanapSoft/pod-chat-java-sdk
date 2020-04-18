@@ -99,7 +99,7 @@ chat.getFile(requestGetFile);
     }
 
     @Override
-    public void createThreadWithMessage(RequestCreateThreadWithMessage threadRequest) {
+    public void createThreadWithMessage(CreateThreadWithMessageRequest threadRequest) {
 
     }
 
@@ -169,7 +169,7 @@ chat.getFile(requestGetFile);
     }
 
     @Override
-    public void createThreadWithFileMessage(RequestCreateThreadWithFile requestCreateThreadWithMessage) {
+    public void createThreadWithFileMessage(CreateThreadWithFileRequest requestCreateThreadWithMessage) {
 
     }
 
@@ -241,8 +241,8 @@ chat.getFile(requestGetFile);
     }
 
     @Override
-    public void getMentionedList(RequestGetMentionedList requestGetMentionedList) {
-        chat.getMentionedList(requestGetMentionedList);
+    public void getMentionedList(GetMentionedRequest getMentionedRequest) {
+        chat.getMentionedMessages(getMentionedRequest);
     }
 
     @Override
@@ -384,23 +384,23 @@ chat.getFile(requestGetFile);
     }
 
     @Override
-    public void addAdmin(RequestSetAdmin requestSetAdmin) {
-        chat.addAdmin(requestSetAdmin);
+    public void addAdmin(SetRemoveRoleRequest requestSetAdmin) {
+        chat.setAdmin(requestSetAdmin);
     }
 
     @Override
-    public void removeAdmin(RequestSetAdmin requestSetAdmin) {
+    public void removeAdmin(SetRemoveRoleRequest requestSetAdmin) {
         chat.removeAdmin(requestSetAdmin);
     }
 
     @Override
-    public void addAuditor(RequestSetAuditor requestSetAuditor) {
-        chat.addAuditor(requestSetAuditor);
+    public void addAuditor(SetRemoveRoleRequest setRemoveRoleRequest) {
+        chat.setAuditor(setRemoveRoleRequest);
     }
 
     @Override
-    public void removeAuditor(RequestSetAuditor requestSetAuditor) {
-        chat.removeAuditor(requestSetAuditor);
+    public void removeAuditor(SetRemoveRoleRequest setRemoveRoleRequest) {
+        chat.removeAuditor(setRemoveRoleRequest);
     }
 
 

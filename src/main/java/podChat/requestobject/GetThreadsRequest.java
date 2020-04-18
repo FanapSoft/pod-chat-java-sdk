@@ -9,7 +9,6 @@ public class GetThreadsRequest extends BaseRequestObject {
     private long creatorCoreUserId;
     private long partnerCoreUserId;
     private boolean isNew;
-    private String summary;
 
     GetThreadsRequest(Builder builder) {
         super(builder);
@@ -18,7 +17,6 @@ public class GetThreadsRequest extends BaseRequestObject {
         this.creatorCoreUserId = builder.creatorCoreUserId;
         this.partnerCoreUserId = builder.partnerCoreUserId;
         this.isNew = builder.isNew;
-        this.summary=builder.summary;
     }
 
     public ArrayList<Integer> getThreadIds() {
@@ -57,13 +55,6 @@ public class GetThreadsRequest extends BaseRequestObject {
         return isNew;
     }
 
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
 
     public static class Builder extends BaseRequestObject.Builder<Builder> {
         private ArrayList<Integer> threadIds;
@@ -71,7 +62,6 @@ public class GetThreadsRequest extends BaseRequestObject {
         private long creatorCoreUserId;
         private long partnerCoreUserId;
         private boolean isNew;
-        private String summary;
 
 
         public Builder threadName(String threadName) {
@@ -101,11 +91,6 @@ public class GetThreadsRequest extends BaseRequestObject {
             return this;
         }
 
-
-        public Builder summary(String summary) {
-            this.summary = summary;
-            return this;
-        }
 
         public GetThreadsRequest build() {
             return new GetThreadsRequest(this);

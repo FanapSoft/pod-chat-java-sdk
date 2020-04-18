@@ -78,7 +78,7 @@ public class CreatThreadTest implements ChatContract.view {
         invitees[0] = invitee;
 
         RequestCreateThread requestCreateThread = new RequestCreateThread
-                .Builder<>(ThreadType.NORMAL, new ArrayList<Invitee>() {{
+                .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }})
                 .build();
@@ -108,7 +108,7 @@ public class CreatThreadTest implements ChatContract.view {
         invitees[0] = invitee;
 
         RequestCreateThread requestCreateThread = new RequestCreateThread
-                .Builder<>(ThreadType.NORMAL, new ArrayList<Invitee>() {{
+                .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }})
                 .build();
@@ -141,7 +141,7 @@ public class CreatThreadTest implements ChatContract.view {
         invitees[0] = invitee;
 
         RequestCreateThread requestCreateThread = new RequestCreateThread
-                .Builder<>(ThreadType.NORMAL, new ArrayList<Invitee>() {{
+                .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }})
                 .build();
@@ -173,7 +173,7 @@ public class CreatThreadTest implements ChatContract.view {
         invitees[0] = invitee;
 
         RequestCreateThread requestCreateThread = new RequestCreateThread
-                .Builder<>(ThreadType.NORMAL, new ArrayList<Invitee>() {{
+                .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }})
                 .build();
@@ -208,7 +208,7 @@ public class CreatThreadTest implements ChatContract.view {
         invitees[1] = invitee2;
 
         RequestCreateThread requestCreateThread = new RequestCreateThread
-                .Builder<>(ThreadType.NORMAL, new ArrayList<Invitee>() {{
+                .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }})
                 .build();
@@ -244,7 +244,7 @@ public class CreatThreadTest implements ChatContract.view {
         invitees[1] = invitee2;
 
         RequestCreateThread requestCreateThread = new RequestCreateThread
-                .Builder<>(ThreadType.NORMAL, new ArrayList<Invitee>() {{
+                .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }})
                 .build();

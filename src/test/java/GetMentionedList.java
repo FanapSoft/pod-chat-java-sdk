@@ -5,7 +5,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestGetMentionedList;
+import podChat.requestobject.GetMentionedRequest;
 
 import java.util.ArrayList;
 
@@ -62,11 +62,11 @@ public class GetMentionedList implements ChatContract.view {
     @Order(2)
     void getHistory() throws InterruptedException {
 
-        RequestGetMentionedList requestGetMentionedList = new RequestGetMentionedList
+        GetMentionedRequest getMentionedRequest = new GetMentionedRequest
                 .Builder(111)
                 .build();
 
-        chatController.getMentionedList(requestGetMentionedList);
+        chatController.getMentionedList(getMentionedRequest);
 
         Thread.sleep(5000);
 

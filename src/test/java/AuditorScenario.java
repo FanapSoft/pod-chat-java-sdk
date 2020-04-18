@@ -64,22 +64,22 @@ public class AuditorScenario implements ChatContract.view {
     @Order(3)
     void setRole() throws InterruptedException {
 
-        RequestRole requestRole = new RequestRole();
-        requestRole.setId(userId);
-        requestRole.setRoleTypes(new ArrayList<String>() {{
+        RoleModelRequest roleModelRequest = new RoleModelRequest();
+        roleModelRequest.setUserId(userId);
+        roleModelRequest.setRoles(new ArrayList<String>() {{
             add(RoleType.CHANGE_THREAD_INFO);
             add(RoleType.READ_THREAD);
         }});
 
 
-        ArrayList<RequestRole> requestRoleArrayList = new ArrayList<>();
-        requestRoleArrayList.add(requestRole);
+        ArrayList<RoleModelRequest> roleModelRequestArrayList = new ArrayList<>();
+        roleModelRequestArrayList.add(roleModelRequest);
 
-        RequestSetAuditor requestSetAuditor = new RequestSetAuditor
-                .Builder(threadId, requestRoleArrayList)
+        SetRemoveRoleRequest setRemoveRoleRequest = new SetRemoveRoleRequest
+                .Builder(threadId, roleModelRequestArrayList)
                 .build();
 
-        chatController.addAuditor(requestSetAuditor);
+        chatController.addAuditor(setRemoveRoleRequest);
 
         Thread.sleep(2000);
 
@@ -118,22 +118,22 @@ public class AuditorScenario implements ChatContract.view {
     @Order(4)
     void deleteRole() throws InterruptedException {
 
-        RequestRole requestRole = new RequestRole();
-        requestRole.setId(userId);
-        requestRole.setRoleTypes(new ArrayList<String>() {{
+        RoleModelRequest roleModelRequest = new RoleModelRequest();
+        roleModelRequest.setUserId(userId);
+        roleModelRequest.setRoles(new ArrayList<String>() {{
             add(RoleType.CHANGE_THREAD_INFO);
             add(RoleType.READ_THREAD);
         }});
 
 
-        ArrayList<RequestRole> requestRoleArrayList = new ArrayList<>();
-        requestRoleArrayList.add(requestRole);
+        ArrayList<RoleModelRequest> roleModelRequestArrayList = new ArrayList<>();
+        roleModelRequestArrayList.add(roleModelRequest);
 
-        RequestSetAuditor requestSetAuditor = new RequestSetAuditor
-                .Builder(threadId, requestRoleArrayList)
+        SetRemoveRoleRequest setRemoveRoleRequest = new SetRemoveRoleRequest
+                .Builder(threadId, roleModelRequestArrayList)
                 .build();
 
-        chatController.removeAuditor(requestSetAuditor);
+        chatController.removeAuditor(setRemoveRoleRequest);
 
         Thread.sleep(2000);
 

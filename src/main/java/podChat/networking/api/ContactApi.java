@@ -106,8 +106,7 @@ public interface ContactApi {
             , @Field("email") String email
             , @Field("uniqueId") String uniqueId
             , @Field("cellphoneNumber") String cellphoneNumber
-            , @Field("typeCode") String typeCode
-            , @Field("ownerId") long ownerId);
+            , @Field("typeCode") String typeCode);
 
     @GET("nzh/listContacts")
     Call<SearchContactVO> searchContacts(@Header("_token_") String token

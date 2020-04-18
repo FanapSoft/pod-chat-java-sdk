@@ -7,8 +7,8 @@ import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
 import podChat.requestobject.GetAllThreadAdminsRequest;
-import podChat.requestobject.RequestRole;
-import podChat.requestobject.RequestSetAdmin;
+import podChat.requestobject.RoleModelRequest;
+import podChat.requestobject.SetRemoveRoleRequest;
 import podChat.util.RoleType;
 
 import java.util.ArrayList;
@@ -69,17 +69,17 @@ public class AdminScenario implements ChatContract.view {
     @Order(3)
     void addRole() throws InterruptedException {
 
-        RequestRole requestRole = new RequestRole();
-        requestRole.setId(userId);
-        requestRole.setRoleTypes(new ArrayList<String>() {{
+        RoleModelRequest roleModelRequest = new RoleModelRequest();
+        roleModelRequest.setUserId(userId);
+        roleModelRequest.setRoles(new ArrayList<String>() {{
             add(RoleType.THREAD_ADMIN);
         }});
 
-        ArrayList<RequestRole> requestRoleArrayList = new ArrayList<>();
-        requestRoleArrayList.add(requestRole);
+        ArrayList<RoleModelRequest> roleModelRequestArrayList = new ArrayList<>();
+        roleModelRequestArrayList.add(roleModelRequest);
 
-        RequestSetAdmin requestSetAdmin = new RequestSetAdmin
-                .Builder(threadId, requestRoleArrayList)
+        SetRemoveRoleRequest requestSetAdmin = new SetRemoveRoleRequest
+                .Builder(threadId, roleModelRequestArrayList)
                 .build();
 
         chatController.addAdmin(requestSetAdmin);
@@ -121,17 +121,17 @@ public class AdminScenario implements ChatContract.view {
     @Order(4)
     void deleteRole() throws InterruptedException {
 
-        RequestRole requestRole = new RequestRole();
-        requestRole.setId(userId);
-        requestRole.setRoleTypes(new ArrayList<String>() {{
+        RoleModelRequest roleModelRequest = new RoleModelRequest();
+        roleModelRequest.setUserId(userId);
+        roleModelRequest.setRoles(new ArrayList<String>() {{
             add(RoleType.THREAD_ADMIN);
         }});
 
-        ArrayList<RequestRole> requestRoleArrayList = new ArrayList<>();
-        requestRoleArrayList.add(requestRole);
+        ArrayList<RoleModelRequest> roleModelRequestArrayList = new ArrayList<>();
+        roleModelRequestArrayList.add(roleModelRequest);
 
-        RequestSetAdmin requestSetAdmin = new RequestSetAdmin
-                .Builder(threadId, requestRoleArrayList)
+        SetRemoveRoleRequest requestSetAdmin = new SetRemoveRoleRequest
+                .Builder(threadId, roleModelRequestArrayList)
                 .build();
 
         chatController.removeAdmin(requestSetAdmin);
