@@ -65,7 +65,7 @@ public class RequestThreadInfo extends GeneralRequestObject {
             return title;
         }
 
-        public Builder setTitle(String title) {
+        public Builder title(String title) {
             this.title = title;
             return this;
         }

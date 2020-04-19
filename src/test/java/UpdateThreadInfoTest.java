@@ -7,7 +7,6 @@ import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.RequestConnect;
 import podChat.requestobject.RequestThreadInfo;
-import podChat.requestobject.RequestUpdateProfile;
 
 import java.util.ArrayList;
 
@@ -64,7 +63,7 @@ public class UpdateThreadInfoTest implements ChatContract.view {
                 .Builder()
                 .description("توضیح")
                 .threadId(7149)
-                .setTitle("گروه")
+                .title("گروه")
                 .metadat("test")
                 .image("img")
 //                .uniqueIds(new String[]{"a98d00af-6cb7-4174-a82a-a8ec68af0bb1"})

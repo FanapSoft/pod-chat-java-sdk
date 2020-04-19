@@ -61,13 +61,13 @@ public class GetMentionedListTest implements ChatContract.view {
     @Order(2)
     void getMentionedList() throws InterruptedException {
         GetMentionedRequest getMentionedRequest = new GetMentionedRequest
-                .Builder(7308)
+                .Builder(7129)
                 .allMentioned(true)
 //                .unreadMentioned(true)
                 .build();
         chatController.getMentionedList(getMentionedRequest);
 
-        Thread.sleep(3000);
+        Thread.sleep(10000);
 
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
 

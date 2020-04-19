@@ -66,7 +66,7 @@ public class CountUnreadMessageTest implements ChatContract.view {
                 .build();
 
         chatController.countUnreadMessage(getAllUnreadMessageCountRequest);
-        Thread.sleep(2000);
+        Thread.sleep(10000);
 
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
 

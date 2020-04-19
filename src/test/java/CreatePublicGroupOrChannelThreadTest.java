@@ -72,7 +72,7 @@ public class CreatePublicGroupOrChannelThreadTest implements ChatContract.view {
         RequestCreatePublicGroupOrChannelThread requestCreateThread = new RequestCreatePublicGroupOrChannelThread
                 .Builder(ThreadType.PUBLIC_GROUP, new ArrayList<Invitee>() {{
             add(invitee);
-        }}, "bv2bbbbn")
+        }}, "bv2nhyuhg")
                 .build();
 
         chatController.createThread(requestCreateThread);

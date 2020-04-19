@@ -60,17 +60,16 @@ public class InteractiveMessageTest  implements ChatContract.view {
     @Order(2)
     void interactiveMessage() throws InterruptedException {
         RequestInteract requestInteract = new RequestInteract
-                    .Builder(56249, "OK")
+                    .Builder(95293, "OK")
                     .build();
 
             chatController.interactiveMessage(requestInteract);
 
-        Thread.sleep(2000);
+        Thread.sleep(10000);
 
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
 
         Mockito.verify(chatContract).OnInteractMessage(argument.capture());
-
         ChatResponse chatResponse = argument.getValue();
         Assertions.assertTrue(!chatResponse.hasError());
     }

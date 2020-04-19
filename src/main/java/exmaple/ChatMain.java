@@ -7,8 +7,8 @@ import org.apache.logging.log4j.Logger;
 import podAsync.Async;
 import podChat.mainmodel.Invitee;
 import podChat.mainmodel.MessageVO;
-import podChat.mainmodel.SearchContactsRequest;
 import podChat.mainmodel.RequestThreadInnerMessage;
+import podChat.mainmodel.SearchContactsRequest;
 import podChat.model.*;
 import podChat.requestobject.*;
 import podChat.util.InviteType;
@@ -35,7 +35,7 @@ public class ChatMain implements ChatContract.view {
 //    public static String queueUserName = "root";
 //    public static String queuePassword = "zalzalak";
 //    public static Long chatId = 4101L;
-
+//public static String uri="10.56.16.25:61616";
 
     public static String platformHost = "http://172.16.110.235:8003/srv/bptest-core/";
     //        public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //jiji
@@ -81,7 +81,7 @@ public class ChatMain implements ChatContract.view {
 
             chatController.getUserInfo();
 
-//            addContact();
+            addContact();
 //            Thread.sleep(2000);
 //            getcontact();
 //            Thread.sleep(2000);
@@ -94,7 +94,7 @@ public class ChatMain implements ChatContract.view {
 //            searchContact();
 
 
-            createThread();
+//            createThread();
 //            getThreads();
 //            sendMessage();
 
@@ -588,7 +588,7 @@ public class ChatMain implements ChatContract.view {
      */
     private void sendMessage() {
         SendTextMessageRequest requestThread = new SendTextMessageRequest
-                .Builder("hi @JiJi Jijuli", 7308, TextMessageType.TEXT)
+                .Builder("hi test", 7308, TextMessageType.TEXT)
                 .build();
 
         chatController.sendTextMessage(requestThread);
@@ -670,7 +670,7 @@ public class ChatMain implements ChatContract.view {
         Invitee[] invitees = new Invitee[1];
         Invitee invitee = new Invitee();
         invitee.setIdType(InviteType.TO_BE_USER_ID);
-        invitee.setId("13812");
+        invitee.setId("15508");
 
 //        Invitee invitee2 = new Invitee();
 //        invitee2.setIdType(InviteType.TO_BE_USER_CONTACT_ID);
@@ -681,10 +681,11 @@ public class ChatMain implements ChatContract.view {
 
         RequestCreateThread requestCreateThread = RequestCreateThread
                 .newBuilder()
-                .init(ThreadType.NORMAL, new ArrayList<Invitee>() {{
+                .init(ThreadType.PUBLIC_GROUP, new ArrayList<Invitee>() {{
                             add(invitee);
                         }})
                 .description("test step ")
+
                 .build();
 
         chatController.createThread(requestCreateThread);
@@ -794,7 +795,7 @@ public class ChatMain implements ChatContract.view {
 
     private void interactiveMessage() {
         RequestInteract requestInteract = new RequestInteract
-                .Builder(56249, "OK")
+                .Builder(95293, "OK")
                 .build();
 
         chatController.interactiveMessage(requestInteract);
@@ -854,6 +855,7 @@ public class ChatMain implements ChatContract.view {
                 .threadId(7149)
                 .metadat("test")
                 .image("img")
+                .title("hi")
                 .build();
 
         chatController.updateThreadInfo(requestThreadInfo);

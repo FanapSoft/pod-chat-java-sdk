@@ -61,7 +61,7 @@ public class JoinThreadTest implements ChatContract.view {
     void joinThread() throws InterruptedException {
 
         JoinPublicThreadRequest joinPublicThreadRequest = new JoinPublicThreadRequest
-                .Builder("sdf")
+                .Builder("ghgghhhh")
                 .build();
 
         chatController.joinThead(joinPublicThreadRequest);

@@ -112,7 +112,6 @@ public class RequestCreateThread extends GeneralRequestObject {
 
         ActionStep uniqueName(String uniqueName);
 
-
     }
 
     public static interface BuildStep {
