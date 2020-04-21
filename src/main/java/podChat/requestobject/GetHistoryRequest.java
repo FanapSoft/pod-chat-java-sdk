@@ -27,10 +27,10 @@ public class GetHistoryRequest extends BaseRequestObject {
         this.toTime = builder.toTime;
         this.toTimeNanos = builder.toTimeNanos;
         this.uniqueIds = builder.uniqueIds;
-        this.query=builder.query;
-        this.allMentioned=builder.allMentioned;
-        this.unreadMentioned=builder.unreadMentioned;
-        this.metadataCriteria=builder.metadataCriteria;
+        this.query = builder.query;
+        this.allMentioned = builder.allMentioned;
+        this.unreadMentioned = builder.unreadMentioned;
+        this.metadataCriteria = builder.metadataCriteria;
 
     }
 

@@ -32,6 +32,7 @@ public class UpdateContactsRequest extends GeneralRequestObject {
             this.cellphoneNumber = cellphoneNumber;
             this.email = email;
         }
+
         public UpdateContactsRequest build() {
             return new UpdateContactsRequest(this);
         }

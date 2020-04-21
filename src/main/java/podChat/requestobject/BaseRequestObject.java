@@ -23,6 +23,7 @@ public abstract class BaseRequestObject {
         private long count;
         private long offset;
         private String typeCode;
+
         abstract BaseRequestObject build();
 
         public T count(long count) {
@@ -35,7 +36,7 @@ public abstract class BaseRequestObject {
             return self();
         }
 
-        public T typeCode(String typeCode){
+        public T typeCode(String typeCode) {
             this.typeCode = typeCode;
             return self();
         }

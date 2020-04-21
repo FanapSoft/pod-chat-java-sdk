@@ -1,17 +1,17 @@
 package podChat.requestobject;
 
 
-public class RequestGetFile {
+public class GetFileRequest {
     private long fileId;
     private String hashCode;
     private boolean downloadable;
     private String outputPath;
 
-     RequestGetFile(Builder builder) {
-        this.fileId =  builder.fileId;
+    GetFileRequest(Builder builder) {
+        this.fileId = builder.fileId;
         this.hashCode = builder.hashCode;
         this.downloadable = builder.downloadable;
-        this.outputPath=builder.outputPath;
+        this.outputPath = builder.outputPath;
     }
 
     public static class Builder {
@@ -20,15 +20,15 @@ public class RequestGetFile {
         private boolean downloadable;
         private String outputPath;
 
-        public Builder(long fileId, String hashCode, boolean downloadable,String outputPath) {
-        this.fileId = fileId;
-        this.hashCode = hashCode;
-        this.downloadable = downloadable;
-        this.outputPath=outputPath;
+        public Builder(long fileId, String hashCode, boolean downloadable, String outputPath) {
+            this.fileId = fileId;
+            this.hashCode = hashCode;
+            this.downloadable = downloadable;
+            this.outputPath = outputPath;
         }
 
-        public RequestGetFile build(){
-            return new RequestGetFile(this);
+        public GetFileRequest build() {
+            return new GetFileRequest(this);
         }
     }
 

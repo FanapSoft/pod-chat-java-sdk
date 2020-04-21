@@ -199,18 +199,18 @@ public interface ChatContract {
 
         void isDatabaseOpen();
 
-        void uploadImage(RequestUploadImage requestUploadImage);
+        void uploadImage(UploadImageRequest requestUploadImage);
 
         void uploadFileMessage(RequestFileMessage requestFileMessage, ProgressHandler.sendFileMessage handler);
 
         void replyFileMessage(SendReplyFileMessageRequest sendReplyFileMessageRequest, ProgressHandler.sendFileMessage handler);
 
-        void uploadFile(RequestUploadFile requestUploadFile);
+        void uploadFile(UploadFileRequest uploadFileRequest);
 
-        void getFile(RequestGetFile requestGetFile);
+        void getFile(GetFileRequest getFileRequest);
 
         //void retryUpload(RetryUpload retry, ProgressHandler.sendFileMessage handler);
-        void getImage(RequestGetImage requestGetImage);
+        void getImage(GetImageRequest getImageRequest);
 
         void resendMessage(String uniqueId);
 
@@ -240,7 +240,7 @@ public interface ChatContract {
 
         void setToke(String token);
 
-        void connect(RequestConnect requestConnect) throws ConnectionException;
+        void connect(ConnectRequest connectRequest) throws ConnectionException;
 
         void getUserInfo();
 
@@ -254,7 +254,7 @@ public interface ChatContract {
 
         void getContact(GetContactsRequest request);
 
-        void createThread(RequestCreateThread requestCreateThread);
+        void createThread(CreateThreadRequest createThreadRequest);
 
         void createThreadWithFileMessage(CreateThreadWithFileRequest requestCreateThreadWithMessage);
 
@@ -302,11 +302,11 @@ public interface ChatContract {
 
         void block(Long contactId, Long userId, Long threadId);
 
-        void block(RequestBlock request);
+        void block(BlockRequest request);
 
         void unBlock(Long blockId, Long userId, Long threadId, Long contactId);
 
-        void unBlock(RequestUnBlock request);
+        void unBlock(UnBlockRequest request);
 
         void spam(long threadId);
 
@@ -322,7 +322,7 @@ public interface ChatContract {
 
         void forwardMessage(long threadId, ArrayList<Long> messageIds);
 
-        void forwardMessage(RequestForwardMessage request);
+        void forwardMessage(ForwardMessageRequest request);
 
         void updateContact(UpdateContactsRequest updateContact);
 
@@ -336,7 +336,7 @@ public interface ChatContract {
 
         void removeParticipants(long threadId, List<Long> participantIds);
 
-        void removeParticipants(RequestRemoveParticipants requestRemoveParticipants);
+        void removeParticipants(RemoveParticipantsRequestModel removeParticipantsRequestModel);
 
         void addParticipants(long threadId, List<Long> contactIds);
 
@@ -344,11 +344,11 @@ public interface ChatContract {
 
         void leaveThread(long threadId);
 
-        void leaveThread(RequestLeaveThread threadId);
+        void leaveThread(LeaveThreadRequest threadId);
 
         void updateThreadInfo(long threadId, ThreadInfoVO threadInfoVO);
 
-        void updateThreadInfo(RequestThreadInfo request);
+        void updateThreadInfo(UpdateThreadInfoRequest request);
 
         void deleteMessage(DeleteMessageRequest deleteMessage);
 
@@ -366,17 +366,17 @@ public interface ChatContract {
 
         void removeAuditor(SetRemoveRoleRequest setRemoveRoleRequest);
 
-        void clearHistory(RequestClearHistory requestClearHistory);
+        void clearHistory(ClearHistoryRequest clearHistoryRequest);
 
         void getAdminList(GetAllThreadAdminsRequest getAllThreadAdminsRequest);
 
-        String startSignalMessage(RequestSignalMsg requestSignalMsg);
+        String startSignalMessage(SignalMsgRequest signalMsgRequest);
 
         void stopSignalMessage(String uniqueId);
 
         void getBlockList(GetBlockedListRequest request);
 
-        void interactiveMessage(RequestInteract request);
+        void interactiveMessage(InteractRequest request);
 
         void pinThread(PinUnpinThreadRequest request);
 
@@ -386,7 +386,7 @@ public interface ChatContract {
 
         void unPinMessage(PinUnpinMessageRequest request);
 
-        void updateProfile(RequestUpdateProfile request);
+        void updateProfile(UpdateChatProfileRequest request);
 
         void isNameAvailable(IsPublicThreadNameAvailableRequest request);
 

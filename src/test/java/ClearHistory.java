@@ -6,8 +6,8 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
-import podChat.requestobject.RequestClearHistory;
-import podChat.requestobject.RequestConnect;
+import podChat.requestobject.ClearHistoryRequest;
+import podChat.requestobject.ConnectRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class ClearHistory implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -55,7 +55,7 @@ public class ClearHistory implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
             Thread.sleep(2000);
 
@@ -68,11 +68,11 @@ public class ClearHistory implements ChatContract.view {
     @Order(2)
     void clearHistory() throws InterruptedException {
 
-        RequestClearHistory requestClearHistory = new RequestClearHistory
+        ClearHistoryRequest clearHistoryRequest = new ClearHistoryRequest
                 .Builder(5461)
                 .build();
 
-        chatController.clearHistory(requestClearHistory);
+        chatController.clearHistory(clearHistoryRequest);
 
         Thread.sleep(3000);
 

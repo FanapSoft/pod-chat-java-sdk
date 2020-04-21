@@ -5,8 +5,8 @@ import exmaple.ChatContract;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
-import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestGetImage;
+import podChat.requestobject.ConnectRequest;
+import podChat.requestobject.GetImageRequest;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class GetImageTest implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -48,7 +48,7 @@ public class GetImageTest implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
             Thread.sleep(2000);
         } catch (ConnectionException e) {
@@ -59,10 +59,10 @@ public class GetImageTest implements ChatContract.view {
     @Test
     @Order(2)
     void getImage() throws InterruptedException {
-        RequestGetImage requestGetImage = new RequestGetImage
+        GetImageRequest getImageRequest = new GetImageRequest
                 .Builder(12516, "17159944353-0.8847278640747307", true, "C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.jpg")
                 .build();
-        chatController.getImage(requestGetImage);
+        chatController.getImage(getImageRequest);
         Thread.sleep(10000);
 
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);

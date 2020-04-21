@@ -1,33 +1,33 @@
 package podChat.requestobject;
 
 
-public class GetBlockedListRequest extends GeneralRequestObject  {
+public class GetBlockedListRequest extends GeneralRequestObject {
     private long count;
     private long offset;
 
-    GetBlockedListRequest(Builder builder){
+    GetBlockedListRequest(Builder builder) {
         super(builder);
         this.count = builder.count;
         this.offset = builder.offset;
     }
 
-    public static class Builder extends GeneralRequestObject.Builder<Builder>{
+    public static class Builder extends GeneralRequestObject.Builder<Builder> {
         private long count;
         private long offset;
 
-        public Builder count(long count){
+        public Builder count(long count) {
             this.count = count;
             return this;
         }
 
 
-        public Builder offset(long offset){
+        public Builder offset(long offset) {
             this.offset = offset;
             return this;
         }
 
 
-        public GetBlockedListRequest build(){
+        public GetBlockedListRequest build() {
             return new GetBlockedListRequest(this);
         }
 

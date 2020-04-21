@@ -3,11 +3,11 @@ package podChat.requestobject;
 
 import java.util.List;
 
-public class RequestRemoveParticipants extends GeneralRequestObject {
+public class RemoveParticipantsRequestModel extends GeneralRequestObject {
     private long threadId;
     private List<Long> participantIds;
 
-    RequestRemoveParticipants( Builder builder) {
+    RemoveParticipantsRequestModel(Builder builder) {
         super(builder);
         this.participantIds = builder.participantIds;
         this.threadId = builder.threadId;
@@ -38,13 +38,14 @@ public class RequestRemoveParticipants extends GeneralRequestObject {
             this.participantIds = participantIds;
             this.threadId = threadId;
         }
+
         @Override
         protected Builder self() {
             return this;
         }
 
-        public RequestRemoveParticipants build() {
-            return new RequestRemoveParticipants(this);
+        public RemoveParticipantsRequestModel build() {
+            return new RemoveParticipantsRequestModel(this);
         }
     }
 

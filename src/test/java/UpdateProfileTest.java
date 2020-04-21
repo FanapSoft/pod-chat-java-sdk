@@ -5,8 +5,8 @@ import exmaple.ChatContract;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
-import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestUpdateProfile;
+import podChat.requestobject.ConnectRequest;
+import podChat.requestobject.UpdateChatProfileRequest;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class UpdateProfileTest implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -48,7 +48,7 @@ public class UpdateProfileTest implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
             Thread.sleep(2000);
         } catch (ConnectionException e) {
@@ -59,7 +59,7 @@ public class UpdateProfileTest implements ChatContract.view {
     @Test
     @Order(2)
     void updateProfile() throws InterruptedException {
-        RequestUpdateProfile requestUpdateProfile = new RequestUpdateProfile
+        UpdateChatProfileRequest requestUpdateProfile = new UpdateChatProfileRequest
                 .Builder()
                 .metadata("test2")
                 .bio("hei")

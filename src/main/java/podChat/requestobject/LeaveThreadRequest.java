@@ -1,11 +1,11 @@
 package podChat.requestobject;
 
 
-public class RequestLeaveThread extends GeneralRequestObject {
+public class LeaveThreadRequest extends GeneralRequestObject {
 
     private long threadId;
 
-     RequestLeaveThread( Builder builder) {
+     LeaveThreadRequest(Builder builder) {
         super(builder);
         this.threadId = builder.threadId;
 
@@ -26,8 +26,8 @@ public class RequestLeaveThread extends GeneralRequestObject {
             this.threadId = threadId;
         }
 
-        public RequestLeaveThread build() {
-            return new RequestLeaveThread(this);
+        public LeaveThreadRequest build() {
+            return new LeaveThreadRequest(this);
         }
 
         @Override

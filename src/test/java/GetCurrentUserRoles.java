@@ -4,7 +4,7 @@ import exmaple.ChatContract;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
-import podChat.requestobject.RequestConnect;
+import podChat.requestobject.ConnectRequest;
 import podChat.requestobject.GetCurrentUserRolesRequest;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class GetCurrentUserRoles implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -50,7 +50,7 @@ public class GetCurrentUserRoles implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
             Thread.sleep(2000);
         } catch (ConnectionException e) {

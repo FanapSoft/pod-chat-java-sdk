@@ -6,8 +6,8 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
-import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestLeaveThread;
+import podChat.requestobject.ConnectRequest;
+import podChat.requestobject.LeaveThreadRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class LeaveThread implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -55,7 +55,7 @@ public class LeaveThread implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
             Thread.sleep(2000);
         } catch (ConnectionException e) {
@@ -67,7 +67,7 @@ public class LeaveThread implements ChatContract.view {
     @Order(2)
     void leaveThreadFromGroup() throws InterruptedException {
 
-        RequestLeaveThread leaveThread = new RequestLeaveThread
+        LeaveThreadRequest leaveThread = new LeaveThreadRequest
                 .Builder(5821)
                 .build();
 
@@ -94,8 +94,8 @@ public class LeaveThread implements ChatContract.view {
     @Order(2)
     void leaveThreadP2P() throws InterruptedException {
 
-        RequestLeaveThread leaveThread = new RequestLeaveThread
-                .Builder(3042)
+        LeaveThreadRequest leaveThread = new LeaveThreadRequest
+                .Builder(7433)
                 .build();
 
         chatController.leaveThread(leaveThread);

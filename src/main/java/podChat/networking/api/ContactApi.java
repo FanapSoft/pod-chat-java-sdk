@@ -37,8 +37,9 @@ public interface ContactApi {
             , @Field("uniqueId") String uniqueId
             , @Field("cellphoneNumber") String cellphoneNumber
             , @Field("username") String username
+            , @Field("ownerId") Long ownerId
             , @Field("typeCode") String typeCode
-            , @Field("ownerId") long ownerId
+//            , @Field("ownerId") long ownerId
     );
 
     /* addContacts With type code*/

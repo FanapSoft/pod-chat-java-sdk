@@ -1,13 +1,13 @@
 package podChat.requestobject;
 
 
-public class RequestUnBlock extends GeneralRequestObject {
+public class UnBlockRequest extends GeneralRequestObject {
     private long blockId;
     private long userId;
     private long threadId;
     private long contactId;
 
-    RequestUnBlock(Builder builder) {
+    UnBlockRequest(Builder builder) {
         super(builder);
         this.blockId = builder.blockId;
         this.userId = builder.userId;
@@ -44,8 +44,8 @@ public class RequestUnBlock extends GeneralRequestObject {
             return this;
         }
 
-        public RequestUnBlock build() {
-            return new RequestUnBlock(this);
+        public UnBlockRequest build() {
+            return new UnBlockRequest(this);
         }
 
         @Override

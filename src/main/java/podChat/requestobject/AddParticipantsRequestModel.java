@@ -85,12 +85,9 @@ public class AddParticipantsRequestModel extends GeneralRequestObject {
 
         BuildStep withCoreUserIds(List<Long> coreUserIds);
 
-
     }
 
-
     public static interface BuildStep {
-
 
         AddParticipantsRequestModel build();
 

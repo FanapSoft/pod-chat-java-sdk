@@ -6,8 +6,8 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
-import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestForwardMessage;
+import podChat.requestobject.ConnectRequest;
+import podChat.requestobject.ForwardMessageRequest;
 
 import java.util.ArrayList;
 
@@ -39,7 +39,7 @@ public class ForwardMessage implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -56,7 +56,7 @@ public class ForwardMessage implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
             Thread.sleep(2000);
         } catch (ConnectionException e) {
@@ -67,7 +67,7 @@ public class ForwardMessage implements ChatContract.view {
     @Test
     @Order(2)
     void forwardMessage() throws InterruptedException {
-        RequestForwardMessage forwardMessage = new RequestForwardMessage
+        ForwardMessageRequest forwardMessage = new ForwardMessageRequest
                 .Builder(7129, new ArrayList<Long>() {{
             add(94291L);
 //            add(47402l);
@@ -91,7 +91,7 @@ public class ForwardMessage implements ChatContract.view {
     @Test
     @Order(3)
     void ForwardMessageWithNotExistMessageId() throws InterruptedException {
-        RequestForwardMessage forwardMessage = new RequestForwardMessage
+        ForwardMessageRequest forwardMessage = new ForwardMessageRequest
                 .Builder(5461, new ArrayList<Long>() {{
             add(474031l);
         }})

@@ -1,13 +1,13 @@
 package podChat.requestobject;
 
 
-public class RequestGetImage {
+public class GetImageRequest {
     private long imageId;
     private String hashCode;
     private boolean downloadable;
     private String outputPath;
 
-    RequestGetImage(Builder builder) {
+    GetImageRequest(Builder builder) {
         this.imageId = builder.imageId;
         this.hashCode = builder.hashCode;
         this.downloadable = builder.downloadable;
@@ -28,8 +28,8 @@ public class RequestGetImage {
             this.outputPath = outputPath;
         }
 
-        public RequestGetImage build() {
-            return new RequestGetImage(this);
+        public GetImageRequest build() {
+            return new GetImageRequest(this);
         }
     }
 

@@ -7,8 +7,8 @@ import org.mockito.*;
 import podChat.mainmodel.Invitee;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
-import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestCreateThread;
+import podChat.requestobject.ConnectRequest;
+import podChat.requestobject.CreateThreadRequest;
 import podChat.util.InviteType;
 import podChat.util.ThreadType;
 
@@ -40,7 +40,7 @@ public class CreatThreadTest implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -57,7 +57,7 @@ public class CreatThreadTest implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
             Thread.sleep(2000);
 
@@ -77,13 +77,13 @@ public class CreatThreadTest implements ChatContract.view {
 
         invitees[0] = invitee;
 
-        RequestCreateThread requestCreateThread = new RequestCreateThread
+        CreateThreadRequest createThreadRequest = new CreateThreadRequest
                 .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }})
                 .build();
 
-        chatController.createThread(requestCreateThread);
+        chatController.createThread(createThreadRequest);
 
         java.lang.Thread.sleep(3000);
 
@@ -107,13 +107,13 @@ public class CreatThreadTest implements ChatContract.view {
 
         invitees[0] = invitee;
 
-        RequestCreateThread requestCreateThread = new RequestCreateThread
+        CreateThreadRequest createThreadRequest = new CreateThreadRequest
                 .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }})
                 .build();
 
-        chatController.createThread(requestCreateThread);
+        chatController.createThread(createThreadRequest);
 
         java.lang.Thread.sleep(3000);
 
@@ -140,13 +140,13 @@ public class CreatThreadTest implements ChatContract.view {
 
         invitees[0] = invitee;
 
-        RequestCreateThread requestCreateThread = new RequestCreateThread
+        CreateThreadRequest createThreadRequest = new CreateThreadRequest
                 .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }})
                 .build();
 
-        chatController.createThread(requestCreateThread);
+        chatController.createThread(createThreadRequest);
 
         java.lang.Thread.sleep(3000);
 
@@ -172,13 +172,13 @@ public class CreatThreadTest implements ChatContract.view {
 
         invitees[0] = invitee;
 
-        RequestCreateThread requestCreateThread = new RequestCreateThread
+        CreateThreadRequest createThreadRequest = new CreateThreadRequest
                 .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }})
                 .build();
 
-        chatController.createThread(requestCreateThread);
+        chatController.createThread(createThreadRequest);
 
         java.lang.Thread.sleep(3000);
 
@@ -207,13 +207,13 @@ public class CreatThreadTest implements ChatContract.view {
         invitees[0] = invitee;
         invitees[1] = invitee2;
 
-        RequestCreateThread requestCreateThread = new RequestCreateThread
+        CreateThreadRequest createThreadRequest = new CreateThreadRequest
                 .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }})
                 .build();
 
-        chatController.createThread(requestCreateThread);
+        chatController.createThread(createThreadRequest);
 
         java.lang.Thread.sleep(3000);
 
@@ -243,13 +243,13 @@ public class CreatThreadTest implements ChatContract.view {
         invitees[0] = invitee;
         invitees[1] = invitee2;
 
-        RequestCreateThread requestCreateThread = new RequestCreateThread
+        CreateThreadRequest createThreadRequest = new CreateThreadRequest
                 .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }})
                 .build();
 
-        chatController.createThread(requestCreateThread);
+        chatController.createThread(createThreadRequest);
 
         java.lang.Thread.sleep(3000);
 

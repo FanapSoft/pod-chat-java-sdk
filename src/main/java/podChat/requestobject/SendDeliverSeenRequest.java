@@ -1,11 +1,11 @@
 package podChat.requestobject;
 
 
-public class RequestSeenMessage extends GeneralRequestObject {
+public class SendDeliverSeenRequest extends GeneralRequestObject {
     private long messageId;
     private long ownerId;
 
-    RequestSeenMessage( Builder builder) {
+    SendDeliverSeenRequest(Builder builder) {
         super(builder);
         this.messageId = builder.messageId;
         this.ownerId = builder.ownerId;
@@ -28,8 +28,8 @@ public class RequestSeenMessage extends GeneralRequestObject {
         }
 
 
-        public RequestSeenMessage build() {
-            return new RequestSeenMessage(this);
+        public SendDeliverSeenRequest build() {
+            return new SendDeliverSeenRequest(this);
         }
 
 

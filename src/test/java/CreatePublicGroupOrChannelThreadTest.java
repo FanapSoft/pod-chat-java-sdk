@@ -6,8 +6,8 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.mainmodel.Invitee;
 import podChat.model.ChatResponse;
-import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestCreatePublicGroupOrChannelThread;
+import podChat.requestobject.ConnectRequest;
+import podChat.requestobject.CreateThreadRequest;
 import podChat.util.InviteType;
 import podChat.util.ThreadType;
 
@@ -34,7 +34,7 @@ public class CreatePublicGroupOrChannelThreadTest implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -51,7 +51,7 @@ public class CreatePublicGroupOrChannelThreadTest implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
             Thread.sleep(2000);
 
@@ -69,14 +69,16 @@ public class CreatePublicGroupOrChannelThreadTest implements ChatContract.view {
         invitee.setId("578");
         invitees[0] = invitee;
 
-        RequestCreatePublicGroupOrChannelThread requestCreateThread = new RequestCreatePublicGroupOrChannelThread
-                .Builder(ThreadType.PUBLIC_GROUP, new ArrayList<Invitee>() {{
-            add(invitee);
-        }}, "bv2nhyuhg")
+        CreateThreadRequest createThreadRequest = CreateThreadRequest
+                .newBuilder()
+                .publicThreadOrChannel(ThreadType.PUBLIC_GROUP, new ArrayList<Invitee>() {{
+                    add(invitee);
+                }},"test1234join")
+                .description("test step ")
                 .build();
 
-        chatController.createThread(requestCreateThread);
-        Thread.sleep(10000);
+        chatController.createThread(createThreadRequest);
+        Thread.sleep(20000);
 
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
 

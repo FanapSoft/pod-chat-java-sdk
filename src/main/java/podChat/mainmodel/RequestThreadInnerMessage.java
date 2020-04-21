@@ -8,12 +8,14 @@ public class RequestThreadInnerMessage {
     private String metadata;
     private String systemMetadata;
     private List<Long> forwardedMessageIds;
+    private int messageType;
 
     public RequestThreadInnerMessage(Builder builder) {
         this.text = builder.text;
         this.metadata = builder.metadata;
         this.systemMetadata = builder.systemMetadata;
         this.forwardedMessageIds = builder.forwardedMessageIds;
+        this.messageType = builder.messageType;
     }
 
     public String getText() {
@@ -47,20 +49,35 @@ public class RequestThreadInnerMessage {
     public void setForwardedMessageIds(List<Long> forwardedMessageIds) {
         this.forwardedMessageIds = forwardedMessageIds;
     }
+    public int getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(int messageType) {
+        this.messageType = messageType;
+    }
+
 
     public static class Builder {
         private String text;
         private String metadata;
         private String systemMetadata;
         private List<Long> forwardedMessageIds;
+        private int messageType;
+
 
         public Builder() {
         }
 
-        public Builder(String text) {
-            this.text = text;
+        public Builder messageType(int messageType) {
+            this.messageType = messageType;
+            return this;
         }
 
+        public Builder text(String text) {
+            this.text = text;
+            return this;
+        }
 
         public Builder message(String text) {
             this.text = text;

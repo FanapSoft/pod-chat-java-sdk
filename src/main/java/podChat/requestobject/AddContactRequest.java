@@ -10,7 +10,7 @@ public class AddContactRequest extends GeneralRequestObject {
     private String cellphoneNumber;
     private String email;
     private String userName;
-    private long ownerId;
+    private Long ownerId;
 
     AddContactRequest(Builder builder) {
         super(builder);
@@ -70,11 +70,11 @@ public class AddContactRequest extends GeneralRequestObject {
         this.userName = userName;
     }
 
-    public long getOwnerId() {
+    public Long getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(long ownerId) {
+    public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
     }
 
@@ -85,7 +85,6 @@ public class AddContactRequest extends GeneralRequestObject {
         ActionStep lastName(String lastName);
 
         ActionStep firstNameLastName(String firstName, String lastName);
-
 
     }
 
@@ -105,14 +104,11 @@ public class AddContactRequest extends GeneralRequestObject {
 
         BuildStep userName(String userName);
 
-
     }
 
     public static interface BuildStep {
 
-
         AddContactRequest build();
-
 
     }
 
@@ -122,9 +118,9 @@ public class AddContactRequest extends GeneralRequestObject {
         private String cellphoneNumber;
         private String email;
         private String userName;
-        private long ownerId;
+        private Long ownerId;
 
-        public Builder ownerId(long ownerId) {
+        public Builder ownerId(Long ownerId) {
             this.ownerId = ownerId;
             return this;
         }

@@ -1,11 +1,11 @@
 package podChat.requestobject;
 
-public class RequestBlock extends GeneralRequestObject {
+public class BlockRequest extends GeneralRequestObject {
     private long contactId;
     private long userId;
     private long threadId;
 
-    RequestBlock(Builder builder) {
+    BlockRequest(Builder builder) {
         super(builder);
         this.contactId = builder.contactId;
         this.userId = builder.userId;
@@ -56,8 +56,8 @@ public class RequestBlock extends GeneralRequestObject {
             return this;
         }
 
-        public RequestBlock build() {
-            return new RequestBlock(this);
+        public BlockRequest build() {
+            return new BlockRequest(this);
         }
 
         @Override

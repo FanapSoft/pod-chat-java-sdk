@@ -14,7 +14,7 @@ public class CreateThreadWithMessageRequest extends BaseRequestObject {
     private RequestThreadInnerMessage message;
     private String description;
     private String image;
-    private int messageType;
+    private String uniqueName;
 
     CreateThreadWithMessageRequest(Builder<?> builder) {
         super(builder);
@@ -24,7 +24,7 @@ public class CreateThreadWithMessageRequest extends BaseRequestObject {
         this.invitees = builder.invitees;
         this.description = builder.description;
         this.image = builder.image;
-        this.messageType = builder.messageType;
+        this.uniqueName=builder.uniqueName;
 
     }
 
@@ -84,33 +84,29 @@ public class CreateThreadWithMessageRequest extends BaseRequestObject {
         this.image = image;
     }
 
-    public int getMessageType() {
-        return messageType;
+    public String getUniqueName() {
+        return uniqueName;
     }
 
-    public void setMessageType(int messageType) {
-        this.messageType = messageType;
+    public void setUniqueName(String uniqueName) {
+        this.uniqueName = uniqueName;
     }
 
-    public static class Builder<S extends RequestUploadFile> extends BaseRequestObject.Builder<Builder> {
+    public static class Builder<S extends UploadFileRequest> extends BaseRequestObject.Builder<Builder> {
         private final int type;
         private final List<Invitee> invitees;
         private String title;
         private RequestThreadInnerMessage message;
         private String description;
         private String image;
-        private int messageType;
+        private String uniqueName;
 
-        public Builder(int type, List<Invitee> invitees, int messageType) {
+        public Builder(int type, List<Invitee> invitees,RequestThreadInnerMessage message) {
             this.invitees = invitees;
             this.type = type;
-            this.messageType = messageType;
+            this.message=message;
         }
 
-        public Builder message(RequestThreadInnerMessage message) {
-            this.message = message;
-            return this;
-        }
 
         public Builder title(String title) {
             this.title = title;
@@ -125,6 +121,10 @@ public class CreateThreadWithMessageRequest extends BaseRequestObject {
         public Builder image(String image) {
             this.image = image;
             return this;
+        }
+
+        public void uniqueName(String uniqueName) {
+            this.uniqueName = uniqueName;
         }
 
         @Override

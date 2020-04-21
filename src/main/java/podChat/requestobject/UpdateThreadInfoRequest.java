@@ -1,7 +1,7 @@
 package podChat.requestobject;
 
 
-public class RequestThreadInfo extends GeneralRequestObject {
+public class UpdateThreadInfoRequest extends GeneralRequestObject {
     private String image;
     private long threadId;
     private String title;
@@ -9,7 +9,7 @@ public class RequestThreadInfo extends GeneralRequestObject {
     private String description;
     private String metadata;
 
-    RequestThreadInfo(Builder builder) {
+    UpdateThreadInfoRequest(Builder builder) {
         super(builder);
         this.description = builder.description;
         this.image = builder.image;
@@ -70,8 +70,8 @@ public class RequestThreadInfo extends GeneralRequestObject {
             return this;
         }
 
-        public RequestThreadInfo build() {
-            return new RequestThreadInfo(this);
+        public UpdateThreadInfoRequest build() {
+            return new UpdateThreadInfoRequest(this);
         }
 
 

@@ -1,10 +1,10 @@
 package podChat.requestobject;
 
-public class RequestClearHistory extends GeneralRequestObject {
+public class ClearHistoryRequest extends GeneralRequestObject {
 
     private long threadId;
 
-    private RequestClearHistory(Builder builder) {
+    private ClearHistoryRequest(Builder builder) {
         super(builder);
         this.threadId = builder.threadId;
     }
@@ -24,8 +24,8 @@ public class RequestClearHistory extends GeneralRequestObject {
             this.threadId = threadId;
         }
 
-        public RequestClearHistory build() {
-            return new RequestClearHistory(this);
+        public ClearHistoryRequest build() {
+            return new ClearHistoryRequest(this);
         }
 
         @Override

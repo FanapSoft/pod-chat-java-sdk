@@ -4,12 +4,12 @@ package podChat.requestobject;
  * Created By F.Khojasteh on 2/23/2020
  */
 
-public class RequestUpdateProfile extends GeneralRequestObject {
+public class UpdateChatProfileRequest extends GeneralRequestObject {
 
     private String bio;
     private String metadata;
 
-    RequestUpdateProfile(Builder builder) {
+    UpdateChatProfileRequest(Builder builder) {
         super(builder);
         this.bio = builder.bio;
         this.metadata = builder.metadata;
@@ -47,8 +47,8 @@ public class RequestUpdateProfile extends GeneralRequestObject {
         }
 
 
-        public RequestUpdateProfile build() {
-            return new RequestUpdateProfile(this);
+        public UpdateChatProfileRequest build() {
+            return new UpdateChatProfileRequest(this);
         }
 
 

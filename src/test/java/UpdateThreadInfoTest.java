@@ -5,8 +5,8 @@ import exmaple.ChatContract;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
-import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestThreadInfo;
+import podChat.requestobject.ConnectRequest;
+import podChat.requestobject.UpdateThreadInfoRequest;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class UpdateThreadInfoTest implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -48,7 +48,7 @@ public class UpdateThreadInfoTest implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
             Thread.sleep(2000);
         } catch (ConnectionException e) {
@@ -59,7 +59,7 @@ public class UpdateThreadInfoTest implements ChatContract.view {
     @Test
     @Order(2)
     void updateThreadInfo() throws InterruptedException {
-        RequestThreadInfo requestThreadInfo = new RequestThreadInfo
+        UpdateThreadInfoRequest updateThreadInfoRequest = new UpdateThreadInfoRequest
                 .Builder()
                 .description("توضیح")
                 .threadId(7149)
@@ -69,7 +69,7 @@ public class UpdateThreadInfoTest implements ChatContract.view {
 //                .uniqueIds(new String[]{"a98d00af-6cb7-4174-a82a-a8ec68af0bb1"})
                 .build();
 
-        chatController.updateThreadInfo(requestThreadInfo);
+        chatController.updateThreadInfo(updateThreadInfoRequest);
 
 
         Thread.sleep(3000);

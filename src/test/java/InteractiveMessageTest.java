@@ -5,14 +5,14 @@ import exmaple.ChatContract;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
-import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestInteract;
+import podChat.requestobject.ConnectRequest;
+import podChat.requestobject.InteractRequest;
 
 import java.util.ArrayList;
 
 @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class InteractiveMessageTest  implements ChatContract.view {
+public class InteractiveMessageTest implements ChatContract.view {
 
     @Mock
     static ChatContract.view chatContract;
@@ -32,7 +32,7 @@ public class InteractiveMessageTest  implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -49,21 +49,23 @@ public class InteractiveMessageTest  implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
             Thread.sleep(2000);
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
     }
+
     @Test
     @Order(2)
     void interactiveMessage() throws InterruptedException {
-        RequestInteract requestInteract = new RequestInteract
-                    .Builder(95293, "OK")
-                    .build();
+        InteractRequest interactRequest = new InteractRequest
+                .Builder(95293, "OK")
+                .metadata("meta")
+                .build();
 
-            chatController.interactiveMessage(requestInteract);
+        chatController.interactiveMessage(interactRequest);
 
         Thread.sleep(10000);
 
@@ -73,4 +75,4 @@ public class InteractiveMessageTest  implements ChatContract.view {
         ChatResponse chatResponse = argument.getValue();
         Assertions.assertTrue(!chatResponse.hasError());
     }
-    }
+}

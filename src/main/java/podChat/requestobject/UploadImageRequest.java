@@ -1,14 +1,14 @@
 package podChat.requestobject;
 
 
-public class RequestUploadImage extends RequestUploadFile {
+public class UploadImageRequest extends UploadFileRequest {
     private int xC;
     private int yC;
     private int hC;
     private int wC;
 
 
-    RequestUploadImage(Builder builder) {
+    UploadImageRequest(Builder builder) {
         super(builder);
         this.xC = builder.xC;
         this.yC = builder.yC;
@@ -21,7 +21,7 @@ public class RequestUploadImage extends RequestUploadFile {
         return xC;
     }
 
-    public RequestUploadImage setxC(int xC) {
+    public UploadImageRequest setxC(int xC) {
         this.xC = xC;
         return this;
     }
@@ -30,7 +30,7 @@ public class RequestUploadImage extends RequestUploadFile {
         return yC;
     }
 
-    public RequestUploadImage setyC(int yC) {
+    public UploadImageRequest setyC(int yC) {
         this.yC = yC;
         return this;
     }
@@ -39,7 +39,7 @@ public class RequestUploadImage extends RequestUploadFile {
         return hC;
     }
 
-    public RequestUploadImage sethC(int hC) {
+    public UploadImageRequest sethC(int hC) {
         this.hC = hC;
         return this;
     }
@@ -48,12 +48,12 @@ public class RequestUploadImage extends RequestUploadFile {
         return wC;
     }
 
-    public RequestUploadImage setwC(int wC) {
+    public UploadImageRequest setwC(int wC) {
         this.wC = wC;
         return this;
     }
 
-    public static class Builder extends RequestUploadFile.Builder<Builder> {
+    public static class Builder extends UploadFileRequest.Builder<Builder> {
         private int xC;
         private int yC;
         private int hC;
@@ -83,8 +83,8 @@ public class RequestUploadImage extends RequestUploadFile {
             return this;
         }
 
-        public RequestUploadImage build() {
-            return new RequestUploadImage(this);
+        public UploadImageRequest build() {
+            return new UploadImageRequest(this);
         }
 
     }

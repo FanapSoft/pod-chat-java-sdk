@@ -5,9 +5,9 @@ import exmaple.ChatContract;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
-import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestUploadFile;
-import podChat.requestobject.RequestUploadImage;
+import podChat.requestobject.ConnectRequest;
+import podChat.requestobject.UploadFileRequest;
+import podChat.requestobject.UploadImageRequest;
 
 import java.util.ArrayList;
 
@@ -37,7 +37,7 @@ public class UploadFileAndImage implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -54,7 +54,7 @@ public class UploadFileAndImage implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
             Thread.sleep(2000);
         } catch (ConnectionException e) {
@@ -67,11 +67,11 @@ public class UploadFileAndImage implements ChatContract.view {
     @Order(2)
     void uploadFile() throws InterruptedException {
 
-        RequestUploadFile requestUploadFile = new RequestUploadFile
+        UploadFileRequest uploadFileRequest = new UploadFileRequest
                 .Builder("F:\\models.txt")
                 .build();
 
-        chatController.uploadFile(requestUploadFile);
+        chatController.uploadFile(uploadFileRequest);
 
         Thread.sleep(10000);
 
@@ -89,7 +89,7 @@ public class UploadFileAndImage implements ChatContract.view {
     @Order(2)
     void uploadImageWithCrop() throws InterruptedException {
 
-        RequestUploadImage requestUploadImage = new RequestUploadImage
+        UploadImageRequest requestUploadImage = new UploadImageRequest
                 .Builder("C:\\Users\\fanap-10\\Pictures\\Saved Pictures\\a.jpg")
                 .xC(100)
                 .yC(100)
@@ -115,7 +115,7 @@ public class UploadFileAndImage implements ChatContract.view {
     @Order(2)
     void uploadImageWithoutCrop() throws InterruptedException {
 
-        RequestUploadImage requestUploadImage = new RequestUploadImage
+        UploadImageRequest requestUploadImage = new UploadImageRequest
                 .Builder("C:\\Users\\fanap-10\\Pictures\\Saved Pictures\\a.jpg")
                 .build();
 

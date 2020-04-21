@@ -3,7 +3,7 @@ package podChat.requestobject;
 
 import java.util.List;
 
-public class RequestConnect extends BaseRequestObject {
+public class ConnectRequest extends BaseRequestObject {
     private List<String> uris;
     private String queueInput;
     private String queueOutput;
@@ -17,7 +17,7 @@ public class RequestConnect extends BaseRequestObject {
     private Long chatId;
 
 
-    public RequestConnect(Builder builder) {
+    public ConnectRequest(Builder builder) {
         super(builder);
         this.uris = builder.uris;
         this.queueInput = builder.queueInput;
@@ -153,8 +153,8 @@ public class RequestConnect extends BaseRequestObject {
         }
 
 
-        public RequestConnect build() {
-            return new RequestConnect(this);
+        public ConnectRequest build() {
+            return new ConnectRequest(this);
         }
 
         public Builder typeCode(String typeCode) {

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
-import podChat.requestobject.RequestConnect;
+import podChat.requestobject.ConnectRequest;
 import podChat.requestobject.ReplyTextMessageRequest;
 import podChat.util.TextMessageType;
 
@@ -38,7 +38,7 @@ public class ReplyMessage implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -55,7 +55,7 @@ public class ReplyMessage implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
             Thread.sleep(2000);
         } catch (ConnectionException e) {

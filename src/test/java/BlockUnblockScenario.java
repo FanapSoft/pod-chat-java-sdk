@@ -5,10 +5,10 @@ import exmaple.ChatContract;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
-import podChat.requestobject.RequestBlock;
+import podChat.requestobject.BlockRequest;
 import podChat.requestobject.GetBlockedListRequest;
-import podChat.requestobject.RequestConnect;
-import podChat.requestobject.RequestUnBlock;
+import podChat.requestobject.ConnectRequest;
+import podChat.requestobject.UnBlockRequest;
 
 import java.util.ArrayList;
 
@@ -42,7 +42,7 @@ public class BlockUnblockScenario implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -59,7 +59,7 @@ public class BlockUnblockScenario implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
             Thread.sleep(2000);
 
@@ -72,12 +72,12 @@ public class BlockUnblockScenario implements ChatContract.view {
     @Order(2)
     void blockWithUserId() throws InterruptedException {
 
-        RequestBlock requestBlock = new RequestBlock
+        BlockRequest blockRequest = new BlockRequest
                 .Builder()
                 .userId(userId)
                 .build();
 
-        chatController.block(requestBlock);
+        chatController.block(blockRequest);
 
         Thread.sleep(2000);
 
@@ -94,7 +94,7 @@ public class BlockUnblockScenario implements ChatContract.view {
     @Order(3)
     void unBlockWithUserId() throws InterruptedException {
 
-        RequestUnBlock requestBlock = new RequestUnBlock
+        UnBlockRequest requestBlock = new UnBlockRequest
                 .Builder()
                 .userId(userId)
                 .build();
@@ -117,12 +117,12 @@ public class BlockUnblockScenario implements ChatContract.view {
     @Order(4)
     void blockWithContactId() throws InterruptedException {
 
-        RequestBlock requestBlock = new RequestBlock
+        BlockRequest blockRequest = new BlockRequest
                 .Builder()
                 .contactId(contactId)
                 .build();
 
-        chatController.block(requestBlock);
+        chatController.block(blockRequest);
 
         Thread.sleep(2000);
 
@@ -139,7 +139,7 @@ public class BlockUnblockScenario implements ChatContract.view {
     @Order(5)
     void unBlockWithContactId() throws InterruptedException {
 
-        RequestUnBlock requestBlock = new RequestUnBlock
+        UnBlockRequest requestBlock = new UnBlockRequest
                 .Builder()
                 .contactId(contactId)
                 .build();
@@ -161,12 +161,12 @@ public class BlockUnblockScenario implements ChatContract.view {
     @Order(6)
     void blockWithThreadId() throws InterruptedException {
 
-        RequestBlock requestBlock = new RequestBlock
+        BlockRequest blockRequest = new BlockRequest
                 .Builder()
                 .threadId(threadId)
                 .build();
 
-        chatController.block(requestBlock);
+        chatController.block(blockRequest);
 
         Thread.sleep(2000);
 
@@ -184,7 +184,7 @@ public class BlockUnblockScenario implements ChatContract.view {
     @Order(7)
     void UnBlockWithThreadId() throws InterruptedException {
 
-        RequestUnBlock requestBlock = new RequestUnBlock
+        UnBlockRequest requestBlock = new UnBlockRequest
                 .Builder()
                 .threadId(threadId)
                 .build();

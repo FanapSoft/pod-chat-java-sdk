@@ -1,12 +1,12 @@
 package podChat.requestobject;
 
-public abstract class GeneralRequestObject  {
+public abstract class GeneralRequestObject {
     private String typeCode;
 
     public GeneralRequestObject() {
     }
 
-    GeneralRequestObject(Builder<?> builder){
+    GeneralRequestObject(Builder<?> builder) {
         this.typeCode = builder.typeCode;
     }
 
@@ -20,10 +20,11 @@ public abstract class GeneralRequestObject  {
 
     abstract static class Builder<T extends Builder> {
         private String typeCode;
+
         abstract GeneralRequestObject build();
 
 
-        public T typeCode(String typeCode){
+        public T typeCode(String typeCode) {
             this.typeCode = typeCode;
             return self();
         }

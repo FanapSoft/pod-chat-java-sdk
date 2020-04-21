@@ -61,7 +61,7 @@ public class ChatMain implements ChatContract.view {
         chatController = new ChatController(this);
         try {
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(uri);
             }},
@@ -77,11 +77,11 @@ public class ChatMain implements ChatContract.view {
                     4101L)
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
-            chatController.getUserInfo();
+//            chatController.getUserInfo();
 
-            addContact();
+//            addContact();
 //            Thread.sleep(2000);
 //            getcontact();
 //            Thread.sleep(2000);
@@ -162,6 +162,8 @@ public class ChatMain implements ChatContract.view {
 //
 //            chatController.setToke("e92a45d5abb54194bfe8f6e6d915189a");
 //            getcontact();
+//            addAuditor();
+//            removeAuditor();
         /*    addAuditor();
             Thread.sleep(2000);
             getParticipant();
@@ -192,7 +194,7 @@ public class ChatMain implements ChatContract.view {
 
 //            getCurrentUserRoles();
 
-//            getMentionedList();
+            getMentionedList();
 
 //            updateProfile();
 
@@ -213,7 +215,7 @@ public class ChatMain implements ChatContract.view {
      *********************************************************************/
 
     void updateProfile() {
-        RequestUpdateProfile requestUpdateProfile = new RequestUpdateProfile
+        UpdateChatProfileRequest requestUpdateProfile = new UpdateChatProfileRequest
                 .Builder()
                 .metadata("test2")
                 .bio("hello")
@@ -235,7 +237,7 @@ public class ChatMain implements ChatContract.view {
 
     void addAdmin() {
         RoleModelRequest roleModelRequest = new RoleModelRequest();
-        roleModelRequest.setUserId(4781);
+        roleModelRequest.setUserId(15503);
         roleModelRequest.setRoles(new ArrayList<String>() {{
             add(RoleType.THREAD_ADMIN);
         }});
@@ -245,7 +247,7 @@ public class ChatMain implements ChatContract.view {
         roleModelRequestArrayList.add(roleModelRequest);
 
         SetRemoveRoleRequest requestSetAdmin = new SetRemoveRoleRequest
-                .Builder(5941, roleModelRequestArrayList)
+                .Builder(7308, roleModelRequestArrayList)
                 .build();
 
         chatController.addAdmin(requestSetAdmin);
@@ -254,7 +256,7 @@ public class ChatMain implements ChatContract.view {
 
     void addAuditor() {
         RoleModelRequest roleModelRequest = new RoleModelRequest();
-        roleModelRequest.setUserId(1181);
+        roleModelRequest.setUserId(15503);
         roleModelRequest.setRoles(new ArrayList<String>() {{
             add(RoleType.POST_CHANNEL_MESSAGE);
             add(RoleType.READ_THREAD);
@@ -264,7 +266,7 @@ public class ChatMain implements ChatContract.view {
         roleModelRequestArrayList.add(roleModelRequest);
 
         SetRemoveRoleRequest setRemoveRoleRequest = new SetRemoveRoleRequest
-                .Builder(5461, roleModelRequestArrayList)
+                .Builder(7308, roleModelRequestArrayList)
                 .build();
 
         chatController.addAuditor(setRemoveRoleRequest);
@@ -286,7 +288,7 @@ public class ChatMain implements ChatContract.view {
      */
     void removeAdmin() {
         RoleModelRequest roleModelRequest = new RoleModelRequest();
-        roleModelRequest.setUserId(4781);
+        roleModelRequest.setUserId(15503);
         roleModelRequest.setRoles(new ArrayList<String>() {{
             add(RoleType.THREAD_ADMIN);
         }});
@@ -295,7 +297,7 @@ public class ChatMain implements ChatContract.view {
         roleModelRequestArrayList.add(roleModelRequest);
 
         SetRemoveRoleRequest requestSetAdmin = new SetRemoveRoleRequest
-                .Builder(5941, roleModelRequestArrayList)
+                .Builder(7308, roleModelRequestArrayList)
                 .build();
 
         chatController.removeAdmin(requestSetAdmin);
@@ -305,7 +307,7 @@ public class ChatMain implements ChatContract.view {
 
     void removeAuditor() {
         RoleModelRequest roleModelRequest = new RoleModelRequest();
-        roleModelRequest.setUserId(1181);
+        roleModelRequest.setUserId(15503);
         roleModelRequest.setRoles(new ArrayList<String>() {{
             add(RoleType.POST_CHANNEL_MESSAGE);
             add(RoleType.READ_THREAD);
@@ -315,7 +317,7 @@ public class ChatMain implements ChatContract.view {
         roleModelRequestArrayList.add(roleModelRequest);
 
         SetRemoveRoleRequest setRemoveRoleRequest = new SetRemoveRoleRequest
-                .Builder(5461, roleModelRequestArrayList)
+                .Builder(7308, roleModelRequestArrayList)
                 .build();
 
 
@@ -340,16 +342,15 @@ public class ChatMain implements ChatContract.view {
      * add contact
      */
     void addContact() {
-        AddContactRequest addContactRequest = new AddContactRequest
-                .Builder()
-                .cellphoneNumber("09151242904")
-                .lastName("فاطمه")
-                .firstName("خجسته")
+        AddContactRequest requestAddContact = AddContactRequest
+                .newBuilder()
+                .firstName("pooria")
+                .userName("pooria")
                 .build();
 
         Gson gson = new Gson();
-        System.out.println(gson.toJson(addContactRequest));
-        chatController.addContact(addContactRequest);
+        System.out.println(gson.toJson(requestAddContact));
+        chatController.addContact(requestAddContact);
     }
 
     /**
@@ -401,26 +402,26 @@ public class ChatMain implements ChatContract.view {
      * block
      */
     private void block() {
-        RequestBlock requestBlock = new RequestBlock
+        BlockRequest blockRequest = new BlockRequest
                 .Builder()
                 .contactId(578)
                 .build();
 
-        chatController.block(requestBlock);
+        chatController.block(blockRequest);
     }
 
     /**
      * unblock
      */
     private void unblock() {
-        RequestUnBlock requestUnBlock = new RequestUnBlock
+        UnBlockRequest unBlockRequest = new UnBlockRequest
                 .Builder()
 //                .contactId(578)
 //                (6061)
                 .blockId(2182)
                 .build();
 
-        chatController.unBlock(requestUnBlock);
+        chatController.unBlock(unBlockRequest);
     }
 
     /**
@@ -441,11 +442,11 @@ public class ChatMain implements ChatContract.view {
      * clear history
      */
     private void clearHistory() {
-        RequestClearHistory requestClearHistory = new RequestClearHistory
+        ClearHistoryRequest clearHistoryRequest = new ClearHistoryRequest
                 .Builder(5461)
                 .build();
 
-        chatController.clearHistory(requestClearHistory);
+        chatController.clearHistory(clearHistoryRequest);
     }
 
     /**
@@ -479,8 +480,8 @@ public class ChatMain implements ChatContract.view {
      * leave thread
      */
     private void leaveThread() {
-        RequestLeaveThread leaveThread = new RequestLeaveThread
-                .Builder(5941)
+        LeaveThreadRequest leaveThread = new LeaveThreadRequest
+                .Builder(7433)
                 .build();
 
         chatController.leaveThread(leaveThread);
@@ -503,7 +504,9 @@ public class ChatMain implements ChatContract.view {
      */
     private void createThreadWithMessage() {
         RequestThreadInnerMessage requestThreadInnerMessage = new RequestThreadInnerMessage
-                .Builder("hello world")
+                .Builder()
+                .text("hello world")
+                .messageType(TextMessageType.TEXT)
                 .build();
 
         Invitee invitee = new Invitee();
@@ -521,8 +524,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }},
-                TextMessageType.TEXT)
-                .message(requestThreadInnerMessage)
+                requestThreadInnerMessage)
                 .build();
         chatController.createThreadWithMessage(createThreadWithMessageRequest);
 
@@ -531,8 +533,8 @@ public class ChatMain implements ChatContract.view {
     private void getMentionedList() {
         GetMentionedRequest getMentionedRequest = new GetMentionedRequest
                 .Builder(7308)
-                .allMentioned(true)
-//                .unreadMentioned(true)
+                .allMentioned(false)
+                .unreadMentioned(false)
                 .build();
 
 
@@ -545,8 +547,8 @@ public class ChatMain implements ChatContract.view {
      */
 
     private void createThreadWithFileMessage() {
-        RequestUploadImage requestUploadFile = new RequestUploadImage
-                .Builder("D:\\download.jpg")
+        UploadImageRequest requestUploadFile = new UploadImageRequest
+                .Builder("C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.jpg")
                 .hC(200)
                 .build();
 
@@ -555,7 +557,8 @@ public class ChatMain implements ChatContract.view {
         invitee.setIdType(InviteType.TO_BE_USER_CELLPHONE_NUMBER);
 
         RequestThreadInnerMessage requestThreadInnerMessage = new RequestThreadInnerMessage
-                .Builder("hellllllllllllllo")
+                .Builder()
+                .messageType( TextMessageType.PICTURE)
                 .build();
 
 
@@ -563,8 +566,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }}, requestUploadFile,
-                TextMessageType.PICTURE)
-                .message(requestThreadInnerMessage)
+                requestThreadInnerMessage)
                 .description("tesssssssssssst")
                 .build();
 
@@ -588,7 +590,7 @@ public class ChatMain implements ChatContract.view {
      */
     private void sendMessage() {
         SendTextMessageRequest requestThread = new SendTextMessageRequest
-                .Builder("hi test", 7308, TextMessageType.TEXT)
+                .Builder("hi test @f.khojasteh", 7308, TextMessageType.TEXT)
                 .build();
 
         chatController.sendTextMessage(requestThread);
@@ -616,8 +618,8 @@ public class ChatMain implements ChatContract.view {
     private void deleteMultipleMessage() {
         DeleteMultipleMessagesRequest deleteMultipleMessagesRequest = new DeleteMultipleMessagesRequest
                 .Builder(new ArrayList<Long>() {{
-            add(86370L);
-            add(86369L);
+            add(95314L);
+            add(95315L);
         }})
                 .deleteForAll(true)
                 .build();
@@ -629,7 +631,7 @@ public class ChatMain implements ChatContract.view {
      * forward message
      */
     private void forwardMessage() {
-        RequestForwardMessage forwardMessage = new RequestForwardMessage
+        ForwardMessageRequest forwardMessage = new ForwardMessageRequest
                 .Builder(7129, new ArrayList<Long>() {{
             add(91290L);
         }})
@@ -669,8 +671,8 @@ public class ChatMain implements ChatContract.view {
 
         Invitee[] invitees = new Invitee[1];
         Invitee invitee = new Invitee();
-        invitee.setIdType(InviteType.TO_BE_USER_ID);
-        invitee.setId("15508");
+        invitee.setIdType(InviteType.TO_BE_USER_CONTACT_ID);
+        invitee.setId("578");
 
 //        Invitee invitee2 = new Invitee();
 //        invitee2.setIdType(InviteType.TO_BE_USER_CONTACT_ID);
@@ -679,16 +681,15 @@ public class ChatMain implements ChatContract.view {
         invitees[0] = invitee;
 //        invitees[1] = invitee2;
 
-        RequestCreateThread requestCreateThread = RequestCreateThread
+        CreateThreadRequest createThreadRequest = CreateThreadRequest
                 .newBuilder()
-                .init(ThreadType.PUBLIC_GROUP, new ArrayList<Invitee>() {{
-                            add(invitee);
-                        }})
+               .NonPublicThread(ThreadType.PUBLIC_GROUP, new ArrayList<Invitee>() {{
+                   add(invitee);
+               }})
                 .description("test step ")
-
                 .build();
 
-        chatController.createThread(requestCreateThread);
+        chatController.createThread(createThreadRequest);
     }
 
     /**
@@ -702,13 +703,15 @@ public class ChatMain implements ChatContract.view {
         invitee.setId("578");
         invitees[0] = invitee;
 
-        RequestCreatePublicGroupOrChannelThread requestCreateThread = new RequestCreatePublicGroupOrChannelThread
-                .Builder(ThreadType.PUBLIC_GROUP, new ArrayList<Invitee>() {{
-            add(invitee);
-        }}, "jijiiThread")
+        CreateThreadRequest createThreadRequest = CreateThreadRequest
+                .newBuilder()
+                .publicThreadOrChannel(ThreadType.PUBLIC_GROUP, new ArrayList<Invitee>() {{
+                    add(invitee);
+                }},"test123join")
+                .description("test step ")
                 .build();
 
-        chatController.createThread(requestCreateThread);
+        chatController.createThread(createThreadRequest);
     }
 
     /**
@@ -794,11 +797,11 @@ public class ChatMain implements ChatContract.view {
      */
 
     private void interactiveMessage() {
-        RequestInteract requestInteract = new RequestInteract
+        InteractRequest interactRequest = new InteractRequest
                 .Builder(95293, "OK")
                 .build();
 
-        chatController.interactiveMessage(requestInteract);
+        chatController.interactiveMessage(interactRequest);
     }
 
 
@@ -849,7 +852,7 @@ public class ChatMain implements ChatContract.view {
      * get history
      */
     private void updateThreadInfo() {
-        RequestThreadInfo requestThreadInfo = new RequestThreadInfo
+        UpdateThreadInfoRequest updateThreadInfoRequest = new UpdateThreadInfoRequest
                 .Builder()
                 .description("توضیح")
                 .threadId(7149)
@@ -858,7 +861,7 @@ public class ChatMain implements ChatContract.view {
                 .title("hi")
                 .build();
 
-        chatController.updateThreadInfo(requestThreadInfo);
+        chatController.updateThreadInfo(updateThreadInfoRequest);
     }
 
     /******************************************************************
@@ -869,13 +872,13 @@ public class ChatMain implements ChatContract.view {
      * remove participant
      */
     private void removeParticipant() {
-        RequestRemoveParticipants requestRemoveParticipants = new RequestRemoveParticipants
+        RemoveParticipantsRequestModel removeParticipantsRequestModel = new RemoveParticipantsRequestModel
                 .Builder(7308, new ArrayList<Long>() {{
             add(15503L);
         }})
                 .build();
 
-        chatController.removeParticipants(requestRemoveParticipants);
+        chatController.removeParticipants(removeParticipantsRequestModel);
     }
 
     /**
@@ -884,6 +887,7 @@ public class ChatMain implements ChatContract.view {
     private void getParticipant() {
         GetThreadParticipantsRequest threadParticipant = new GetThreadParticipantsRequest
                 .Builder(7308)
+                .name("Pooria Pahlevani")
                 .build();
 
         chatController.getThreadParticipant(threadParticipant);
@@ -946,7 +950,7 @@ public class ChatMain implements ChatContract.view {
      */
 
     private void uploadImage() {
-        RequestUploadImage requestUploadImage = new RequestUploadImage
+        UploadImageRequest requestUploadImage = new UploadImageRequest
                 .Builder("trees.jpg")
                 .build();
         System.out.println(gson.toJson(requestUploadImage));
@@ -957,11 +961,11 @@ public class ChatMain implements ChatContract.view {
      * upload file
      */
     private void uploadFile() {
-        RequestUploadFile requestUploadFile = new RequestUploadFile
+        UploadFileRequest uploadFileRequest = new UploadFileRequest
                 .Builder("D:\\Music.rar")
                 .build();
 
-        chatController.uploadFile(requestUploadFile);
+        chatController.uploadFile(uploadFileRequest);
 
 
     }
@@ -970,18 +974,18 @@ public class ChatMain implements ChatContract.view {
      * get file
      */
     private void getFile() {
-        RequestGetFile requestGetFile = new RequestGetFile
+        GetFileRequest getFileRequest = new GetFileRequest
                 .Builder(12512, "17158ccd289-0.3253966932798973", true, "C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.txt")
                 .build();
-        chatController.getFile(requestGetFile);
+        chatController.getFile(getFileRequest);
 
 
     }
     private void getImage() {
-        RequestGetImage requestGetImage = new RequestGetImage
+        GetImageRequest getImageRequest = new GetImageRequest
                 .Builder(12516, "17159944353-0.8847278640747307", true, "C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.jpg")
                 .build();
-        chatController.getImage(requestGetImage);
+        chatController.getImage(getImageRequest);
 
 
     }
@@ -1033,7 +1037,7 @@ public class ChatMain implements ChatContract.view {
 //            String token = myObj.nextLine();
 //
 //            chatController.setToke(token);
-            getThreads();
+//            getThreads();
 //
 //        }
     }

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.mainmodel.SearchContactsRequest;
 import podChat.model.ChatResponse;
-import podChat.requestobject.RequestConnect;
+import podChat.requestobject.ConnectRequest;
 
 import java.util.ArrayList;
 
@@ -36,7 +36,7 @@ public class SearchContact implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -53,7 +53,7 @@ public class SearchContact implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
             Thread.sleep(2000);
         } catch (ConnectionException e) {

@@ -150,7 +150,7 @@ public interface ChatContract {
 
         void cancelUpload(String uniqueId);
 
-        void seenMessageList(RequestSeenMessageList requestParam);
+        void seenMessageList(GetMessageDeliveredSeenListRequest requestParam);
 
         void deliveredMessageList(GetMessageDeliveredSeenListRequest requestParams);
 
@@ -224,7 +224,7 @@ public interface ChatContract {
 
         void unBlock(Long blockId, Long userId, Long threadId, Long contactId, ChatHandler handler);
 
-        void unBlock(RequestUnBlock request, ChatHandler handler);
+        void unBlock(UnBlockRequest request, ChatHandler handler);
 
         void spam(long threadId);
 
@@ -238,7 +238,7 @@ public interface ChatContract {
 
         void forwardMessage(long threadId, ArrayList<Long> messageIds);
 
-        void forwardMessage(RequestForwardMessage request);
+        void forwardMessage(ForwardMessageRequest request);
 
         void updateContact(int id, String firstName, String lastName, String cellphoneNumber, String email);
 
@@ -254,7 +254,7 @@ public interface ChatContract {
 
         void removeParticipants(long threadId, List<Long> participantIds, ChatHandler handler);
 
-        void removeParticipants(RequestRemoveParticipants requestRemoveParticipants, ChatHandler handler);
+        void removeParticipants(RemoveParticipantsRequestModel removeParticipantsRequestModel, ChatHandler handler);
 
         void addParticipants(long threadId, List<Long> contactIds, ChatHandler handler);
 
@@ -264,7 +264,7 @@ public interface ChatContract {
 
         void updateThreadInfo(long threadId, ThreadInfoVO threadInfoVO, ChatHandler handler);
 
-        void updateThreadInfo(RequestThreadInfo request, ChatHandler handler);
+        void updateThreadInfo(UpdateThreadInfoRequest request, ChatHandler handler);
 
         void deleteMessage(ArrayList<Long> messageIds, Boolean deleteForAll, ChatHandler handler);
 
@@ -276,11 +276,11 @@ public interface ChatContract {
 
         void setAdmin(SetRemoveRoleRequest requestSetAdmin);
 
-        void clearHistory(RequestClearHistory requestClearHistory);
+        void clearHistory(ClearHistoryRequest clearHistoryRequest);
 
         void getAdminList(GetAllThreadAdminsRequest getAllThreadAdminsRequest);
 
-        String startSignalMessage(RequestSignalMsg requestSignalMsg);
+        String startSignalMessage(SignalMsgRequest signalMsgRequest);
 
         void stopSignalMessage(String uniqueId);
     }

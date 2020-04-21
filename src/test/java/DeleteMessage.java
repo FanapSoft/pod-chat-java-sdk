@@ -7,8 +7,7 @@ import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
 import podChat.requestobject.DeleteMessageRequest;
-import podChat.requestobject.RequestConnect;
-import podChat.requestobject.DeleteMultipleMessagesRequest;
+import podChat.requestobject.ConnectRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,7 @@ public class DeleteMessage implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -56,7 +55,7 @@ public class DeleteMessage implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
             Thread.sleep(2000);
 

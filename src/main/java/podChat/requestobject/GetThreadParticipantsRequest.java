@@ -12,7 +12,7 @@ public class GetThreadParticipantsRequest extends GeneralRequestObject {
         this.count = builder.count;
         this.offset = builder.offset;
         this.threadId = builder.threadId;
-        this.name=builder.name;
+        this.name = builder.name;
     }
 
     public long getThreadId() {

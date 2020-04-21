@@ -40,7 +40,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void uploadImage(RequestUploadImage requestUploadImage) {
+    public void uploadImage(UploadImageRequest requestUploadImage) {
         chat.uploadImage(requestUploadImage);
     }
 
@@ -56,18 +56,18 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
 
     @Override
-    public void uploadFile(RequestUploadFile requestUploadFile) {
-        chat.uploadFile(requestUploadFile);
+    public void uploadFile(UploadFileRequest uploadFileRequest) {
+        chat.uploadFile(uploadFileRequest);
     }
 
     @Override
-    public void getFile(RequestGetFile requestGetFile) {
-        chat.getFile(requestGetFile);
+    public void getFile(GetFileRequest getFileRequest) {
+        chat.getFile(getFileRequest);
     }
 
     @Override
-    public void getImage(RequestGetImage requestGetImage) {
-        chat.getImage(requestGetImage);
+    public void getImage(GetImageRequest getImageRequest) {
+        chat.getImage(getImageRequest);
     }
 
     @Override
@@ -128,8 +128,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void connect(RequestConnect requestConnect) throws ConnectionException {
-        chat.connect(requestConnect);
+    public void connect(ConnectRequest connectRequest) throws ConnectionException {
+        chat.connect(connectRequest);
 
     }
 
@@ -168,8 +168,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
 
     @Override
-    public void createThread(RequestCreateThread requestCreateThread) {
-        chat.createThread(requestCreateThread);
+    public void createThread(CreateThreadRequest createThreadRequest) {
+        chat.createThread(createThreadRequest);
     }
 
     @Override
@@ -281,7 +281,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void block(RequestBlock request) {
+    public void block(BlockRequest request) {
         chat.block(request);
     }
 
@@ -292,7 +292,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void unBlock(RequestUnBlock request) {
+    public void unBlock(UnBlockRequest request) {
         chat.unblock(request);
     }
 
@@ -317,7 +317,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void forwardMessage(RequestForwardMessage request) {
+    public void forwardMessage(ForwardMessageRequest request) {
         chat.forwardMessage(request);
     }
 
@@ -342,8 +342,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void removeParticipants(RequestRemoveParticipants requestRemoveParticipants) {
-        chat.removeParticipants(requestRemoveParticipants);
+    public void removeParticipants(RemoveParticipantsRequestModel removeParticipantsRequestModel) {
+        chat.removeParticipants(removeParticipantsRequestModel);
     }
 
     @Override
@@ -362,8 +362,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void leaveThread(RequestLeaveThread requestLeaveThread) {
-        chat.leaveThread(requestLeaveThread);
+    public void leaveThread(LeaveThreadRequest leaveThreadRequest) {
+        chat.leaveThread(leaveThreadRequest);
     }
 
     @Override
@@ -372,7 +372,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void updateThreadInfo(RequestThreadInfo request) {
+    public void updateThreadInfo(UpdateThreadInfoRequest request) {
         chat.updateThreadInfo(request);
     }
 
@@ -408,8 +408,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
 
     @Override
-    public void clearHistory(RequestClearHistory requestClearHistory) {
-        chat.clearHistory(requestClearHistory);
+    public void clearHistory(ClearHistoryRequest clearHistoryRequest) {
+        chat.clearHistory(clearHistoryRequest);
     }
 
     @Override
@@ -418,7 +418,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public String startSignalMessage(RequestSignalMsg requestSignalMsg) {
+    public String startSignalMessage(SignalMsgRequest signalMsgRequest) {
         return null;
     }
 
@@ -433,7 +433,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void interactiveMessage(RequestInteract request) {
+    public void interactiveMessage(InteractRequest request) {
         chat.interactMessage(request);
     }
 
@@ -458,8 +458,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void updateProfile(RequestUpdateProfile request) {
-        chat.updateProfile(request);
+    public void updateProfile(UpdateChatProfileRequest request) {
+        chat.updateChatProfile(request);
     }
 
     @Override

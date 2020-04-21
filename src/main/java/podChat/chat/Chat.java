@@ -261,7 +261,7 @@ public class Chat extends AsyncAdapter {
     }
 
     /**
-     * @param requestConnect uris        {**REQUIRED**}  List of URIs
+     * @param connectRequest uris        {**REQUIRED**}  List of URIs
      *                       platformHost         {**REQUIRED**}  Address of the platform host
      *                       token                {**REQUIRED**}  Token for Authentication
      *                       fileServer           {**REQUIRED**}  Address of the file server
@@ -276,33 +276,33 @@ public class Chat extends AsyncAdapter {
      * @throws ConnectionException
      */
 
-    public void connect(RequestConnect requestConnect) throws ConnectionException {
+    public void connect(ConnectRequest connectRequest) throws ConnectionException {
         try {
 
             async.addListener(this);
 
-            setPlatformHost(requestConnect.getPlatformHost());
-            setToken(requestConnect.getToken());
-            setSsoHost(requestConnect.getSsoHost());
-            setUserId(requestConnect.getChatId());
+            setPlatformHost(connectRequest.getPlatformHost());
+            setToken(connectRequest.getToken());
+            setSsoHost(connectRequest.getSsoHost());
+            setUserId(connectRequest.getChatId());
 
-            if (!Util.isNullOrEmpty(requestConnect.getTypeCode()))
-                setTypeCode(requestConnect.getTypeCode());
+            if (!Util.isNullOrEmpty(connectRequest.getTypeCode()))
+                setTypeCode(connectRequest.getTypeCode());
             else
                 setTypeCode(typeCode);
 
-            setFileServer(requestConnect.getFileServer());
-            this.queueConfigVO = new QueueConfigVO(requestConnect.getUris(),
-                    requestConnect.getQueueInput(),
-                    requestConnect.getQueueOutput(),
-                    requestConnect.getQueueUserName(),
-                    requestConnect.getQueuePassword());
+            setFileServer(connectRequest.getFileServer());
+            this.queueConfigVO = new QueueConfigVO(connectRequest.getUris(),
+                    connectRequest.getQueueInput(),
+                    connectRequest.getQueueOutput(),
+                    connectRequest.getQueueUserName(),
+                    connectRequest.getQueuePassword());
 
             contactApi = RetrofitHelperPlatformHost.getInstance(getPlatformHost()).create(ContactApi.class);
 
             gson = new Gson();
 
-            async.connect(queueConfigVO, requestConnect.getSeverName(), token, ssoHost);
+            async.connect(queueConfigVO, connectRequest.getSeverName(), token, ssoHost);
 
         } catch (ConnectionException e) {
             throw e;
@@ -630,12 +630,12 @@ public class Chat extends AsyncAdapter {
     /**
      * It clears all messages in the thread
      *
-     * @param requestClearHistory threadId  The id of the thread in which you want to clear all messages
+     * @param clearHistoryRequest threadId  The id of the thread in which you want to clear all messages
      * @return
      */
-    public String clearHistory(RequestClearHistory requestClearHistory) {
+    public String clearHistory(ClearHistoryRequest clearHistoryRequest) {
         String uniqueId = generateUniqueId();
-        long threadId = requestClearHistory.getThreadId();
+        long threadId = clearHistoryRequest.getThreadId();
 
         if (chatReady) {
             BaseMessage baseMessage = new BaseMessage();
@@ -644,8 +644,8 @@ public class Chat extends AsyncAdapter {
             baseMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
             baseMessage.setSubjectId(threadId);
             baseMessage.setUniqueId(uniqueId);
-            baseMessage.setTypeCode(!Util.isNullOrEmpty(requestClearHistory.getTypeCode())
-                    ? requestClearHistory.getTypeCode() : getTypeCode());
+            baseMessage.setTypeCode(!Util.isNullOrEmpty(clearHistoryRequest.getTypeCode())
+                    ? clearHistoryRequest.getTypeCode() : getTypeCode());
 
             sendAsyncMessage(gson.toJson(baseMessage), AsyncMessageType.MESSAGE, "SEND_CLEAR_HISTORY");
         }
@@ -723,7 +723,7 @@ public class Chat extends AsyncAdapter {
         String cellphoneNumber = request.getCellphoneNumber();
         String typeCode = request.getTypeCode();
         String userName = request.getUserName();
-        long ownerId = request.getOwnerId();
+        Long ownerId = request.getOwnerId();
         String uniqueId = generateUniqueId();
 
         Call<Contacts> addContactService;
@@ -738,8 +738,9 @@ public class Chat extends AsyncAdapter {
                     uniqueId,
                     cellphoneNumber,
                     userName,
-                    !Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode(),
-                    ownerId);
+                    ownerId,
+                    !Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());//,
+                  //  ownerId);
 
             showInfoLog("ADD_CONTACT");
 
@@ -1130,7 +1131,7 @@ public class Chat extends AsyncAdapter {
      * threadId   destination thread id
      * messageIds Array of message ids that we want to forward them
      */
-    public List<String> forwardMessage(RequestForwardMessage request) {
+    public List<String> forwardMessage(ForwardMessageRequest request) {
         return forwardMessage(request.getThreadId(),
                 request.getMessageIds(),
                 request.getTypeCode());
@@ -1337,7 +1338,7 @@ public class Chat extends AsyncAdapter {
     }
 
     /**
-     * @param requestCreateThread type         Thread Type
+     * @param createThreadRequest type         Thread Type
      *                            int NORMAL = 0;
      *                            int OWNER_GROUP = 1;
      *                            int PUBLIC_GROUP = 2;
@@ -1351,21 +1352,15 @@ public class Chat extends AsyncAdapter {
      *                            metadata      [Optional]
      * @return
      */
-    public String createThread(RequestCreateThread requestCreateThread) {
-        int threadType = requestCreateThread.getType();
-        Invitee[] invitee = requestCreateThread.getInvitees().stream().toArray(Invitee[]::new);
-        String threadTitle = requestCreateThread.getTitle();
-        String description = requestCreateThread.getDescription();
-        String image = requestCreateThread.getImage();
-        String metadata = requestCreateThread.getMetadata();
-        String typeCode = requestCreateThread.getTypeCode();
-
-        String uniqueName = null;
-
-        if (requestCreateThread instanceof RequestCreatePublicGroupOrChannelThread) {
-            uniqueName = ((RequestCreatePublicGroupOrChannelThread) requestCreateThread).getUniqueName();
-        }
-
+    public String createThread(CreateThreadRequest createThreadRequest) {
+        int threadType = createThreadRequest.getType();
+        Invitee[] invitee = createThreadRequest.getInvitees().stream().toArray(Invitee[]::new);
+        String threadTitle = createThreadRequest.getTitle();
+        String description = createThreadRequest.getDescription();
+        String image = createThreadRequest.getImage();
+        String metadata = createThreadRequest.getMetadata();
+        String typeCode = createThreadRequest.getTypeCode();
+        String uniqueName = createThreadRequest.getUniqueName();
         return createThread(threadType,
                 invitee,
                 threadTitle,
@@ -1497,8 +1492,8 @@ public class Chat extends AsyncAdapter {
                         uniqueIds.add(newMsgUniqueId);
                     }
 
-                    if (threadRequest.getMessageType() != 0) {
-                        innerMessageObj.addProperty("messageType", threadRequest.getMessageType());
+                    if (Util.isNullOrEmpty(threadRequest.getUniqueName())) {
+                        innerMessageObj.remove("uniqueName");
                     }
 
                     if (!Util.isNullOrEmptyNumber(threadRequest.getMessage().getForwardedMessageIds())) {
@@ -1602,7 +1597,7 @@ public class Chat extends AsyncAdapter {
      * metadata;
      */
 
-    public String updateThreadInfo(RequestThreadInfo request) {
+    public String updateThreadInfo(UpdateThreadInfoRequest request) {
         ThreadInfoVO threadInfoVO = new ThreadInfoVO.Builder()
                 .title(request.getTitle())
                 .description(request.getDescription())
@@ -1728,7 +1723,7 @@ public class Chat extends AsyncAdapter {
     /**
      * In order to send seen message you have to call {@link #seenMessage(long, long)}
      */
-    public String seenMessage(RequestSeenMessage request) {
+    public String seenMessage(SendDeliverSeenRequest request) {
         long messageId = request.getMessageId();
         long ownerId = request.getOwnerId();
 
@@ -1772,7 +1767,7 @@ public class Chat extends AsyncAdapter {
      *                           hC   the height of the specified rectangular region
      * @return
      */
-    public String uploadImage(RequestUploadImage requestUploadImage) {
+    public String uploadImage(UploadImageRequest requestUploadImage) {
         String filePath = requestUploadImage.getFilePath();
         int xC = requestUploadImage.getxC();
         int yC = requestUploadImage.getyC();
@@ -1994,16 +1989,16 @@ public class Chat extends AsyncAdapter {
         return uniqueId;
     }
 
-    public String uploadFile(RequestUploadFile requestUploadFile) {
-        return uploadFile(requestUploadFile.getFilePath());
+    public String uploadFile(UploadFileRequest uploadFileRequest) {
+        return uploadFile(uploadFileRequest.getFilePath());
     }
 
-    public String getFile(RequestGetFile requestGetFile) {
-        return downloadFile(getFile(requestGetFile.getFileId(), requestGetFile.getHashCode(), requestGetFile.isDownloadable()), requestGetFile.getOutputPath(), requestGetFile);
+    public String getFile(GetFileRequest getFileRequest) {
+        return downloadFile(getFile(getFileRequest.getFileId(), getFileRequest.getHashCode(), getFileRequest.isDownloadable()), getFileRequest.getOutputPath(), getFileRequest);
     }
 
-    public String getImage(RequestGetImage requestGetImage) {
-        return downloadImage(getImage(requestGetImage.getImageId(), requestGetImage.getHashCode(), requestGetImage.isDownloadable()), requestGetImage.getOutputPath(), requestGetImage);
+    public String getImage(GetImageRequest getImageRequest) {
+        return downloadImage(getImage(getImageRequest.getImageId(), getImageRequest.getHashCode(), getImageRequest.isDownloadable()), getImageRequest.getOutputPath(), getImageRequest);
     }
 
     /**
@@ -2748,7 +2743,7 @@ public class Chat extends AsyncAdapter {
      * participantIds List of PARTICIPANT IDs from Thread's Participants object
      * threadId       Id of the thread that we wants to remove their participant
      */
-    public String removeParticipants(RequestRemoveParticipants request) {
+    public String removeParticipants(RemoveParticipantsRequestModel request) {
 
         List<Long> participantIds = request.getParticipantIds();
         long threadId = request.getThreadId();
@@ -2789,7 +2784,7 @@ public class Chat extends AsyncAdapter {
      *
      * @ param threadId id of the thread
      */
-    public String leaveThread(RequestLeaveThread request) {
+    public String leaveThread(LeaveThreadRequest request) {
 
         return leaveThread(request.getThreadId(), request.getTypeCode());
     }
@@ -2805,7 +2800,7 @@ public class Chat extends AsyncAdapter {
         BeanUtils.copyProperties(setRemoveRoleRequest, setRuleVO);
         setRuleVO.setTypeCode(setRemoveRoleRequest.getTypeCode());
 
-        return setRole(setRuleVO);
+        return setRole(setRemoveRoleRequest);
     }
 
     /**
@@ -2814,22 +2809,18 @@ public class Chat extends AsyncAdapter {
      * @param requestSetAdmin
      */
     public String setAdmin(SetRemoveRoleRequest requestSetAdmin) {
-        SetRuleVO setRuleVO = new SetRuleVO();
-        BeanUtils.copyProperties(requestSetAdmin, setRuleVO);
-        setRuleVO.setTypeCode(requestSetAdmin.getTypeCode());
-
-        return setRole(setRuleVO);
+        return setRole(requestSetAdmin);
 
     }
 
     /**
      * You can add some roles to someone in a thread using user id.
      *
-     * @param setRuleVO
+     * @param requestSetAdmin
      */
-    private String setRole(SetRuleVO setRuleVO) {
-        long threadId = setRuleVO.getThreadId();
-        ArrayList<RoleModelRequest> roles = setRuleVO.getRoles();
+    private String setRole(SetRemoveRoleRequest requestSetAdmin) {
+        long threadId = requestSetAdmin.getThreadId();
+        ArrayList<RoleModelRequest> roles = requestSetAdmin.getUserRoles();
         String uniqueId = generateUniqueId();
 
         if (chatReady) {
@@ -2849,7 +2840,7 @@ public class Chat extends AsyncAdapter {
             baseMessage.setType(ChatMessageType.SET_ROLE_TO_USER);
             baseMessage.setTokenIssuer(String.valueOf(TOKEN_ISSUER));
             baseMessage.setUniqueId(uniqueId);
-            baseMessage.setTypeCode(!Util.isNullOrEmpty(setRuleVO.getTypeCode()) ? setRuleVO.getTypeCode() : getTypeCode());
+            baseMessage.setTypeCode(!Util.isNullOrEmpty(requestSetAdmin.getTypeCode()) ? requestSetAdmin.getTypeCode() : getTypeCode());
 
             sendAsyncMessage(gson.toJson(baseMessage), AsyncMessageType.MESSAGE, "SET_RULE_TO_USER");
         }
@@ -2860,12 +2851,7 @@ public class Chat extends AsyncAdapter {
      * @param setRemoveRoleRequest You can add auditor role to someone in a thread using user id.
      */
     public String removeAuditor(SetRemoveRoleRequest setRemoveRoleRequest) {
-        SetRuleVO setRuleVO = new SetRuleVO();
-
-        BeanUtils.copyProperties(setRemoveRoleRequest, setRuleVO);
-        setRuleVO.setTypeCode(setRemoveRoleRequest.getTypeCode());
-
-        return removeRole(setRuleVO);
+        return removeRole(setRemoveRoleRequest);
     }
 
     /**
@@ -2874,19 +2860,14 @@ public class Chat extends AsyncAdapter {
      * @param requestSetAdmin
      */
     public String removeAdmin(SetRemoveRoleRequest requestSetAdmin) {
-        SetRuleVO setRuleVO = new SetRuleVO();
-
-        BeanUtils.copyProperties(requestSetAdmin, setRuleVO);
-        setRuleVO.setTypeCode(requestSetAdmin.getTypeCode());
-
-        return removeRole(setRuleVO);
+        return removeRole(requestSetAdmin);
 
     }
 
 
-    private String removeRole(SetRuleVO setRuleVO) {
-        long threadId = setRuleVO.getThreadId();
-        ArrayList<RoleModelRequest> roles = setRuleVO.getRoles();
+    private String removeRole(SetRemoveRoleRequest requestSetAdmin) {
+        long threadId = requestSetAdmin.getThreadId();
+        ArrayList<RoleModelRequest> roles = requestSetAdmin.getUserRoles();
         String uniqueId = generateUniqueId();
 
         if (chatReady) {
@@ -2906,7 +2887,7 @@ public class Chat extends AsyncAdapter {
             baseMessage.setType(ChatMessageType.REMOVE_ROLE_FROM_USER);
             baseMessage.setTokenIssuer(String.valueOf(TOKEN_ISSUER));
             baseMessage.setUniqueId(uniqueId);
-            baseMessage.setTypeCode(!Util.isNullOrEmpty(setRuleVO.getTypeCode()) ? setRuleVO.getTypeCode() : getTypeCode());
+            baseMessage.setTypeCode(!Util.isNullOrEmpty(requestSetAdmin.getTypeCode()) ? requestSetAdmin.getTypeCode() : getTypeCode());
 
             sendAsyncMessage(gson.toJson(baseMessage), AsyncMessageType.MESSAGE, "REMOVE_RULE_FROM_USER");
         }
@@ -2963,7 +2944,7 @@ public class Chat extends AsyncAdapter {
      * @ param threadId  id of the thread
      * @ param userId    id of the user
      */
-    public String block(RequestBlock request) {
+    public String block(BlockRequest request) {
         Long contactId = request.getContactId();
         long threadId = request.getThreadId();
         long userId = request.getUserId();
@@ -3029,7 +3010,7 @@ public class Chat extends AsyncAdapter {
      * @ param threadId Id of the thread
      * @ param contactId Id of the contact
      */
-    public String unblock(RequestUnBlock request) {
+    public String unblock(UnBlockRequest request) {
         long contactId = request.getContactId();
         long threadId = request.getThreadId();
         long userId = request.getUserId();
@@ -3406,7 +3387,7 @@ public class Chat extends AsyncAdapter {
     }
 
 
-    public String interactMessage(RequestInteract request) {
+    public String interactMessage(InteractRequest request) {
         String uniqueId = generateUniqueId();
 
         try {
@@ -3452,9 +3433,9 @@ public class Chat extends AsyncAdapter {
         }
 
         if (chatReady) {
-            if (request.getFile() != null && request.getFile() instanceof RequestUploadImage) {
+            if (request.getFile() != null && request.getFile() instanceof UploadImageRequest) {
 
-                uploadImage((RequestUploadImage) request.getFile(), threadUniqId, metaData -> {
+                uploadImage((UploadImageRequest) request.getFile(), threadUniqId, metaData -> {
                     RequestThreadInnerMessage requestThreadInnerMessage;
 
                     if (request.getMessage() == null) {
@@ -3544,8 +3525,8 @@ public class Chat extends AsyncAdapter {
 
                     innerMessageObj.addProperty("uniqueId", messageUniqueId);
 
-                    if (threadRequest.getMessageType() != 0) {
-                        innerMessageObj.addProperty("messageType", threadRequest.getMessageType());
+                    if (Util.isNullOrEmpty(threadRequest.getUniqueName())) {
+                        innerMessageObj.remove("uniqueName");
                     }
 
                     if (!Util.isNullOrEmptyNumber(threadRequest.getMessage().getForwardedMessageIds())) {
@@ -3659,7 +3640,7 @@ public class Chat extends AsyncAdapter {
     }
 
 
-    private void uploadImage(RequestUploadImage requestUploadImage,
+    private void uploadImage(UploadImageRequest requestUploadImage,
                              String finalUniqueId,
                              UploadFileListener uploadFileListener) {
 
@@ -3784,7 +3765,7 @@ public class Chat extends AsyncAdapter {
      * @param requestUpdateProfile
      * @return
      */
-    public String updateProfile(RequestUpdateProfile requestUpdateProfile) {
+    public String updateChatProfile(UpdateChatProfileRequest requestUpdateProfile) {
         String uniqueId = generateUniqueId();
         try {
 
@@ -5251,7 +5232,7 @@ public class Chat extends AsyncAdapter {
         return getFileServer() + "/nzh/file/" + "?fileId=" + fileId + "&downloadable=" + downloadable + "&hashCode=" + hashCode;
     }
 
-    public String downloadFile(String u, String outputFileName, RequestGetFile requestGetFile) {
+    public String downloadFile(String u, String outputFileName, GetFileRequest getFileRequest) {
         URL url = null;
         try {
             url = new URL(u);
@@ -5262,7 +5243,7 @@ public class Chat extends AsyncAdapter {
         String uniqueId = generateUniqueId();
 
         File fileUpload = new File(outputFileName);
-        String jsonLog = gson.toJson(requestGetFile);
+        String jsonLog = gson.toJson(getFileRequest);
         try {
             org.apache.commons.io.FileUtils.copyURLToFile(url, fileUpload);
 
@@ -5273,8 +5254,8 @@ public class Chat extends AsyncAdapter {
 
         ResultFile result = new ResultFile();
         ChatResponse<ResultFile> chatResponse = new ChatResponse<>();
-        result.setHashCode(requestGetFile.getHashCode());
-        result.setId(requestGetFile.getFileId());
+        result.setHashCode(getFileRequest.getHashCode());
+        result.setId(getFileRequest.getFileId());
         result.setName(fileUpload.getName());
         result.setSize(fileUpload.length());
         chatResponse.setUniqueId(uniqueId);
@@ -5287,7 +5268,7 @@ public class Chat extends AsyncAdapter {
         return uniqueId;
     }
 
-    public String downloadImage(String u, String outputFileName, RequestGetImage requestGetImage) {
+    public String downloadImage(String u, String outputFileName, GetImageRequest getImageRequest) {
         URL url = null;
         try {
             url = new URL(u);
@@ -5297,7 +5278,7 @@ public class Chat extends AsyncAdapter {
         }
         String uniqueId = generateUniqueId();
         File fileImageUpload = new File(outputFileName);
-        String jsonLog = gson.toJson(requestGetImage);
+        String jsonLog = gson.toJson(getImageRequest);
             showInfoLog("SEND_GET_IMAGE"+jsonLog);
         try {
             org.apache.commons.io.FileUtils.copyURLToFile(url, fileImageUpload);
@@ -5313,8 +5294,8 @@ public class Chat extends AsyncAdapter {
         } catch (IOException ex) {
             showErrorLog(ex.getMessage());
         }
-        resultImageFile.setId(requestGetImage.getImageId());
-        resultImageFile.setHashCode(requestGetImage.getHashCode());
+        resultImageFile.setId(getImageRequest.getImageId());
+        resultImageFile.setHashCode(getImageRequest.getHashCode());
         resultImageFile.setName(fileImageUpload.getName());
         resultImageFile.setActualHeight(bimg.getHeight());
         resultImageFile.setActualWidth(bimg.getWidth());

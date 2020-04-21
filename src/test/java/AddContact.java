@@ -7,7 +7,7 @@ import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
 import podChat.requestobject.AddContactRequest;
-import podChat.requestobject.RequestConnect;
+import podChat.requestobject.ConnectRequest;
 
 import java.util.ArrayList;
 
@@ -37,7 +37,7 @@ public class AddContact implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            RequestConnect requestConnect = new RequestConnect
+            ConnectRequest connectRequest = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -54,7 +54,7 @@ public class AddContact implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(requestConnect);
+            chatController.connect(connectRequest);
 
         } catch (ConnectionException e) {
             e.printStackTrace();

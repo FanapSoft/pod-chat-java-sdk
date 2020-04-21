@@ -1,11 +1,11 @@
 package podChat.requestobject;
 
-public class RequestSignalMsg {
+public class SignalMsgRequest {
 
     private int signalType;
     private long threadId;
 
-    RequestSignalMsg(Builder builder) {
+    SignalMsgRequest(Builder builder) {
         this.signalType = builder.signalType;
         this.threadId = builder.threadId;
     }
@@ -25,8 +25,8 @@ public class RequestSignalMsg {
             return this;
         }
 
-        public RequestSignalMsg build() {
-            return new RequestSignalMsg(this);
+        public SignalMsgRequest build() {
+            return new SignalMsgRequest(this);
         }
     }
 

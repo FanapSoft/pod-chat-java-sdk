@@ -3,10 +3,10 @@ package podChat.requestobject;
 /**
  * Created By Khojasteh on 8/25/2019
  */
-public class RequestUploadFile {
+public class UploadFileRequest {
     private String filePath;
 
-    protected RequestUploadFile(Builder<?> builder) {
+    protected UploadFileRequest(Builder<?> builder) {
         filePath = builder.filePath;
     }
 
@@ -31,8 +31,8 @@ public class RequestUploadFile {
             return (T) this;
         }*/
 
-        public RequestUploadFile build() {
-            return new RequestUploadFile(this);
+        public UploadFileRequest build() {
+            return new UploadFileRequest(this);
         }
     }
 }

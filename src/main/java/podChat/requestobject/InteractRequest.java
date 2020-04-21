@@ -1,7 +1,7 @@
 package podChat.requestobject;
 
 
-public class RequestInteract extends GeneralRequestObject {
+public class InteractRequest extends GeneralRequestObject {
     private long messageId;
     private String content;
     private String uniqueId;
@@ -9,7 +9,7 @@ public class RequestInteract extends GeneralRequestObject {
     private String metadata;
     private long repliedTo;
 
-    RequestInteract(Builder builder) {
+    InteractRequest(Builder builder) {
         super(builder);
         this.messageId = builder.messageId;
         this.content = builder.content;
@@ -102,8 +102,8 @@ public class RequestInteract extends GeneralRequestObject {
             return this;
         }
 
-        public RequestInteract build() {
-            return new RequestInteract(this);
+        public InteractRequest build() {
+            return new InteractRequest(this);
         }
 
 

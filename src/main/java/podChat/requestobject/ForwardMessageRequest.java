@@ -3,29 +3,29 @@ package podChat.requestobject;
 
 import java.util.ArrayList;
 
-public class RequestForwardMessage extends GeneralRequestObject{
+public class ForwardMessageRequest extends GeneralRequestObject {
 
     private long threadId;
     private ArrayList<Long> messageIds;
 
-     RequestForwardMessage(Builder builder){
+    ForwardMessageRequest(Builder builder) {
         super(builder);
         this.threadId = builder.threadId;
         this.messageIds = builder.messageIds;
     }
 
 
-    public static class Builder extends GeneralRequestObject.Builder<Builder>{
+    public static class Builder extends GeneralRequestObject.Builder<Builder> {
         private long threadId;
         private ArrayList<Long> messageIds;
 
-        public Builder (long threadId,ArrayList<Long> messageIds){
+        public Builder(long threadId, ArrayList<Long> messageIds) {
             this.threadId = threadId;
             this.messageIds = messageIds;
         }
 
-        public RequestForwardMessage build(){
-            return new RequestForwardMessage(this);
+        public ForwardMessageRequest build() {
+            return new ForwardMessageRequest(this);
         }
 
 
@@ -36,6 +36,7 @@ public class RequestForwardMessage extends GeneralRequestObject{
 
 
     }
+
     public long getThreadId() {
         return threadId;
     }

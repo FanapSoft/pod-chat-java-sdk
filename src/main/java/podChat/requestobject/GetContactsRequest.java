@@ -6,7 +6,7 @@ public class GetContactsRequest extends BaseRequestObject {
 
     GetContactsRequest(Builder builder) {
         super(builder);
-        this.query=builder.query;
+        this.query = builder.query;
     }
 
     public String getQuery() {

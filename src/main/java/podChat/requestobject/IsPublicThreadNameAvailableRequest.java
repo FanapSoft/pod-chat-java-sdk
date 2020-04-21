@@ -2,7 +2,7 @@ package podChat.requestobject;
 
 
 public class IsPublicThreadNameAvailableRequest extends GeneralRequestObject {
-    private String  uniqueName;
+    private String uniqueName;
 
     IsPublicThreadNameAvailableRequest(Builder builder) {
         super(builder);
