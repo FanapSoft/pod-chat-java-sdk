@@ -639,5 +639,26 @@ public class ChatListenerManager {
         }
     }
 
+    public void callOnCreateBot(ChatResponse<ResultCreateBot> chatResponse) {
+
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onCreateBot(chatResponse);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
+
+    public void callOnStartBot(ChatResponse<ResultStartBot> chatResponse) {
+
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onStartBot(chatResponse);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
 
 }

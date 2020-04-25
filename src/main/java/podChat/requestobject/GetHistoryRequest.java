@@ -15,6 +15,7 @@ public class GetHistoryRequest extends BaseRequestObject {
     private String allMentioned;
     private String unreadMentioned;
     private String metadataCriteria;
+    private int messageType;
 
     GetHistoryRequest(Builder builder) {
         super(builder);
@@ -138,6 +139,14 @@ public class GetHistoryRequest extends BaseRequestObject {
         this.metadataCriteria = metadataCriteria;
     }
 
+    public int getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(int messageType) {
+        this.messageType = messageType;
+    }
+
     public static class Builder extends BaseRequestObject.Builder<Builder> {
         private long threadId;
         private String order;
@@ -152,6 +161,7 @@ public class GetHistoryRequest extends BaseRequestObject {
         private String allMentioned;
         private String unreadMentioned;
         private String metadataCriteria;
+        private int messageType;
 
         public Builder(long threadId) {
             this.threadId = threadId;
@@ -186,6 +196,9 @@ public class GetHistoryRequest extends BaseRequestObject {
             return this;
         }
 
+        public void messageType(int messageType) {
+            this.messageType = messageType;
+        }
 
         public Builder userId(long userId) {
             this.userId = userId;

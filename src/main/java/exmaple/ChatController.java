@@ -156,7 +156,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
     @Override
     public void getContact(Integer count, Long offset, String typeCode, String query) {
-        chat.getContacts(count, offset, typeCode,query);
+        chat.getContacts(count, offset, typeCode, query);
 
     }
 
@@ -178,8 +178,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void sendTextMessage(String textMessage, long threadId, Integer messageType, String metaData, String typeCode,long repliedTo,String systemMetadata) {
-        chat.sendTextMessage(textMessage, threadId, messageType, metaData, typeCode,repliedTo,systemMetadata);
+    public void sendTextMessage(String textMessage, long threadId, Integer messageType, String metaData, String typeCode, long repliedTo, String systemMetadata) {
+        chat.sendTextMessage(textMessage, threadId, messageType, metaData, typeCode, repliedTo, systemMetadata);
     }
 
     @Override
@@ -477,6 +477,21 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
         chat.getAllUnreadMessagesCount(request);
     }
 
+    @Override
+    public void createBot(CreateBotRequest request) {
+        chat.createBot(request);
+    }
+
+    @Override
+    public void startBot(StartBotRequest request) {
+        chat.startBot(request);
+    }
+
+    @Override
+    public void stopBot(StartBotRequest request) {
+        chat.stopBot(request);
+    }
+
 
     //View
     @Override
@@ -581,6 +596,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
         super.onGetFile(response);
         view.onGetFile(response);
     }
+
     @Override
     public void onGetImage(ChatResponse<ResultImageFile> response) {
         super.onGetImage(response);
@@ -708,5 +724,19 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
         super.onGetCurrentUserRoles(response);
         view.onGetCurrentUserRoles(response);
     }
+
+
+    @Override
+    public void onCreateBot(ChatResponse<ResultCreateBot> response) {
+        super.onCreateBot(response);
+        view.onCreateBot(response);
+    }
+
+    @Override
+    public void onStartBot(ChatResponse<ResultStartBot> response) {
+        super.onStartBot(response);
+        view.onStartBot(response);
+    }
+
 }
 

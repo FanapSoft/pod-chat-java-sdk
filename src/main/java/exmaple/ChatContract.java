@@ -88,6 +88,7 @@ public interface ChatContract {
 
         default void onGetFile(ChatResponse<ResultFile> response) {
         }
+
         default void onGetImage(ChatResponse<ResultImageFile> response) {
         }
 
@@ -190,6 +191,10 @@ public interface ChatContract {
         default void onThreadInfoUpdated(ChatResponse<ResultThread> chatResponse) {
         }
 
+        default void onCreateBot(ChatResponse<ResultCreateBot> chatResponse) {
+        }
+        default void onStartBot(ChatResponse<ResultStartBot> chatResponse) {
+        }
 
     }
 
@@ -250,7 +255,7 @@ public interface ChatContract {
 
         void searchHistory(NosqlListMessageCriteriaVO messageCriteriaVO);
 
-        void getContact(Integer count, Long offset, String typeCode,String query);
+        void getContact(Integer count, Long offset, String typeCode, String query);
 
         void getContact(GetContactsRequest request);
 
@@ -258,7 +263,7 @@ public interface ChatContract {
 
         void createThreadWithFileMessage(CreateThreadWithFileRequest requestCreateThreadWithMessage);
 
-        void sendTextMessage(String textMessage, long threadId, Integer messageType, String metaData, String typeCode,long repliedTo,String  systemMetadata);
+        void sendTextMessage(String textMessage, long threadId, Integer messageType, String metaData, String typeCode, long repliedTo, String systemMetadata);
 
         void sendTextMessage(SendTextMessageRequest sendTextMessageRequest);
 
@@ -393,5 +398,9 @@ public interface ChatContract {
         void joinThead(JoinPublicThreadRequest request);
 
         void countUnreadMessage(GetAllUnreadMessageCountRequest request);
+
+        void createBot(CreateBotRequest request);
+        void startBot(StartBotRequest request);
+        void stopBot(StartBotRequest request);
     }
 }

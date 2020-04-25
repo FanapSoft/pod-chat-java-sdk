@@ -231,6 +231,18 @@ public class Chat extends AsyncAdapter {
             case ChatMessageType.ALL_UNREAD_MESSAGE_COUNT:
                 handleCountUnreadMessage(chatMessage);
                 break;
+
+            case ChatMessageType.CREATE_BOT:
+                handleCreateBot(chatMessage);
+                break;
+
+            case ChatMessageType.START_BOT:
+                handleStartBot(chatMessage);
+                break;
+
+            case ChatMessageType.STOP_BOT:
+                handleStopBot(chatMessage);
+                break;
         }
     }
 
@@ -325,7 +337,7 @@ public class Chat extends AsyncAdapter {
                                   long threadId,
                                   Integer messageType,
                                   String jsonSystemMetadata,
-                                  String typeCode,long repliedTo,String systemMetadata) {
+                                  String typeCode, long repliedTo, String systemMetadata) {
 
         String uniqueId = generateUniqueId();
 
@@ -368,10 +380,10 @@ public class Chat extends AsyncAdapter {
      * Its sent message but it gets Object as an attribute
      *
      * @param sendTextMessageRequest this object has :
-     *                       String textMessage {text of the message}
-     *                       int messageType {type of the message}
-     *                       String jsonMetaData {metadata of the message}
-     *                       long threadId {The id of a thread that its wanted to send  }
+     *                               String textMessage {text of the message}
+     *                               int messageType {type of the message}
+     *                               String jsonMetaData {metadata of the message}
+     *                               long threadId {The id of a thread that its wanted to send  }
      */
     public String sendTextMessage(SendTextMessageRequest sendTextMessageRequest) {
         String textMessage = sendTextMessageRequest.getTextMessage();
@@ -379,17 +391,17 @@ public class Chat extends AsyncAdapter {
         int messageType = sendTextMessageRequest.getMessageType();
         String jsonMetaData = sendTextMessageRequest.getMetaData();
         String typeCode = sendTextMessageRequest.getTypeCode();
-        long repliedTo=sendTextMessageRequest.getRepliedTo();
-        String systemMetadata=sendTextMessageRequest.getSystemMetadata();
-        return sendTextMessage(textMessage, threadId, messageType, jsonMetaData, typeCode, repliedTo,systemMetadata);
+        long repliedTo = sendTextMessageRequest.getRepliedTo();
+        String systemMetadata = sendTextMessageRequest.getSystemMetadata();
+        return sendTextMessage(textMessage, threadId, messageType, jsonMetaData, typeCode, repliedTo, systemMetadata);
     }
 
     /**
      * Get the list of threads
      *
      * @param getThreadsRequest threadIds   You can specify the thread ids that you want
-     *                      threadName  Specify the specific thread name
-     *                      isNew       Set it to true if you only want to get threads with new messages
+     *                          threadName  Specify the specific thread name
+     *                          isNew       Set it to true if you only want to get threads with new messages
      * @return
      */
     public String getThreads(GetThreadsRequest getThreadsRequest) {
@@ -536,7 +548,7 @@ public class Chat extends AsyncAdapter {
      */
     @Deprecated
     public String getHistory(GetHistoryRequest history, long threadId, String typeCode) {
-        String uniqueId= generateUniqueId();
+        String uniqueId = generateUniqueId();
 
 
         if (history.getCount() != 0) {
@@ -624,6 +636,137 @@ public class Chat extends AsyncAdapter {
 
             sendAsyncMessage(gson.toJson(baseMessage), AsyncMessageType.MESSAGE, "SEND_GET_MENTIONED_LIST");
         }
+        return uniqueId;
+    }
+
+
+    /**
+     * You can create Bot
+     *
+     * @param request threadId
+     *                allMentioned    set it to true if you want to get all mentioned messages in the thread
+     *                unreadMentioned  set it to ture if you only want to get unread mentioned messages in the thread
+     * @return
+     */
+    public String createBot(CreateBotRequest request) {
+        String uniqueId = generateUniqueId();
+        String botName = request.getBotName();
+        try {
+            if (chatReady) {
+
+                ChatMessage chatMessage = new ChatMessage();
+
+                chatMessage.setContent(gson.toJson(request));
+                chatMessage.setType(ChatMessageType.CREATE_BOT);
+                chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
+                chatMessage.setToken(getToken());
+                chatMessage.setUniqueId(uniqueId);
+                chatMessage.setTypeCode(!Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());
+
+                JsonObject jsonObject = (JsonObject) gson.toJsonTree(chatMessage);
+
+//            jsonObject.remove("contentCount");
+//            jsonObject.remove("systemMetadata");
+//            jsonObject.remove("metadata");
+//            jsonObject.remove("repliedTo");
+//            jsonObject.remove("subjectId");
+
+                sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "CREATE_BOT");
+
+            } else {
+                getErrorOutPut(ChatConstant.ERROR_CHAT_READY, ChatConstant.ERROR_CODE_CHAT_READY, uniqueId);
+            }
+        } catch (Throwable e) {
+            showErrorLog(e.getCause().getMessage());
+        }
+
+        return uniqueId;
+    }
+
+
+    /**
+     * You can start Bot
+     *
+     * @param request threadId
+     *                allMentioned    set it to true if you want to get all mentioned messages in the thread
+     *                unreadMentioned  set it to ture if you only want to get unread mentioned messages in the thread
+     * @return
+     */
+    public String startBot(StartBotRequest request) {
+        String uniqueId = generateUniqueId();
+        long threadId = request.getThreadId();
+        try {
+            if (chatReady) {
+
+                ChatMessage chatMessage = new ChatMessage();
+
+                chatMessage.setContent(gson.toJson(request));
+                chatMessage.setType(ChatMessageType.START_BOT);
+                chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
+                chatMessage.setToken(getToken());
+                chatMessage.setUniqueId(uniqueId);
+                chatMessage.setSubjectId(threadId);
+                chatMessage.setTypeCode(!Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());
+
+                JsonObject jsonObject = (JsonObject) gson.toJsonTree(chatMessage);
+
+                jsonObject.remove("contentCount");
+                jsonObject.remove("systemMetadata");
+                jsonObject.remove("metadata");
+                jsonObject.remove("repliedTo");
+
+                sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "CREATE_BOT");
+
+            } else {
+                getErrorOutPut(ChatConstant.ERROR_CHAT_READY, ChatConstant.ERROR_CODE_CHAT_READY, uniqueId);
+            }
+        } catch (Throwable e) {
+            showErrorLog(e.getCause().getMessage());
+        }
+
+        return uniqueId;
+    }
+
+    /**
+     * You can stop Bot
+     *
+     * @param request threadId
+     *                allMentioned    set it to true if you want to get all mentioned messages in the thread
+     *                unreadMentioned  set it to ture if you only want to get unread mentioned messages in the thread
+     * @return
+     */
+    public String stopBot(StartBotRequest request) {
+        String uniqueId = generateUniqueId();
+        long threadId = request.getThreadId();
+        try {
+            if (chatReady) {
+
+                ChatMessage chatMessage = new ChatMessage();
+
+                chatMessage.setContent(gson.toJson(request));
+                chatMessage.setType(ChatMessageType.STOP_BOT);
+                chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
+                chatMessage.setToken(getToken());
+                chatMessage.setUniqueId(uniqueId);
+                chatMessage.setSubjectId(threadId);
+                chatMessage.setTypeCode(!Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());
+
+                JsonObject jsonObject = (JsonObject) gson.toJsonTree(chatMessage);
+
+                jsonObject.remove("contentCount");
+                jsonObject.remove("systemMetadata");
+                jsonObject.remove("metadata");
+                jsonObject.remove("repliedTo");
+
+                sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "CREATE_BOT");
+
+            } else {
+                getErrorOutPut(ChatConstant.ERROR_CHAT_READY, ChatConstant.ERROR_CODE_CHAT_READY, uniqueId);
+            }
+        } catch (Throwable e) {
+            showErrorLog(e.getCause().getMessage());
+        }
+
         return uniqueId;
     }
 
@@ -740,7 +883,7 @@ public class Chat extends AsyncAdapter {
                     userName,
                     ownerId,
                     !Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());//,
-                  //  ownerId);
+            //  ownerId);
 
             showInfoLog("ADD_CONTACT");
 
@@ -899,7 +1042,6 @@ public class Chat extends AsyncAdapter {
                     !Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());
 
 
-
             RetrofitUtil.request(updateContactObservable, new ApiListener<UpdateContact>() {
                 @Override
                 public void onSuccess(UpdateContact updateContact) {
@@ -995,7 +1137,6 @@ public class Chat extends AsyncAdapter {
                     , searchContactsRequest.getQuery()
                     , searchContactsRequest.getCellphoneNumber()
                     , searchContactsRequest.getOwnerId());
-
 
 
             RetrofitUtil.request(searchContactCall, new ApiListener<SearchContactVO>() {
@@ -2793,7 +2934,7 @@ public class Chat extends AsyncAdapter {
      * You can add auditor role to someone in a thread using user id.
      *
      * @param setRemoveRoleRequest roles   List of userIds and their roles
-     *                          threadId
+     *                             threadId
      */
     public String setAuditor(SetRemoveRoleRequest setRemoveRoleRequest) {
         SetRuleVO setRuleVO = new SetRuleVO();
@@ -4388,6 +4529,7 @@ public class Chat extends AsyncAdapter {
         long fromTimeNanos = history.getFromTimeNanos();
         long toTime = history.getToTime();
         long toTimeNanos = history.getToTimeNanos();
+        int messageType = history.getMessageType();
         history.setCount(count);
         history.setOffset(offsets);
         String query = history.getQuery();
@@ -4441,6 +4583,7 @@ public class Chat extends AsyncAdapter {
         chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
         chatMessage.setUniqueId(uniqueId);
         chatMessage.setSubjectId(threadId);
+        chatMessage.setMessageType(messageType);
 
         JsonObject jsonObject = (JsonObject) gson.toJsonTree(chatMessage);
 
@@ -4705,6 +4848,56 @@ public class Chat extends AsyncAdapter {
         showInfoLog("RECEIVE_JOIN_THREAD", gson.toJson(response));
     }
 
+    private void handleCreateBot(ChatMessage chatMessage) {
+
+        ChatResponse<ResultCreateBot> response = new ChatResponse<>();
+
+        BotVo botVo = gson.fromJson(chatMessage.getContent(), BotVo.class);
+
+        ResultCreateBot resultCreateBot = new ResultCreateBot();
+        resultCreateBot.setBotOV(botVo);
+
+        response.setResult(resultCreateBot);
+        response.setUniqueId(chatMessage.getUniqueId());
+        response.setSubjectId(chatMessage.getSubjectId());
+
+
+        listenerManager.callOnCreateBot(response);
+
+        showInfoLog("RECEIVE_CREATE_BOT", gson.toJson(response));
+    }
+
+    private void handleStartBot(ChatMessage chatMessage) {
+
+        ChatResponse<ResultStartBot> response = new ChatResponse<>();
+
+        ResultStartBot resultStartBot = gson.fromJson(chatMessage.getContent(), ResultStartBot.class);
+
+        response.setResult(resultStartBot);
+        response.setUniqueId(chatMessage.getUniqueId());
+        response.setSubjectId(chatMessage.getSubjectId());
+
+
+        listenerManager.callOnStartBot(response);
+
+        showInfoLog("RECEIVE_START_BOT", gson.toJson(response));
+    }
+
+    private void handleStopBot(ChatMessage chatMessage) {
+
+        ChatResponse<ResultStartBot> response = new ChatResponse<>();
+
+        ResultStartBot resultStartBot = gson.fromJson(chatMessage.getContent(), ResultStartBot.class);
+
+        response.setResult(resultStartBot);
+        response.setUniqueId(chatMessage.getUniqueId());
+        response.setSubjectId(chatMessage.getSubjectId());
+
+
+        listenerManager.callOnStartBot(response);
+
+        showInfoLog("RECEIVE_STOP_BOT", gson.toJson(response));
+    }
 
     private void handleCountUnreadMessage(ChatMessage chatMessage) {
 
@@ -5247,7 +5440,7 @@ public class Chat extends AsyncAdapter {
         try {
             org.apache.commons.io.FileUtils.copyURLToFile(url, fileUpload);
 
-            showInfoLog("SEND_GET_FILE"+jsonLog);
+            showInfoLog("SEND_GET_FILE" + jsonLog);
         } catch (IOException ex) {
             showErrorLog(ex.getMessage());
         }
@@ -5279,7 +5472,7 @@ public class Chat extends AsyncAdapter {
         String uniqueId = generateUniqueId();
         File fileImageUpload = new File(outputFileName);
         String jsonLog = gson.toJson(getImageRequest);
-            showInfoLog("SEND_GET_IMAGE"+jsonLog);
+        showInfoLog("SEND_GET_IMAGE" + jsonLog);
         try {
             org.apache.commons.io.FileUtils.copyURLToFile(url, fileImageUpload);
         } catch (IOException ex) {

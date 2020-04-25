@@ -474,6 +474,21 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
         chat.getAllUnreadMessagesCount(request);
     }
 
+    @Override
+    public void createBot(CreateBotRequest request) {
+        chat.createBot(request);
+    }
+
+    @Override
+    public void startBot(StartBotRequest request) {
+        chat.startBot(request);
+    }
+
+    @Override
+    public void stopBot(StartBotRequest request) {
+        chat.stopBot(request);
+    }
+
     //View
     @Override
     public void onDeliver(ChatResponse<ResultMessage> chatResponse) {
@@ -521,6 +536,18 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     public void onCountUnreadMessage(ChatResponse<ResultUnreadMessageCount> outPutUnread) {
         super.onCountUnreadMessage(outPutUnread);
         view.onCountUnreadMessage(outPutUnread);
+    }
+
+    @Override
+    public void onCreateBot(ChatResponse<ResultCreateBot> response) {
+        super.onCreateBot(response);
+        view.onCreateBot(response);
+    }
+
+    @Override
+    public void onStartBot(ChatResponse<ResultStartBot> response) {
+        super.onStartBot(response);
+        view.onStartBot(response);
     }
 
     @Override
