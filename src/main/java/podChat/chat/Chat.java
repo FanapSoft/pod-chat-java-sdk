@@ -32,6 +32,7 @@ import podChat.networking.retrofithelper.RetrofitHelperFileServer;
 import podChat.networking.retrofithelper.RetrofitHelperPlatformHost;
 import podChat.networking.retrofithelper.RetrofitUtil;
 import podChat.requestobject.*;
+import podChat.requestobject.BotInfoVO;
 import podChat.util.*;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -769,6 +770,53 @@ public class Chat extends AsyncAdapter {
 
         return uniqueId;
     }
+
+
+
+    /**
+     * You can define bot command
+     *
+     * @param request threadId
+     *                allMentioned    set it to true if you want to get all mentioned messages in the thread
+     *                unreadMentioned  set it to ture if you only want to get unread mentioned messages in the thread
+     * @return
+     */
+    public String defineBotCommand(BotInfoVO request) {
+        String uniqueId = generateUniqueId();
+
+        try {
+            if (chatReady) {
+
+                ChatMessage chatMessage = new ChatMessage();
+
+                chatMessage.setContent(gson.toJson(request));
+                chatMessage.setType(ChatMessageType.DEFINE_BOT_COMMAND);
+                chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
+                chatMessage.setToken(getToken());
+                chatMessage.setUniqueId(uniqueId);
+                chatMessage.setTypeCode(!Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());
+
+                JsonObject jsonObject = (JsonObject) gson.toJsonTree(chatMessage);
+
+            jsonObject.remove("contentCount");
+            jsonObject.remove("systemMetadata");
+            jsonObject.remove("metadata");
+            jsonObject.remove("repliedTo");
+            jsonObject.remove("subjectId");
+
+                sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "SEND_DEFINE_COMMAND_BOT");
+
+            } else {
+                getErrorOutPut(ChatConstant.ERROR_CHAT_READY, ChatConstant.ERROR_CODE_CHAT_READY, uniqueId);
+            }
+        } catch (Throwable e) {
+            showErrorLog(e.getCause().getMessage());
+        }
+
+        return uniqueId;
+    }
+
+
 
     /**
      * It clears all messages in the thread
@@ -4404,6 +4452,9 @@ public class Chat extends AsyncAdapter {
                     handleUnpinMessage(chatMessage);
                     break;
 
+                case ChatMessageType.DEFINE_BOT_COMMAND:
+                    handleDefineBotCommand(chatMessage);
+                    break;
 
             }
 
@@ -4953,6 +5004,20 @@ public class Chat extends AsyncAdapter {
         listenerManager.callOnRemoveRoleFromUser(chatResponse);
 
         showInfoLog("RECEIVE_REMOVE_RULE", chatResponse.getJson());
+    }
+    private void handleDefineBotCommand(ChatMessage chatMessage) {
+
+        ChatResponse<podChat.model.BotInfoVO> response = new ChatResponse<>();
+
+        podChat.model.BotInfoVO botVo = gson.fromJson(chatMessage.getContent(), podChat.model.BotInfoVO.class);
+
+        response.setResult(botVo);
+        response.setUniqueId(chatMessage.getUniqueId());
+        response.setSubjectId(chatMessage.getSubjectId());
+
+        listenerManager.callOnDefineBotCommand(response);
+
+        showInfoLog("RECEIVE_DEFINE_BOT_COMMAND", gson.toJson(response));
     }
 
     private void handleUnBlock(ChatMessage chatMessage) {

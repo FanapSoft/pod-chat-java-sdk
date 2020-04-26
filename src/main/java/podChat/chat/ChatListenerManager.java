@@ -661,4 +661,16 @@ public class ChatListenerManager {
         }
     }
 
+    public void callOnDefineBotCommand(ChatResponse<BotInfoVO> chatResponse) {
+
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onDefineBotCommand(chatResponse);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
+
+
 }
