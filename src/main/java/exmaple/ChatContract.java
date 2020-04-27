@@ -88,6 +88,7 @@ public interface ChatContract {
 
         default void onGetFile(ChatResponse<ResultFile> response) {
         }
+
         default void onGetImage(ChatResponse<ResultImageFile> response) {
         }
 
@@ -190,6 +191,17 @@ public interface ChatContract {
         default void onThreadInfoUpdated(ChatResponse<ResultThread> chatResponse) {
         }
 
+        default void onCreateBot(ChatResponse<ResultCreateBot> chatResponse) {
+        }
+
+        default void onStartBot(ChatResponse<ResultStartBot> chatResponse) {
+        }
+
+        default void onStopBot(ChatResponse<ResultStartBot> chatResponse) {
+        }
+
+        default void onDefineBotCommand(ChatResponse<ResultDefineCommandBot> chatResponse) {
+        }
 
     }
 
@@ -393,5 +405,13 @@ public interface ChatContract {
         void joinThead(RequestJoinThread request);
 
         void countUnreadMessage(RequestUnreadMessageCount request);
+
+        void createBot(RequestCreateBot request);
+
+        void startBot(RequestStartAndStopBot request);
+
+        void stopBot(RequestStartAndStopBot request);
+
+        void defineBotCommand(RequestDefineCommandBot request);
     }
 }

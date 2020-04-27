@@ -638,6 +638,49 @@ public class ChatListenerManager {
             }
         }
     }
+    public void callOnCreateBot(ChatResponse<ResultCreateBot> chatResponse) {
+
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onCreateBot(chatResponse);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
+
+    public void callOnStartBot(ChatResponse<ResultStartBot> chatResponse) {
+
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onStartBot(chatResponse);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
+
+    public void callOnStopBot(ChatResponse<ResultStartBot> chatResponse) {
+
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onStopBot(chatResponse);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
+
+    public void callOnDefineBotCommand(ChatResponse<ResultDefineCommandBot> chatResponse) {
+
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onDefineBotCommand(chatResponse);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
 
 
 }

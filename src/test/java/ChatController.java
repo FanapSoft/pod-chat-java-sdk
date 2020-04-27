@@ -59,7 +59,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
     @Override
     public void getFile(RequestGetFile requestGetFile) {
-chat.getFile(requestGetFile);
+        chat.getFile(requestGetFile);
     }
 
     @Override
@@ -474,6 +474,26 @@ chat.getFile(requestGetFile);
         chat.countUnreadMessage(request);
     }
 
+    @Override
+    public void createBot(RequestCreateBot request) {
+        chat.createBot(request);
+    }
+
+    @Override
+    public void startBot(RequestStartAndStopBot request) {
+        chat.startBot(request);
+    }
+
+    @Override
+    public void stopBot(RequestStartAndStopBot request) {
+        chat.stopBot(request);
+    }
+
+    @Override
+    public void defineBotCommand(RequestDefineCommandBot request) {
+        chat.defineBotCommand(request);
+    }
+
     //View
     @Override
     public void onDeliver(ChatResponse<ResultMessage> chatResponse) {
@@ -521,6 +541,30 @@ chat.getFile(requestGetFile);
     public void onCountUnreadMessage(ChatResponse<ResultUnreadMessageCount> outPutUnread) {
         super.onCountUnreadMessage(outPutUnread);
         view.onCountUnreadMessage(outPutUnread);
+    }
+
+    @Override
+    public void onCreateBot(ChatResponse<ResultCreateBot> response) {
+        super.onCreateBot(response);
+        view.onCreateBot(response);
+    }
+
+    @Override
+    public void onStartBot(ChatResponse<ResultStartBot> response) {
+        super.onStartBot(response);
+        view.onStartBot(response);
+    }
+
+    @Override
+    public void onStopBot(ChatResponse<ResultStartBot> response) {
+        super.onStopBot(response);
+        view.onStopBot(response);
+    }
+
+    @Override
+    public void onDefineBotCommand(ChatResponse<ResultDefineCommandBot> response) {
+        super.onDefineBotCommand(response);
+        view.onDefineBotCommand(response);
     }
 
     @Override

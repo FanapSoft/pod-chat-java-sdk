@@ -31,6 +31,7 @@ import podChat.networking.retrofithelper.ApiListener;
 import podChat.networking.retrofithelper.RetrofitHelperFileServer;
 import podChat.networking.retrofithelper.RetrofitHelperPlatformHost;
 import podChat.networking.retrofithelper.RetrofitUtil;
+import podChat.requestobject.RequestDefineCommandBot;
 import podChat.requestobject.*;
 import podChat.util.*;
 import retrofit2.Call;
@@ -39,7 +40,8 @@ import retrofit2.Response;
 import javax.activation.MimetypesFileTypeMap;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
@@ -230,6 +232,21 @@ public class Chat extends AsyncAdapter {
             case ChatMessageType.ALL_UNREAD_MESSAGE_COUNT:
                 handleCountUnreadMessage(chatMessage);
                 break;
+
+            case ChatMessageType.CREATE_BOT:
+                handleCreateBot(chatMessage);
+                break;
+            case ChatMessageType.START_BOT:
+                handleStartBot(chatMessage);
+                break;
+
+            case ChatMessageType.STOP_BOT:
+                handleStopBot(chatMessage);
+                break;
+            case ChatMessageType.DEFINE_BOT_COMMAND:
+                handleDefineBotCommand(chatMessage);
+                break;
+
         }
     }
 
@@ -590,6 +607,7 @@ public class Chat extends AsyncAdapter {
                     .order(request.getOrder())
                     .id(request.getId())
                     .uniqueIds(request.getUniqueIds())
+                    .messageType(request.getMessageType())
                     .build();
 
             getHistoryMain(history, request.getThreadId(), uniqueId, request.getTypeCode());
@@ -654,6 +672,10 @@ public class Chat extends AsyncAdapter {
 
         if (Util.isNullOrEmpty(history.getUniqueIds())) {
             jObj.remove("uniqueIds");
+        }
+
+        if (Util.isNullOrEmpty(history.getMessageType())) {
+            jObj.remove("messageType");
         }
 
         BaseMessage baseMessage = new BaseMessage();
@@ -730,6 +752,177 @@ public class Chat extends AsyncAdapter {
         return uniqueId;
     }
 
+    /**
+     * You can create Bot
+     *
+     * @param request threadId
+     *                allMentioned    set it to true if you want to get all mentioned messages in the thread
+     *                unreadMentioned  set it to ture if you only want to get unread mentioned messages in the thread
+     * @return
+     */
+    public String createBot(RequestCreateBot request) {
+        String uniqueId = generateUniqueId();
+        if (!request.getBotName().endsWith("BOT")){
+            showErrorLog("the botName must end with BOT");}
+        try {
+            if (chatReady) {
+
+                ChatMessage chatMessage = new ChatMessage();
+                chatMessage.setContent(request.getBotName());
+                chatMessage.setType(ChatMessageType.CREATE_BOT);
+                chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
+                chatMessage.setToken(getToken());
+                chatMessage.setUniqueId(uniqueId);
+                chatMessage.setTypeCode(!Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());
+
+                JsonObject jsonObject = (JsonObject) gson.toJsonTree(chatMessage);
+                jsonObject.remove("contentCount");
+                jsonObject.remove("systemMetadata");
+                jsonObject.remove("metadata");
+                jsonObject.remove("repliedTo");
+                jsonObject.remove("subjectId");
+
+                sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "SEND_CREATE_BOT");
+
+            } else {
+                getErrorOutPut(ChatConstant.ERROR_CHAT_READY, ChatConstant.ERROR_CODE_CHAT_READY, uniqueId);
+            }
+        } catch (Throwable e) {
+            showErrorLog(e.getCause().getMessage());
+        }
+
+        return uniqueId;
+    }
+
+    /**
+     * You can start Bot
+     *
+     * @param request threadId
+     *                allMentioned    set it to true if you want to get all mentioned messages in the thread
+     *                unreadMentioned  set it to ture if you only want to get unread mentioned messages in the thread
+     * @return
+     */
+    public String startBot(RequestStartAndStopBot request) {
+        String uniqueId = generateUniqueId();
+        long threadId = request.getThreadId();
+        try {
+            if (chatReady) {
+
+                ChatMessage chatMessage = new ChatMessage();
+                chatMessage.setContent(gson.toJson(request));
+                chatMessage.setType(ChatMessageType.START_BOT);
+                chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
+                chatMessage.setToken(getToken());
+                chatMessage.setUniqueId(uniqueId);
+                chatMessage.setSubjectId(threadId);
+                chatMessage.setTypeCode(!Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());
+
+                JsonObject jsonObject = (JsonObject) gson.toJsonTree(chatMessage);
+                jsonObject.remove("contentCount");
+                jsonObject.remove("systemMetadata");
+                jsonObject.remove("metadata");
+                jsonObject.remove("repliedTo");
+
+                sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "SEND_START_BOT");
+
+            } else {
+                getErrorOutPut(ChatConstant.ERROR_CHAT_READY, ChatConstant.ERROR_CODE_CHAT_READY, uniqueId);
+            }
+        } catch (Throwable e) {
+            showErrorLog(e.getCause().getMessage());
+        }
+
+        return uniqueId;
+    }
+
+    /**
+     * You can stop Bot
+     *
+     * @param request threadId
+     *                allMentioned    set it to true if you want to get all mentioned messages in the thread
+     *                unreadMentioned  set it to ture if you only want to get unread mentioned messages in the thread
+     * @return
+     */
+    public String stopBot(RequestStartAndStopBot request) {
+        String uniqueId = generateUniqueId();
+        long threadId = request.getThreadId();
+        try {
+            if (chatReady) {
+
+                ChatMessage chatMessage = new ChatMessage();
+                chatMessage.setContent(gson.toJson(request));
+                chatMessage.setType(ChatMessageType.STOP_BOT);
+                chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
+                chatMessage.setToken(getToken());
+                chatMessage.setUniqueId(uniqueId);
+                chatMessage.setSubjectId(threadId);
+                chatMessage.setTypeCode(!Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());
+
+                JsonObject jsonObject = (JsonObject) gson.toJsonTree(chatMessage);
+                jsonObject.remove("contentCount");
+                jsonObject.remove("systemMetadata");
+                jsonObject.remove("metadata");
+                jsonObject.remove("repliedTo");
+
+                sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "SEND_STOP_BOT");
+
+            } else {
+                getErrorOutPut(ChatConstant.ERROR_CHAT_READY, ChatConstant.ERROR_CODE_CHAT_READY, uniqueId);
+            }
+        } catch (Throwable e) {
+            showErrorLog(e.getCause().getMessage());
+        }
+
+        return uniqueId;
+    }
+
+
+    /**
+     * You can define bot command
+     *
+     * @param request threadId
+     *                allMentioned    set it to true if you want to get all mentioned messages in the thread
+     *                unreadMentioned  set it to ture if you only want to get unread mentioned messages in the thread
+     * @return
+     */
+    public String defineBotCommand(RequestDefineCommandBot request) {
+        String uniqueId = generateUniqueId();
+        List<String> commands = new ArrayList<>();
+        for (String s : request.getCommandList()) {
+            if (s.contains("@"))
+                showErrorLog("command cannot contain '@'symbol!");
+            else commands.add("/" + s);
+        }
+        request.setCommandList(commands);
+        try {
+            if (chatReady) {
+
+                ChatMessage chatMessage = new ChatMessage();
+                chatMessage.setContent(gson.toJson(request));
+                chatMessage.setType(ChatMessageType.DEFINE_BOT_COMMAND);
+                chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
+                chatMessage.setToken(getToken());
+                chatMessage.setUniqueId(uniqueId);
+                chatMessage.setTypeCode(!Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());
+
+                JsonObject jsonObject = (JsonObject) gson.toJsonTree(chatMessage);
+                jsonObject.remove("contentCount");
+                jsonObject.remove("systemMetadata");
+                jsonObject.remove("metadata");
+                jsonObject.remove("repliedTo");
+                jsonObject.remove("subjectId");
+
+                sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "SEND_DEFINE_COMMAND_BOT");
+
+            } else {
+                getErrorOutPut(ChatConstant.ERROR_CHAT_READY, ChatConstant.ERROR_CODE_CHAT_READY, uniqueId);
+            }
+        } catch (Throwable e) {
+            showErrorLog(e.getCause().getMessage());
+        }
+
+        return uniqueId;
+    }
 
     /**
      * You can get current user roles in the thread
@@ -1938,7 +2131,7 @@ public class Chat extends AsyncAdapter {
 
                                         listenerManager.callOnUploadImageFile(chatResponse);
 
-                                        showInfoLog("RECEIVE_UPLOAD_IMAGE"+imageJson);
+                                        showInfoLog("RECEIVE_UPLOAD_IMAGE" + imageJson);
 
                                         listenerManager.callOnLogEvent(imageJson);
                                     }
@@ -2068,11 +2261,11 @@ public class Chat extends AsyncAdapter {
     }
 
     public String getFile(RequestGetFile requestGetFile) {
-        return downloadFile(getFile(requestGetFile.getFileId(), requestGetFile.getHashCode(), requestGetFile.isDownloadable()), requestGetFile.getOutputPath(),requestGetFile);
+        return downloadFile(getFile(requestGetFile.getFileId(), requestGetFile.getHashCode(), requestGetFile.isDownloadable()), requestGetFile.getOutputPath(), requestGetFile);
     }
 
     public String getImage(RequestGetImage requestGetImage) {
-        return downloadImage(getImage(requestGetImage.getImageId(), requestGetImage.getHashCode(), requestGetImage.isDownloadable()),requestGetImage.getOutputPath(),requestGetImage);
+        return downloadImage(getImage(requestGetImage.getImageId(), requestGetImage.getHashCode(), requestGetImage.isDownloadable()), requestGetImage.getOutputPath(), requestGetImage);
     }
 
     /**
@@ -4742,6 +4935,71 @@ public class Chat extends AsyncAdapter {
         showInfoLog("RECEIVE_SET_RULE", chatResponse.getJson());
     }
 
+    private void handleCreateBot(ChatMessage chatMessage) {
+
+        ChatResponse<ResultCreateBot> response = new ChatResponse<>();
+
+        BotVo botVo = gson.fromJson(chatMessage.getContent(), BotVo.class);
+
+        ResultCreateBot resultCreateBot = new ResultCreateBot();
+        resultCreateBot.setBotOV(botVo);
+
+        response.setResult(resultCreateBot);
+        response.setUniqueId(chatMessage.getUniqueId());
+        response.setSubjectId(chatMessage.getSubjectId());
+
+
+        listenerManager.callOnCreateBot(response);
+
+        showInfoLog("RECEIVE_CREATE_BOT", gson.toJson(response));
+    }
+
+    private void handleStartBot(ChatMessage chatMessage) {
+
+        ChatResponse<ResultStartBot> response = new ChatResponse<>();
+
+        ResultStartBot resultStartBot = new ResultStartBot();
+        resultStartBot.setBotName(chatMessage.getContent());
+        response.setResult(resultStartBot);
+        response.setUniqueId(chatMessage.getUniqueId());
+        response.setSubjectId(chatMessage.getSubjectId());
+
+
+        listenerManager.callOnStartBot(response);
+
+        showInfoLog("RECEIVE_START_BOT", gson.toJson(response));
+    }
+
+    private void handleStopBot(ChatMessage chatMessage) {
+
+        ChatResponse<ResultStartBot> response = new ChatResponse<>();
+
+        ResultStartBot resultStartBot = new ResultStartBot();
+        resultStartBot.setBotName(chatMessage.getContent());
+        response.setResult(resultStartBot);
+        response.setUniqueId(chatMessage.getUniqueId());
+        response.setSubjectId(chatMessage.getSubjectId());
+
+        listenerManager.callOnStopBot(response);
+
+        showInfoLog("RECEIVE_STOP_BOT", gson.toJson(response));
+    }
+
+    private void handleDefineBotCommand(ChatMessage chatMessage) {
+
+        ChatResponse<ResultDefineCommandBot> response = new ChatResponse<>();
+
+        ResultDefineCommandBot botVo = gson.fromJson(chatMessage.getContent(), ResultDefineCommandBot.class);
+
+        response.setResult(botVo);
+        response.setUniqueId(chatMessage.getUniqueId());
+        response.setSubjectId(chatMessage.getSubjectId());
+
+        listenerManager.callOnDefineBotCommand(response);
+
+        showInfoLog("RECEIVE_DEFINE_BOT_COMMAND", gson.toJson(response));
+    }
+
     private void handleRemoveRole(ChatMessage chatMessage) {
         ChatResponse<ResultSetRole> chatResponse = new ChatResponse<>();
         ResultSetRole resultSetRole = new ResultSetRole();
@@ -5193,7 +5451,7 @@ public class Chat extends AsyncAdapter {
         return getFileServer() + "/nzh/file/" + "?fileId=" + fileId + "&downloadable=" + downloadable + "&hashCode=" + hashCode;
     }
 
-    public String downloadFile(String u, String outputFileName,RequestGetFile requestGetFile) {
+    public String downloadFile(String u, String outputFileName, RequestGetFile requestGetFile) {
         URL url = null;
         try {
             url = new URL(u);
@@ -5203,30 +5461,30 @@ public class Chat extends AsyncAdapter {
         }
         String uniqueId = generateUniqueId();
 
-        File fileUpload=new File(outputFileName);
+        File fileUpload = new File(outputFileName);
         try {
-            org.apache.commons.io.FileUtils.copyURLToFile(url,fileUpload);
+            org.apache.commons.io.FileUtils.copyURLToFile(url, fileUpload);
         } catch (IOException ex) {
             showErrorLog(ex.getMessage());
         }
 
-            ResultFile result = new ResultFile();
-            ChatResponse<ResultFile> chatResponse = new ChatResponse<>();
-            result.setHashCode(requestGetFile.getHashCode());
-            result.setId(requestGetFile.getFileId());
-            result.setName(fileUpload.getName());
-            result.setSize(fileUpload.length());
-            chatResponse.setUniqueId(uniqueId);
-            chatResponse.setResult(result);
-            String json = gson.toJson(chatResponse);
+        ResultFile result = new ResultFile();
+        ChatResponse<ResultFile> chatResponse = new ChatResponse<>();
+        result.setHashCode(requestGetFile.getHashCode());
+        result.setId(requestGetFile.getFileId());
+        result.setName(fileUpload.getName());
+        result.setSize(fileUpload.length());
+        chatResponse.setUniqueId(uniqueId);
+        chatResponse.setResult(result);
+        String json = gson.toJson(chatResponse);
 
-            listenerManager.callOnGetFile(chatResponse);
-            showInfoLog("RECEIVE_GET_FILE" + json);
-            listenerManager.callOnLogEvent(json);
+        listenerManager.callOnGetFile(chatResponse);
+        showInfoLog("RECEIVE_GET_FILE" + json);
+        listenerManager.callOnLogEvent(json);
         return uniqueId;
     }
 
-    public String downloadImage(String u, String outputFileName,RequestGetImage requestGetImage) {
+    public String downloadImage(String u, String outputFileName, RequestGetImage requestGetImage) {
         URL url = null;
         try {
             url = new URL(u);
@@ -5235,33 +5493,33 @@ public class Chat extends AsyncAdapter {
             return null;
         }
         String uniqueId = generateUniqueId();
-        File fileImageUpload=new File(outputFileName);
+        File fileImageUpload = new File(outputFileName);
         try {
-            org.apache.commons.io.FileUtils.copyURLToFile(url,fileImageUpload);
+            org.apache.commons.io.FileUtils.copyURLToFile(url, fileImageUpload);
         } catch (IOException ex) {
-           showErrorLog(ex.getMessage());
+            showErrorLog(ex.getMessage());
         }
         ChatResponse<ResultImageFile> chatResponse = new ChatResponse<>();
-            ResultImageFile resultImageFile = new ResultImageFile();
-            chatResponse.setUniqueId(uniqueId);
+        ResultImageFile resultImageFile = new ResultImageFile();
+        chatResponse.setUniqueId(uniqueId);
         BufferedImage bimg = null;
         try {
             bimg = ImageIO.read(fileImageUpload);
         } catch (IOException ex) {
             showErrorLog(ex.getMessage());
         }
-            resultImageFile.setId(requestGetImage.getImageId());
-            resultImageFile.setHashCode(requestGetImage.getHashCode());
-            resultImageFile.setName(fileImageUpload.getName());
-            resultImageFile.setActualHeight(bimg.getHeight());
-            resultImageFile.setActualWidth(bimg.getWidth());
+        resultImageFile.setId(requestGetImage.getImageId());
+        resultImageFile.setHashCode(requestGetImage.getHashCode());
+        resultImageFile.setName(fileImageUpload.getName());
+        resultImageFile.setActualHeight(bimg.getHeight());
+        resultImageFile.setActualWidth(bimg.getWidth());
 
-            chatResponse.setResult(resultImageFile);
-            String json = gson.toJson(chatResponse);
+        chatResponse.setResult(resultImageFile);
+        String json = gson.toJson(chatResponse);
 
-            listenerManager.callOnGetImage(chatResponse);
-            showInfoLog("RECEIVE_GET_IMAGE" + json);
-            listenerManager.callOnLogEvent(json);
+        listenerManager.callOnGetImage(chatResponse);
+        showInfoLog("RECEIVE_GET_IMAGE" + json);
+        listenerManager.callOnLogEvent(json);
 
         return uniqueId;
     }

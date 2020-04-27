@@ -10,11 +10,9 @@ import podChat.mainmodel.MessageVO;
 import podChat.mainmodel.RequestSearchContact;
 import podChat.mainmodel.RequestThreadInnerMessage;
 import podChat.model.*;
+import podChat.requestobject.RequestDefineCommandBot;
 import podChat.requestobject.*;
-import podChat.util.InviteType;
-import podChat.util.RoleType;
-import podChat.util.TextMessageType;
-import podChat.util.ThreadType;
+import podChat.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +22,7 @@ import java.util.List;
  */
 public class ChatMain implements ChatContract.view {
 //    public static String platformHost = "https://sandbox.pod.ir:8043";
-//    public static String token = "713993ca3ba541bcb1127dca094b2977";
+//    public static String token = "541a60144d6f47bbbb5a740843f25055";
 //    public static String ssoHost = "https://accounts.pod.ir";
 //    public static String fileServer = "https://core.pod.ir";
 //    public static String serverName = "chat-server";
@@ -35,7 +33,7 @@ public class ChatMain implements ChatContract.view {
 //    public static String queueUserName = "root";
 //    public static String queuePassword = "zalzalak";
 //    public static Long chatId = 4101L;
-
+//    public static String uri = "10.56.16.25:61616";
 
     public static String platformHost = "http://172.16.110.235:8003/srv/bptest-core/";
     //        public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //jiji
@@ -52,7 +50,6 @@ public class ChatMain implements ChatContract.view {
     public static String queuePassword = "j]Bm0RU8gLhbPUG";
     public static Long chatId = 4101L;
     static ChatController chatController;
-
 
     private static Logger logger = LogManager.getLogger(Async.class);
     Gson gson = new Gson();
@@ -79,9 +76,8 @@ public class ChatMain implements ChatContract.view {
 
             chatController.connect(requestConnect);
 
-            chatController.getUserInfo();
-
-            addContact();
+//            chatController.getUserInfo();
+//            addContact();
 //            Thread.sleep(2000);
 //            getcontact();
 //            Thread.sleep(2000);
@@ -92,52 +88,42 @@ public class ChatMain implements ChatContract.view {
 //            Thread.sleep(2000);
 //            getcontact();
 //            searchContact();
-
-
-            createThread();
+//            createThread();
 //            getThreads();
 //            sendMessage();
-
 //            deleteMultipleMessage();
 //            deleteMessage();
 //            editMessage();
 //            forwardMessage();
-
 //            addParticipant();
 //            removeParticipant();
 //            Thread.sleep(2000);
 //            getParticipant();
-//chatController.getUserInfo();
+//            chatController.getUserInfo();
 //            createThreadWithMessage();
 //            createThreadWithFileMessage();
 //            createPublicGroupOrChannelThread();
 //            isNameAvailable();
-
 //            joinThread();
-
 //            leaveThread();
 //            replyMessage();
-//            replyFileMessage(); /// check it
-
+//            replyFileMessage();
 //            Thread.sleep(2000);
-
 //            getDeliveryList();
 //            getSeenList();
-
+//            createBot();
+//            startBot();
+//            stopBot();
+            defineBotCommand();
 //            mute();
 //            Thread.sleep(2000);
-            unmute();
-
+//            unmute();
 //            getHistory();
 //            clearHistory();
-
 //            block();
 //            unblock();
 //            Thread.sleep(2000);
 //            getBlockList();
-
-
-//
 //            addAdmin();
 //            Thread.sleep(2000);
 //            getAdmin();
@@ -145,41 +131,29 @@ public class ChatMain implements ChatContract.view {
 //            removeAdmin();
 //            Thread.sleep(2000);
 //            getAdmin();
-
-
 //            pinThread();
 //            Thread.sleep(2000);
 //            getThreads();
-//
-
 //            unPinThread();
 //            Thread.sleep(2000);
-
-
 //            chatController.setToke("e1559e7981b94917a053b32ef36c334a");
 //            getcontact();
-//
-//
 //            chatController.setToke("e92a45d5abb54194bfe8f6e6d915189a");
 //            getcontact();
-        /*    addAuditor();
-            Thread.sleep(2000);
-            getParticipant();
-            Thread.sleep(2000);
-            removeAuditor();
-            Thread.sleep(2000);
-            getParticipant();*/
-
+//            addAuditor();
+//            Thread.sleep(2000);
+//            getParticipant();
+//            Thread.sleep(2000);
+//            removeAuditor();
+//            Thread.sleep(2000);
+//            getParticipant();
 //            interactiveMessage();
-
-//            uploadImage();  //checkit
-//            uploadFile();    ///checkit
-            getFile();
+//            uploadImage();
+//            uploadFile();
+//            getFile();
 //            getImage();
 //            spam();
-
 //            Thread.sleep(2000);
-
 //            getParticipant();
 //            updateThreadInfo();
 //            pinMessage();
@@ -188,22 +162,14 @@ public class ChatMain implements ChatContract.view {
             Thread.sleep(2000);
 //            unPinMessage();
 //            chatController.getUserInfo();
-
 //            getCurrentUserRoles();
-
 //            getMentionedList();
-
 //            updateProfile();
-
-
 //            sendFileMessage();
-
-
 //            countUnreadMessage();
         } catch (ConnectionException | InterruptedException e) {
             System.out.println(e);
         }
-
 
     }
 
@@ -464,6 +430,7 @@ public class ChatMain implements ChatContract.view {
         chatController.getHistory(requestGetHistory);*/
         RequestGetHistory requestGetHistory2 = new RequestGetHistory
                 .Builder(7149)
+                .messageType(ChatMessageType.INVITATION)
 //                .uniqueIds(new String[]{"a98d00af-6cb7-4174-a82a-a8ec68af0bb1"})
                 .build();
 
@@ -475,6 +442,53 @@ public class ChatMain implements ChatContract.view {
 
         chatController.getHistory(requestGetHistory1, null);*/
     }
+
+    /******************************************************************
+     *                           BOT                               *
+     * ****************************************************************/
+
+    /**
+     * create bot
+     */
+    private void createBot() {
+        RequestCreateBot requestCreateBot = new RequestCreateBot
+                .Builder("SDK4BOT")
+                .build();
+        chatController.createBot(requestCreateBot);
+    }
+
+    /**
+     * start bot
+     */
+    private void startBot() {
+        RequestStartAndStopBot requestStartAndStopBot = new RequestStartAndStopBot
+                .Builder(7459L, "SDK4BOT")
+                .build();
+        chatController.startBot(requestStartAndStopBot);
+    }
+
+    /**
+     * stop bot
+     */
+    private void stopBot() {
+        RequestStartAndStopBot requestStartAndStopBot = new RequestStartAndStopBot
+                .Builder(7459L, "SDK4BOT")
+                .build();
+        chatController.stopBot(requestStartAndStopBot);
+    }
+
+    /**
+     * define bot command
+     */
+    private void defineBotCommand() {
+        List<String> commands = new ArrayList<>();
+        commands.add("get1");
+        RequestDefineCommandBot requestDefineCommandBot = new RequestDefineCommandBot
+                .Builder("SDK4BOT", commands)
+                .build();
+        chatController.defineBotCommand(requestDefineCommandBot);
+    }
+
 
     /******************************************************************
      *                           THREAD                               *
@@ -595,7 +609,7 @@ public class ChatMain implements ChatContract.view {
      */
     private void sendMessage() {
         RequestMessage requestThread = new RequestMessage
-                .Builder("hi @JiJi Jijuli", 7308, TextMessageType.TEXT)
+                .Builder("/getId@SDK4BOT", 7459L, TextMessageType.TEXT)
                 .build();
 
         chatController.sendTextMessage(requestThread);
@@ -650,7 +664,7 @@ public class ChatMain implements ChatContract.view {
      */
     private void replyMessage() {
         RequestReplyMessage requestReplyMessage = new RequestReplyMessage
-                .Builder("hi", 7129, 91288, TextMessageType.TEXT)
+                .Builder("7459", 7459, 97287, TextMessageType.TEXT)
                 .build();
 
         chatController.replyMessage(requestReplyMessage);
@@ -709,7 +723,7 @@ public class ChatMain implements ChatContract.view {
         RequestCreatePublicGroupOrChannelThread requestCreateThread = new RequestCreatePublicGroupOrChannelThread
                 .Builder(ThreadType.PUBLIC_GROUP, new ArrayList<Invitee>() {{
             add(invitee);
-        }}, "jijiiThread")
+        }}, "ssss")
                 .build();
 
         chatController.createThread(requestCreateThread);
@@ -886,7 +900,7 @@ public class ChatMain implements ChatContract.view {
      */
     private void getParticipant() {
         RequestThreadParticipant threadParticipant = new RequestThreadParticipant
-                .Builder(7308)
+                .Builder(7129L)
                 .build();
 
         chatController.getThreadParticipant(threadParticipant);
@@ -898,8 +912,10 @@ public class ChatMain implements ChatContract.view {
     private void addParticipant() {
         RequestAddParticipants addParticipants = RequestAddParticipants
                 .newBuilder()
-                .threadId(7308L)
-                .withUsername("pooria")
+                .threadId(7459L)
+                .withUsername("SDK4BOT")
+//                .threadId(7308L)
+//                .withUsername("pooria")
                 .build();
 
         chatController.addParticipants(addParticipants);
@@ -980,6 +996,7 @@ public class ChatMain implements ChatContract.view {
 
 
     }
+
     private void getImage() {
         RequestGetImage requestGetImage = new RequestGetImage
                 .Builder(12516, "17159944353-0.8847278640747307", true, "C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.jpg")
@@ -1036,7 +1053,7 @@ public class ChatMain implements ChatContract.view {
 //            String token = myObj.nextLine();
 //
 //            chatController.setToke(token);
-            getThreads();
+//            getThreads();
 //
 //        }
     }

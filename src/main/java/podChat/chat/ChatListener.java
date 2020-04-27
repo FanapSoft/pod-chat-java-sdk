@@ -207,4 +207,21 @@ public interface ChatListener {
     default void onCountUnreadMessage(ChatResponse<ResultUnreadMessageCount> response) {
 
     }
+
+    default void onCreateBot(ChatResponse<ResultCreateBot> response) {
+
+    }
+    default void onStartBot(ChatResponse<ResultStartBot> response) {
+
+    }
+
+    default void onStopBot(ChatResponse<ResultStartBot> response) {
+
+    }
+
+    default void onDefineBotCommand(ChatResponse<ResultDefineCommandBot> response) {
+
+    }
+
+
 }
