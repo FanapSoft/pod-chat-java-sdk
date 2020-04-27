@@ -2,7 +2,7 @@ package podChat.model;
 
 import java.util.List;
 
-public class BotInfoVO {
+public class ResultDefineCommandBot {
     private long botUserId;
     private String botName;
     private List<String> commandList;

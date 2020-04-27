@@ -215,7 +215,11 @@ public interface ChatListener {
 
     }
 
-    default void onDefineBotCommand(ChatResponse<BotInfoVO> response) {
+    default void onStopBot(ChatResponse<ResultStartBot> response) {
+
+    }
+
+    default void onDefineBotCommand(ChatResponse<ResultDefineCommandBot> response) {
 
     }
 }

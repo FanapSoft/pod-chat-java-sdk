@@ -4,7 +4,6 @@ import exception.ConnectionException;
 import podChat.ProgressHandler;
 import podChat.mainmodel.*;
 import podChat.model.*;
-import podChat.model.BotInfoVO;
 import podChat.requestobject.*;
 
 import java.util.ArrayList;
@@ -194,10 +193,14 @@ public interface ChatContract {
 
         default void onCreateBot(ChatResponse<ResultCreateBot> chatResponse) {
         }
+
         default void onStartBot(ChatResponse<ResultStartBot> chatResponse) {
         }
 
-        default void onDefineBotCommand (ChatResponse<BotInfoVO> chatResponse) {
+        default void onStopBot(ChatResponse<ResultStartBot> chatResponse) {
+        }
+
+        default void onDefineBotCommand(ChatResponse<ResultDefineCommandBot> chatResponse) {
         }
 
     }
@@ -405,10 +408,10 @@ public interface ChatContract {
 
         void createBot(CreateBotRequest request);
 
-        void startBot(StartBotRequest request);
+        void startBot(StartStopBotRequest request);
 
-        void stopBot(StartBotRequest request);
+        void stopBot(StartStopBotRequest request);
 
-        void defineBotCommand(podChat.requestobject.BotInfoVO request);
+        void defineBotCommand(DefineCommandBotRequest request);
     }
 }

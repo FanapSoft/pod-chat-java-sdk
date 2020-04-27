@@ -61,7 +61,7 @@ public class CreateBotTest implements ChatContract.view {
     @Order(2)
     void createBot() throws InterruptedException {
         CreateBotRequest createBotRequest = new CreateBotRequest
-                .Builder("SDKBOT")
+                .Builder("SDK6BOT")
                 .build();
         chatController.createBot(createBotRequest);
         Thread.sleep(10000);

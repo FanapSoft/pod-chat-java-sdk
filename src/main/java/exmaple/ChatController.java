@@ -8,7 +8,7 @@ import podChat.chat.ChatListener;
 import podChat.mainmodel.*;
 import podChat.model.*;
 import podChat.requestobject.*;
-import podChat.requestobject.BotInfoVO;
+import podChat.requestobject.DefineCommandBotRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -484,17 +484,17 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void startBot(StartBotRequest request) {
+    public void startBot(StartStopBotRequest request) {
         chat.startBot(request);
     }
 
     @Override
-    public void stopBot(StartBotRequest request) {
+    public void stopBot(StartStopBotRequest request) {
         chat.stopBot(request);
     }
 
     @Override
-    public void defineBotCommand(BotInfoVO request) {
+    public void defineBotCommand(DefineCommandBotRequest request) {
         chat.defineBotCommand(request);
     }
 
@@ -745,7 +745,13 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void onDefineBotCommand(ChatResponse<podChat.model.BotInfoVO> response) {
+    public void onStopBot(ChatResponse<ResultStartBot> response) {
+        super.onStopBot(response);
+        view.onStopBot(response);
+    }
+
+    @Override
+    public void onDefineBotCommand(ChatResponse<ResultDefineCommandBot> response) {
         super.onDefineBotCommand(response);
         view.onDefineBotCommand(response);
     }

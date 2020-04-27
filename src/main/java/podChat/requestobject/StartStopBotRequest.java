@@ -1,10 +1,10 @@
 package podChat.requestobject;
 
-public class StartBotRequest extends GeneralRequestObject {
+public class StartStopBotRequest extends GeneralRequestObject {
     private String botName;
     private long threadId;
 
-    StartBotRequest(Builder builder) {
+    StartStopBotRequest(Builder builder) {
         super(builder);
         this.threadId = builder.threadId;
         this.botName = builder.botName;
@@ -21,8 +21,8 @@ public class StartBotRequest extends GeneralRequestObject {
         }
 
 
-        public StartBotRequest build() {
-            return new StartBotRequest(this);
+        public StartStopBotRequest build() {
+            return new StartStopBotRequest(this);
         }
 
         @Override

@@ -2,12 +2,12 @@ package podChat.requestobject;
 
 import java.util.List;
 
-public class BotInfoVO extends GeneralRequestObject {
+public class DefineCommandBotRequest extends GeneralRequestObject {
 
     private String botName;
     private List<String> commandList;
 
-    BotInfoVO(Builder builder) {
+    DefineCommandBotRequest(Builder builder) {
         super(builder);
         this.botName = builder.botName;
         this.commandList = builder.commandList;
@@ -24,8 +24,8 @@ public class BotInfoVO extends GeneralRequestObject {
         }
 
 
-        public BotInfoVO build() {
-            return new BotInfoVO(this);
+        public DefineCommandBotRequest build() {
+            return new DefineCommandBotRequest(this);
         }
 
         @Override

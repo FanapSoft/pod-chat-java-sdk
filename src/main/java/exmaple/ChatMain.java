@@ -11,7 +11,6 @@ import podChat.mainmodel.RequestThreadInnerMessage;
 import podChat.mainmodel.SearchContactsRequest;
 import podChat.model.*;
 import podChat.requestobject.*;
-import podChat.requestobject.BotInfoVO;
 import podChat.util.InviteType;
 import podChat.util.RoleType;
 import podChat.util.TextMessageType;
@@ -38,7 +37,7 @@ public class ChatMain implements ChatContract.view {
 //    public static Long chatId = 4101L;
 //    public static String uri = "10.56.16.25:61616";
 
-        public static String platformHost = "http://172.16.110.235:8003/srv/bptest-core/";
+    public static String platformHost = "http://172.16.110.235:8003/srv/bptest-core/";
     //        public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //jiji
     public static String token = "bebc31c4ead6458c90b607496dae25c6"; //alexi
     //        public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //fifi
@@ -81,7 +80,6 @@ public class ChatMain implements ChatContract.view {
             chatController.connect(connectRequest);
 
 //            chatController.getUserInfo();
-
 //            addContact();
 //            Thread.sleep(2000);
 //            getcontact();
@@ -93,116 +91,83 @@ public class ChatMain implements ChatContract.view {
 //            Thread.sleep(2000);
 //            getcontact();
 //            searchContact();
-
-
 //            createThread();
 //            getThreads();
 //            sendMessage();
-
 //            deleteMultipleMessage();
 //            deleteMessage();
 //            editMessage();
 //            forwardMessage();
-
 //            addParticipant();
 //            removeParticipant();
 //            Thread.sleep(2000);
 //            getParticipant();
-//chatController.getUserInfo();
+//            chatController.getUserInfo();
 //            createThreadWithMessage();
 //            createThreadWithFileMessage();
 //            createPublicGroupOrChannelThread();
 //            isNameAvailable();
-
 //            joinThread();
-
 //            leaveThread();
 //            replyMessage();
-//            replyFileMessage(); /// check it
-
+//            replyFileMessage();
 //            Thread.sleep(2000);
-
 //            getDeliveryList();
 //            getSeenList();
-
 //            mute();
 //            Thread.sleep(2000);
 //            unmute();
-
 //            getHistory();
 //            clearHistory();
-
 //            block();
 //            unblock();
 //            Thread.sleep(2000);
 //            getBlockList();
-
-
-//
-            addAdmin();
+//            addAdmin();
 //            Thread.sleep(2000);
 //            getAdmin();
 //            Thread.sleep(2000);
 //            removeAdmin();
 //            Thread.sleep(2000);
 //            getAdmin();
-
-
 //            pinThread();
 //            Thread.sleep(2000);
 //            getThreads();
-//
-
 //            unPinThread();
 //            Thread.sleep(2000);
-
-
 //            chatController.setToke("e1559e7981b94917a053b32ef36c334a");
 //            getcontact();
-//
-//
 //            chatController.setToke("e92a45d5abb54194bfe8f6e6d915189a");
 //            getcontact();
 //            addAuditor();
 //            removeAuditor();
-        /*    addAuditor();
-            Thread.sleep(2000);
-            getParticipant();
-            Thread.sleep(2000);
-            removeAuditor();
-            Thread.sleep(2000);
-            getParticipant();*/
-
+//            addAuditor();
+//            Thread.sleep(2000);
+//            getParticipant();
+//            Thread.sleep(2000);
+//            removeAuditor();
+//            Thread.sleep(2000);
+//            getParticipant();
 //            interactiveMessage();
-
-//            uploadImage();  //checkit
-//            uploadFile();    ///checkit
+//            uploadImage();
+//            uploadFile();
 //            getFile();
 //            getImage();
 //            spam();
-
 //            Thread.sleep(2000);
-
 //            getParticipant();
 //            updateThreadInfo();
-//            pinMessage();
-
+//            pinMessage()
 //            Thread.sleep(2000);
 //            getThreads();
             Thread.sleep(2000);
 //            unPinMessage();
 //            chatController.getUserInfo();
-
 //            getCurrentUserRoles();
-
 //            getMentionedList();
 //            createBot();
 //            updateProfile();
-
-
 //            sendFileMessage();
-
-
 //            countUnreadMessage();
         } catch (ConnectionException | InterruptedException e) {
             System.out.println(e);
@@ -474,6 +439,53 @@ public class ChatMain implements ChatContract.view {
     }
 
     /******************************************************************
+     *                           BOT                               *
+     * ****************************************************************/
+
+    /**
+     * create bot
+     */
+    private void createBot() {
+       CreateBotRequest createBotRequest = new CreateBotRequest
+                .Builder("SDK4BOT")
+                .build();
+        chatController.createBot(createBotRequest);
+    }
+
+    /**
+     * start bot
+     */
+    private void startBot() {
+        StartStopBotRequest requestStartAndStopBot = new StartStopBotRequest
+                .Builder(7459L, "SDK4BOT")
+                .build();
+        chatController.startBot(requestStartAndStopBot);
+    }
+
+    /**
+     * stop bot
+     */
+    private void stopBot() {
+        StartStopBotRequest requestStartAndStopBot = new StartStopBotRequest
+                .Builder(7459L, "SDK4BOT")
+                .build();
+        chatController.stopBot(requestStartAndStopBot);
+    }
+
+    /**
+     * define bot command
+     */
+    private void defineBotCommand() {
+        List<String> commands = new ArrayList<>();
+        commands.add("get1");
+        DefineCommandBotRequest requestDefineCommandBot = new DefineCommandBotRequest
+                .Builder("SDK4BOT", commands)
+                .build();
+        chatController.defineBotCommand(requestDefineCommandBot);
+    }
+
+
+    /******************************************************************
      *                           THREAD                               *
      * ****************************************************************/
 
@@ -586,48 +598,6 @@ public class ChatMain implements ChatContract.view {
         chatController.editMessage(editMessageRequest);
     }
 
-
-    /**
-     * create bot
-     */
-    private void createBot() {
-        CreateBotRequest createBotRequest = new CreateBotRequest
-                .Builder("SDKBOT")
-                .build();
-        chatController.createBot(createBotRequest);
-    }
-
-    /**
-     * start bot
-     */
-    private void startBot() {
-        StartBotRequest startBotRequest = new StartBotRequest
-                .Builder(1234L, "SDKBOT")
-                .build();
-        chatController.startBot(startBotRequest);
-    }
-
-    /**
-     * stop bot
-     */
-    private void stopBot() {
-        StartBotRequest startBotRequest = new StartBotRequest
-                .Builder(1234L, "SDKBOT")
-                .build();
-        chatController.stopBot(startBotRequest);
-    }
-
-    /**
-     * define bot command
-     */
-    private void defineBotCommand() {
-        List<String> commands=new ArrayList<>();
-        commands.add("/ss");
-        BotInfoVO botInfoVO = new BotInfoVO
-                .Builder("SDKBOT",commands)
-                .build();
-        chatController.defineBotCommand(botInfoVO);
-    }
     /**
      * send message
      */

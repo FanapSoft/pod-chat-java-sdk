@@ -4,13 +4,9 @@ import exception.ConnectionException;
 import exmaple.ChatContract;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
-import podChat.mainmodel.Invitee;
 import podChat.model.ChatResponse;
-import podChat.requestobject.BotInfoVO;
+import podChat.requestobject.DefineCommandBotRequest;
 import podChat.requestobject.ConnectRequest;
-import podChat.requestobject.CreateThreadRequest;
-import podChat.util.InviteType;
-import podChat.util.ThreadType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,15 +62,14 @@ public class DefineBotCommandTest  implements ChatContract.view {
     @Test
     @Order(2)
     void defineBotCommand() throws InterruptedException {
-
         List<String> commands = new ArrayList<>();
-        commands.add("/ss");
-        BotInfoVO botInfoVO = new BotInfoVO
-                .Builder("SDKBOT", commands)
+        commands.add("get2");
+        DefineCommandBotRequest requestDefineCommandBot = new DefineCommandBotRequest
+                .Builder("SDK4BOT", commands)
                 .build();
-        chatController.defineBotCommand(botInfoVO);
+        chatController.defineBotCommand(requestDefineCommandBot);
 
-        java.lang.Thread.sleep(3000);
+        java.lang.Thread.sleep(10000);
 
 
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);

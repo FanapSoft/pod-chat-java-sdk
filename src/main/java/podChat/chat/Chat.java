@@ -32,7 +32,6 @@ import podChat.networking.retrofithelper.RetrofitHelperFileServer;
 import podChat.networking.retrofithelper.RetrofitHelperPlatformHost;
 import podChat.networking.retrofithelper.RetrofitUtil;
 import podChat.requestobject.*;
-import podChat.requestobject.BotInfoVO;
 import podChat.util.*;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -236,13 +235,15 @@ public class Chat extends AsyncAdapter {
             case ChatMessageType.CREATE_BOT:
                 handleCreateBot(chatMessage);
                 break;
-
             case ChatMessageType.START_BOT:
                 handleStartBot(chatMessage);
                 break;
 
             case ChatMessageType.STOP_BOT:
                 handleStopBot(chatMessage);
+                break;
+            case ChatMessageType.DEFINE_BOT_COMMAND:
+                handleDefineBotCommand(chatMessage);
                 break;
         }
     }
@@ -651,13 +652,14 @@ public class Chat extends AsyncAdapter {
      */
     public String createBot(CreateBotRequest request) {
         String uniqueId = generateUniqueId();
-        String botName = request.getBotName();
+        if (!request.getBotName().endsWith("BOT")) {
+            showErrorLog("the botName must end with BOT");
+        }
         try {
             if (chatReady) {
 
                 ChatMessage chatMessage = new ChatMessage();
-
-                chatMessage.setContent(gson.toJson(request));
+                chatMessage.setContent(request.getBotName());
                 chatMessage.setType(ChatMessageType.CREATE_BOT);
                 chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
                 chatMessage.setToken(getToken());
@@ -665,14 +667,13 @@ public class Chat extends AsyncAdapter {
                 chatMessage.setTypeCode(!Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());
 
                 JsonObject jsonObject = (JsonObject) gson.toJsonTree(chatMessage);
+                jsonObject.remove("contentCount");
+                jsonObject.remove("systemMetadata");
+                jsonObject.remove("metadata");
+                jsonObject.remove("repliedTo");
+                jsonObject.remove("subjectId");
 
-//            jsonObject.remove("contentCount");
-//            jsonObject.remove("systemMetadata");
-//            jsonObject.remove("metadata");
-//            jsonObject.remove("repliedTo");
-//            jsonObject.remove("subjectId");
-
-                sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "CREATE_BOT");
+                sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "SEND_CREATE_BOT");
 
             } else {
                 getErrorOutPut(ChatConstant.ERROR_CHAT_READY, ChatConstant.ERROR_CODE_CHAT_READY, uniqueId);
@@ -684,7 +685,6 @@ public class Chat extends AsyncAdapter {
         return uniqueId;
     }
 
-
     /**
      * You can start Bot
      *
@@ -693,14 +693,13 @@ public class Chat extends AsyncAdapter {
      *                unreadMentioned  set it to ture if you only want to get unread mentioned messages in the thread
      * @return
      */
-    public String startBot(StartBotRequest request) {
+    public String startBot(StartStopBotRequest request) {
         String uniqueId = generateUniqueId();
         long threadId = request.getThreadId();
         try {
             if (chatReady) {
 
                 ChatMessage chatMessage = new ChatMessage();
-
                 chatMessage.setContent(gson.toJson(request));
                 chatMessage.setType(ChatMessageType.START_BOT);
                 chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
@@ -710,13 +709,12 @@ public class Chat extends AsyncAdapter {
                 chatMessage.setTypeCode(!Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());
 
                 JsonObject jsonObject = (JsonObject) gson.toJsonTree(chatMessage);
-
                 jsonObject.remove("contentCount");
                 jsonObject.remove("systemMetadata");
                 jsonObject.remove("metadata");
                 jsonObject.remove("repliedTo");
 
-                sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "CREATE_BOT");
+                sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "SEND_START_BOT");
 
             } else {
                 getErrorOutPut(ChatConstant.ERROR_CHAT_READY, ChatConstant.ERROR_CODE_CHAT_READY, uniqueId);
@@ -736,14 +734,13 @@ public class Chat extends AsyncAdapter {
      *                unreadMentioned  set it to ture if you only want to get unread mentioned messages in the thread
      * @return
      */
-    public String stopBot(StartBotRequest request) {
+    public String stopBot(StartStopBotRequest request) {
         String uniqueId = generateUniqueId();
         long threadId = request.getThreadId();
         try {
             if (chatReady) {
 
                 ChatMessage chatMessage = new ChatMessage();
-
                 chatMessage.setContent(gson.toJson(request));
                 chatMessage.setType(ChatMessageType.STOP_BOT);
                 chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
@@ -753,13 +750,12 @@ public class Chat extends AsyncAdapter {
                 chatMessage.setTypeCode(!Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());
 
                 JsonObject jsonObject = (JsonObject) gson.toJsonTree(chatMessage);
-
                 jsonObject.remove("contentCount");
                 jsonObject.remove("systemMetadata");
                 jsonObject.remove("metadata");
                 jsonObject.remove("repliedTo");
 
-                sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "CREATE_BOT");
+                sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "SEND_STOP_BOT");
 
             } else {
                 getErrorOutPut(ChatConstant.ERROR_CHAT_READY, ChatConstant.ERROR_CODE_CHAT_READY, uniqueId);
@@ -772,7 +768,6 @@ public class Chat extends AsyncAdapter {
     }
 
 
-
     /**
      * You can define bot command
      *
@@ -781,14 +776,19 @@ public class Chat extends AsyncAdapter {
      *                unreadMentioned  set it to ture if you only want to get unread mentioned messages in the thread
      * @return
      */
-    public String defineBotCommand(BotInfoVO request) {
+    public String defineBotCommand(DefineCommandBotRequest request) {
         String uniqueId = generateUniqueId();
-
+        List<String> commands = new ArrayList<>();
+        for (String s : request.getCommandList()) {
+            if (s.contains("@"))
+                showErrorLog("command cannot contain '@'symbol!");
+            else commands.add("/" + s);
+        }
+        request.setCommandList(commands);
         try {
             if (chatReady) {
 
                 ChatMessage chatMessage = new ChatMessage();
-
                 chatMessage.setContent(gson.toJson(request));
                 chatMessage.setType(ChatMessageType.DEFINE_BOT_COMMAND);
                 chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
@@ -797,12 +797,11 @@ public class Chat extends AsyncAdapter {
                 chatMessage.setTypeCode(!Util.isNullOrEmpty(typeCode) ? typeCode : getTypeCode());
 
                 JsonObject jsonObject = (JsonObject) gson.toJsonTree(chatMessage);
-
-            jsonObject.remove("contentCount");
-            jsonObject.remove("systemMetadata");
-            jsonObject.remove("metadata");
-            jsonObject.remove("repliedTo");
-            jsonObject.remove("subjectId");
+                jsonObject.remove("contentCount");
+                jsonObject.remove("systemMetadata");
+                jsonObject.remove("metadata");
+                jsonObject.remove("repliedTo");
+                jsonObject.remove("subjectId");
 
                 sendAsyncMessage(jsonObject.toString(), AsyncMessageType.MESSAGE, "SEND_DEFINE_COMMAND_BOT");
 
@@ -815,7 +814,6 @@ public class Chat extends AsyncAdapter {
 
         return uniqueId;
     }
-
 
 
     /**
@@ -4452,10 +4450,6 @@ public class Chat extends AsyncAdapter {
                     handleUnpinMessage(chatMessage);
                     break;
 
-                case ChatMessageType.DEFINE_BOT_COMMAND:
-                    handleDefineBotCommand(chatMessage);
-                    break;
-
             }
 
         } catch (Throwable e) {
@@ -4922,8 +4916,8 @@ public class Chat extends AsyncAdapter {
 
         ChatResponse<ResultStartBot> response = new ChatResponse<>();
 
-        ResultStartBot resultStartBot = gson.fromJson(chatMessage.getContent(), ResultStartBot.class);
-
+        ResultStartBot resultStartBot = new ResultStartBot();
+        resultStartBot.setBotName(chatMessage.getContent());
         response.setResult(resultStartBot);
         response.setUniqueId(chatMessage.getUniqueId());
         response.setSubjectId(chatMessage.getSubjectId());
@@ -4938,16 +4932,30 @@ public class Chat extends AsyncAdapter {
 
         ChatResponse<ResultStartBot> response = new ChatResponse<>();
 
-        ResultStartBot resultStartBot = gson.fromJson(chatMessage.getContent(), ResultStartBot.class);
-
+        ResultStartBot resultStartBot = new ResultStartBot();
+        resultStartBot.setBotName(chatMessage.getContent());
         response.setResult(resultStartBot);
         response.setUniqueId(chatMessage.getUniqueId());
         response.setSubjectId(chatMessage.getSubjectId());
 
-
-        listenerManager.callOnStartBot(response);
+        listenerManager.callOnStopBot(response);
 
         showInfoLog("RECEIVE_STOP_BOT", gson.toJson(response));
+    }
+
+    private void handleDefineBotCommand(ChatMessage chatMessage) {
+
+        ChatResponse<ResultDefineCommandBot> response = new ChatResponse<>();
+
+        ResultDefineCommandBot botVo = gson.fromJson(chatMessage.getContent(), ResultDefineCommandBot.class);
+
+        response.setResult(botVo);
+        response.setUniqueId(chatMessage.getUniqueId());
+        response.setSubjectId(chatMessage.getSubjectId());
+
+        listenerManager.callOnDefineBotCommand(response);
+
+        showInfoLog("RECEIVE_DEFINE_BOT_COMMAND", gson.toJson(response));
     }
 
     private void handleCountUnreadMessage(ChatMessage chatMessage) {
@@ -5004,20 +5012,6 @@ public class Chat extends AsyncAdapter {
         listenerManager.callOnRemoveRoleFromUser(chatResponse);
 
         showInfoLog("RECEIVE_REMOVE_RULE", chatResponse.getJson());
-    }
-    private void handleDefineBotCommand(ChatMessage chatMessage) {
-
-        ChatResponse<podChat.model.BotInfoVO> response = new ChatResponse<>();
-
-        podChat.model.BotInfoVO botVo = gson.fromJson(chatMessage.getContent(), podChat.model.BotInfoVO.class);
-
-        response.setResult(botVo);
-        response.setUniqueId(chatMessage.getUniqueId());
-        response.setSubjectId(chatMessage.getSubjectId());
-
-        listenerManager.callOnDefineBotCommand(response);
-
-        showInfoLog("RECEIVE_DEFINE_BOT_COMMAND", gson.toJson(response));
     }
 
     private void handleUnBlock(ChatMessage chatMessage) {

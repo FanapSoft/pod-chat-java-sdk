@@ -661,7 +661,18 @@ public class ChatListenerManager {
         }
     }
 
-    public void callOnDefineBotCommand(ChatResponse<BotInfoVO> chatResponse) {
+    public void callOnStopBot(ChatResponse<ResultStartBot> chatResponse) {
+
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onStopBot(chatResponse);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
+
+    public void callOnDefineBotCommand(ChatResponse<ResultDefineCommandBot> chatResponse) {
 
         for (ChatListener listener : getSynchronizedListeners()) {
             try {

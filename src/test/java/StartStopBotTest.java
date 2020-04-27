@@ -1,23 +1,24 @@
 import Constant.Constant;
+import com.google.gson.Gson;
 import exception.ConnectionException;
 import exmaple.ChatContract;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 import podChat.model.ChatResponse;
 import podChat.requestobject.ConnectRequest;
-import podChat.requestobject.StartBotRequest;
+import podChat.requestobject.StartStopBotRequest;
 
 import java.util.ArrayList;
 
 @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-
-public class StartBotTest implements ChatContract.view {
+public class StartStopBotTest implements ChatContract.view {
     @Mock
     static ChatContract.view chatContract;
     @InjectMocks
     static ChatController chatController = Mockito.mock(ChatController.class);
 
+    Gson gson = new Gson();
 
     @BeforeEach
     public void initMocks() {
@@ -30,7 +31,7 @@ public class StartBotTest implements ChatContract.view {
         try {
             chatController = new ChatController(chatContract);
 
-            ConnectRequest connectRequest = new ConnectRequest
+            ConnectRequest requestConnect = new ConnectRequest
                     .Builder(new ArrayList<String>() {{
                 add(Constant.uri);
             }},
@@ -47,9 +48,10 @@ public class StartBotTest implements ChatContract.view {
                     .typeCode("default")
                     .build();
 
-            chatController.connect(connectRequest);
+            chatController.connect(requestConnect);
 
             Thread.sleep(2000);
+
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
@@ -57,22 +59,37 @@ public class StartBotTest implements ChatContract.view {
 
     @Test
     @Order(2)
-    void startBot() throws InterruptedException {
-
-        StartBotRequest startBotRequest = new StartBotRequest
-                .Builder(1234L, "SDKBOT")
+    void stopBot() throws InterruptedException {
+        StartStopBotRequest requestStartAndStopBot = new StartStopBotRequest
+                .Builder(7459L, "SDK4BOT")
                 .build();
-        chatController.startBot(startBotRequest);
-
-        Thread.sleep(5000);
+        chatController.stopBot(requestStartAndStopBot);
+        Thread.sleep(2000);
 
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
 
-        Mockito.verify(chatContract, Mockito.times(1)).onStartBot(argument.capture());
+        Mockito.verify(chatContract).onStopBot(argument.capture());
+
         ChatResponse chatResponse = argument.getValue();
-
         Assertions.assertTrue(!chatResponse.hasError());
+    }
 
+
+    @Test
+    @Order(3)
+    void startBot() throws InterruptedException {
+        StartStopBotRequest requestStartAndStopBot = new StartStopBotRequest
+                .Builder(7459L, "SDK4BOT")
+                .build();
+        chatController.startBot(requestStartAndStopBot);
+        Thread.sleep(2000);
+
+        ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
+
+        Mockito.verify(chatContract).onStartBot(argument.capture());
+
+        ChatResponse chatResponse = argument.getValue();
+        Assertions.assertTrue(!chatResponse.hasError());
     }
 
 }
