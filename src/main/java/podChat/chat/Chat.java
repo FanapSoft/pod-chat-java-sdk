@@ -5352,8 +5352,7 @@ public class Chat extends AsyncAdapter {
         return outPutContact;
     }
 
-    public String getContentType(File file) throws IOException {
-        MimetypesFileTypeMap fileTypeMap = new MimetypesFileTypeMap();
+    public String getContentType(File file) throws IOException { MimetypesFileTypeMap fileTypeMap = new MimetypesFileTypeMap();
         return fileTypeMap.getContentType(file.getName());
     }
 

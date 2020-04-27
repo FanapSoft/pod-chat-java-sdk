@@ -114,7 +114,7 @@ public class ChatMain implements ChatContract.view {
 //            createBot();
 //            startBot();
 //            stopBot();
-            defineBotCommand();
+//            defineBotCommand();
 //            mute();
 //            Thread.sleep(2000);
 //            unmute();
@@ -159,13 +159,13 @@ public class ChatMain implements ChatContract.view {
 //            pinMessage();
 //            Thread.sleep(2000);
 //            getThreads();
+//            sendFileMessage();
             Thread.sleep(2000);
 //            unPinMessage();
 //            chatController.getUserInfo();
 //            getCurrentUserRoles();
 //            getMentionedList();
 //            updateProfile();
-//            sendFileMessage();
 //            countUnreadMessage();
         } catch (ConnectionException | InterruptedException e) {
             System.out.println(e);
@@ -930,7 +930,7 @@ public class ChatMain implements ChatContract.view {
      */
     private void sendFileMessage() {
         RequestFileMessage requestFileMessage = new RequestFileMessage
-                .Builder(7129, "D:\\chat.txt", TextMessageType.FILE)
+                .Builder(7129, "test.txt", TextMessageType.FILE)
                 .description("this is test")
                 .build();
 
