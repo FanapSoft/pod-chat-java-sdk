@@ -169,6 +169,7 @@ public class ChatMain implements ChatContract.view {
 //            updateProfile();
 //            sendFileMessage();
 //            countUnreadMessage();
+//            defineBotCommand();
         } catch (ConnectionException | InterruptedException e) {
             System.out.println(e);
         }
@@ -477,7 +478,8 @@ public class ChatMain implements ChatContract.view {
      */
     private void defineBotCommand() {
         List<String> commands = new ArrayList<>();
-        commands.add("get1");
+        commands.add("get7");
+        commands.add("/get8");
         DefineCommandBotRequest requestDefineCommandBot = new DefineCommandBotRequest
                 .Builder("SDK4BOT", commands)
                 .build();

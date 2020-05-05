@@ -782,6 +782,9 @@ public class Chat extends AsyncAdapter {
         for (String s : request.getCommandList()) {
             if (s.contains("@"))
                 showErrorLog("command cannot contain '@'symbol!");
+            if (s.startsWith("/")){
+                commands.add(s);
+            }
             else commands.add("/" + s);
         }
         request.setCommandList(commands);
