@@ -114,7 +114,7 @@ public class ChatMain implements ChatContract.view {
 //            createBot();
 //            startBot();
 //            stopBot();
-//            defineBotCommand();
+            defineBotCommand();
 //            mute();
 //            Thread.sleep(2000);
 //            unmute();
@@ -482,7 +482,8 @@ public class ChatMain implements ChatContract.view {
      */
     private void defineBotCommand() {
         List<String> commands = new ArrayList<>();
-        commands.add("get1");
+        commands.add("get5");
+        commands.add("/get6");
         RequestDefineCommandBot requestDefineCommandBot = new RequestDefineCommandBot
                 .Builder("SDK4BOT", commands)
                 .build();
