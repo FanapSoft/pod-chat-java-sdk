@@ -170,6 +170,7 @@ public class ChatMain implements ChatContract.view {
 //            sendFileMessage();
 //            countUnreadMessage();
 //            defineBotCommand();
+            
         } catch (ConnectionException | InterruptedException e) {
             System.out.println(e);
         }
