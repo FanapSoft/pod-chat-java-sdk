@@ -2,6 +2,7 @@ package exmaple;
 
 import exception.ConnectionException;
 import podChat.ProgressHandler;
+import podChat.chat.file_manager.upload_file.UploadToPodSpaceResult;
 import podChat.mainmodel.*;
 import podChat.model.*;
 import podChat.requestobject.*;
@@ -84,6 +85,9 @@ public interface ChatContract {
         }
 
         default void onUploadFile(ChatResponse<ResultFile> response) {
+        }
+
+        default void onUploadFile1(ChatResponse<UploadToPodSpaceResult> response) {
         }
 
         default void onGetFile(ChatResponse<ResultFile> response) {
@@ -218,6 +222,7 @@ public interface ChatContract {
         void replyFileMessage(RequestReplyFileMessage requestReplyFileMessage, ProgressHandler.sendFileMessage handler);
 
         void uploadFile(RequestUploadFile requestUploadFile);
+
 
         void getFile(RequestGetFile requestGetFile);
 

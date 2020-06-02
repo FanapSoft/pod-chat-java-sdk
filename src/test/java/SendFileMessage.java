@@ -67,7 +67,7 @@ public class SendFileMessage implements ChatContract.view {
     void sendImageFileMessage() throws InterruptedException {
 
         RequestFileMessage requestFileMessage = new RequestFileMessage
-                .Builder(7129, "resultFinal.jpg", TextMessageType.PICTURE)
+                .Builder(7129, "resultFinal.jpg", TextMessageType.PICTURE,"")
                 .description("this is test image")
                 .xC(0)
                 .yC(0)

@@ -16,6 +16,8 @@ package podChat.util;
  * limitations under the License.
  */
 
+import javax.activation.MimetypesFileTypeMap;
+import java.io.File;
 import java.util.Random;
 
 /**
@@ -51,6 +53,10 @@ public class FileUtils {
         return mimType.equals("image/jpeg") || mimType.equals("image/bmp") || mimType.equals("image/jpg") || mimType.equals("image/png");
     }
 
+    public static boolean isGif(String mimType) {
+
+        return mimType.equals("image/gif");
+    }
 
     public static String getExtension(String uri) {
         if (uri == null) {
@@ -78,4 +84,14 @@ public class FileUtils {
         Random r = new Random();
         return r.nextInt(high - low) + low;
     }
+
+
+    public static String getMimeType(String uri) {
+
+        File file = new File(uri);
+        MimetypesFileTypeMap fileTypeMap = new MimetypesFileTypeMap();
+        return fileTypeMap.getContentType(file.getName());
+
+    }
+
 }

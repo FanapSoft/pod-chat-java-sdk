@@ -1,6 +1,7 @@
 package podChat.chat;
 
 
+import podChat.chat.file_manager.upload_file.UploadToPodSpaceResult;
 import podChat.mainmodel.ResultDeleteMessage;
 import podChat.model.*;
 
@@ -356,6 +357,15 @@ public class ChatListenerManager {
         }
     }
 
+    public void callOnUploadFile1(ChatResponse<UploadToPodSpaceResult> response) {
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onUploadFile1(response);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
 
     public void callOnGetFile(ChatResponse<ResultFile> response) {
         for (ChatListener listener : getSynchronizedListeners()) {

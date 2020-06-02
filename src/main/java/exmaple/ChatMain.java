@@ -21,34 +21,35 @@ import java.util.List;
  * Created By Khojasteh on 7/27/2019
  */
 public class ChatMain implements ChatContract.view {
-//    public static String platformHost = "https://sandbox.pod.ir:8043";
-//    public static String token = "541a60144d6f47bbbb5a740843f25055";
-//    public static String ssoHost = "https://accounts.pod.ir";
-//    public static String fileServer = "https://core.pod.ir";
-//    public static String serverName = "chat-server";
-//    public static String queueServer = "10.56.16.25";
-//    public static String queuePort = "61616";
-//    public static String queueInput = "queue-in-amjadi-stomp";
-//    public static String queueOutput = "queue-out-amjadi-stomp";
-//    public static String queueUserName = "root";
-//    public static String queuePassword = "zalzalak";
-//    public static Long chatId = 4101L;
-//    public static String uri = "10.56.16.25:61616";
-
-    public static String platformHost = "http://172.16.110.235:8003/srv/bptest-core/";
-    //        public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //jiji
-    public static String token = "bebc31c4ead6458c90b607496dae25c6"; //alexi
-    //        public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //fifi
-//    public static String token = "f19933ae1b1e424db9965a243bf3bcd3"; //zizi
-    public static String ssoHost = "http://172.16.110.76";
-    public static String fileServer = "http://172.16.110.76:8080";
-    public static String serverName = "chatlocal";
-    public static String uri = "192.168.112.23:61616";
-    public static String queueInput = "queue-in-integration";
-    public static String queueOutput = "queue-out-integration";
+    public static String platformHost = "https://sandbox.pod.ir:8043";
+    public static String token = "ec74da98e3d446b4b98ce3f64f9b1617";
+    public static String ssoHost = "https://accounts.pod.ir";
+    public static String fileServer = "https://core.pod.ir";
+    public static String serverName = "chat-server";
+    public static String queueServer = "10.56.16.25";
+    public static String queuePort = "61616";
+    public static String queueInput = "queue-in-amjadi-stomp";
+    public static String queueOutput = "queue-out-amjadi-stomp";
     public static String queueUserName = "root";
-    public static String queuePassword = "j]Bm0RU8gLhbPUG";
+    public static String queuePassword = "zalzalak";
     public static Long chatId = 4101L;
+    public static String uri = "10.56.16.25:61616";
+
+//    public static String platformHost = "http://172.16.110.235:8003/srv/bptest-core/";
+////            public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //jiji
+////    public static String token = "bebc31c4ead6458c90b607496dae25c6"; //alexi
+////            public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //fifi
+////    public static String token = "f19933ae1b1e424db9965a243bf3bcd3"; //zizi
+//    public static String ssoHost = "http://172.16.110.76";
+//    public static String fileServer = "http://172.16.110.76:8080";
+//    public static String serverName = "chatlocal";
+//    public static String uri = "192.168.112.23:61616";
+//    public static String queueInput = "queue-in-integration";
+//    public static String queueOutput = "queue-out-integration";
+//    public static String queueUserName = "root";
+//    public static String queuePassword = "j]Bm0RU8gLhbPUG";
+//    public static Long chatId = 4101L;
+    public static  String podSpaceServer="https://podspace.pod.ir";
     static ChatController chatController;
 
     private static Logger logger = LogManager.getLogger(Async.class);
@@ -71,7 +72,8 @@ public class ChatMain implements ChatContract.view {
                     ssoHost,
                     platformHost,
                     fileServer,
-                    4101L)
+                    4101L,
+                    podSpaceServer)
                     .build();
 
             chatController.connect(requestConnect);
@@ -114,7 +116,7 @@ public class ChatMain implements ChatContract.view {
 //            createBot();
 //            startBot();
 //            stopBot();
-            defineBotCommand();
+//            defineBotCommand();
 //            mute();
 //            Thread.sleep(2000);
 //            unmute();
@@ -159,7 +161,7 @@ public class ChatMain implements ChatContract.view {
 //            pinMessage();
 //            Thread.sleep(2000);
 //            getThreads();
-//            sendFileMessage();
+            sendFileMessage();
             Thread.sleep(2000);
 //            unPinMessage();
 //            chatController.getUserInfo();
@@ -312,8 +314,7 @@ public class ChatMain implements ChatContract.view {
 //                .firstName("خجسته")
 //                .build();
 
-        RequestAddContact requestAddContact = RequestAddContact
-                .newBuilder()
+        RequestAddContact requestAddContact = RequestAddContact.newBuilder()
                 .firstName("pooria")
                 .userName("pooria")
                 .build();
@@ -529,8 +530,8 @@ public class ChatMain implements ChatContract.view {
                 .build();
 
         Invitee invitee = new Invitee();
-        invitee.setId("09122964316");
-        invitee.setIdType(InviteType.TO_BE_USER_CELLPHONE_NUMBER);
+        invitee.setId("15596");
+        invitee.setIdType(InviteType.TO_BE_USER_ID);
 
 //        Invitee invitee1 = new Invitee();
 //        invitee1.setId("09156967335");
@@ -568,13 +569,13 @@ public class ChatMain implements ChatContract.view {
 
     private void createThreadWithFileMessage() {
         RequestUploadImage requestUploadFile = new RequestUploadImage
-                .Builder("D:\\download.jpg")
-                .hC(200)
+                .Builder("1.txt")
+//                .hC(200)
                 .build();
 
         Invitee invitee = new Invitee();
-        invitee.setId("09900449643");
-        invitee.setIdType(InviteType.TO_BE_USER_CELLPHONE_NUMBER);
+        invitee.setId("15596");
+        invitee.setIdType(InviteType.TO_BE_USER_ID);
 
         RequestThreadInnerMessage requestThreadInnerMessage = new RequestThreadInnerMessage
                 .Builder("hellllllllllllllo")
@@ -585,7 +586,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }}, requestUploadFile,
-                TextMessageType.PICTURE)
+                TextMessageType.POD_SPACE_FILE)
                 .message(requestThreadInnerMessage)
                 .description("tesssssssssssst")
                 .build();
@@ -610,7 +611,7 @@ public class ChatMain implements ChatContract.view {
      */
     private void sendMessage() {
         RequestMessage requestThread = new RequestMessage
-                .Builder("/getId@SDK4BOT", 7459L, TextMessageType.TEXT)
+                .Builder("/getId@SDK4BOT", 8016L, TextMessageType.TEXT)
                 .build();
 
         chatController.sendTextMessage(requestThread);
@@ -665,7 +666,7 @@ public class ChatMain implements ChatContract.view {
      */
     private void replyMessage() {
         RequestReplyMessage requestReplyMessage = new RequestReplyMessage
-                .Builder("7459", 7459, 97287, TextMessageType.TEXT)
+                .Builder("7459", 8016, 118302, TextMessageType.TEXT)
                 .build();
 
         chatController.replyMessage(requestReplyMessage);
@@ -931,7 +932,7 @@ public class ChatMain implements ChatContract.view {
      */
     private void sendFileMessage() {
         RequestFileMessage requestFileMessage = new RequestFileMessage
-                .Builder(7129, "test.txt", TextMessageType.FILE)
+                .Builder(8016, "54.jpg", TextMessageType.POD_SPACE_PICTURE,"ZNW6493RL1C8CW")
                 .description("this is test")
                 .build();
 
@@ -953,23 +954,22 @@ public class ChatMain implements ChatContract.view {
 
         RequestReplyFileMessage requestReplyFileMessage = new RequestReplyFileMessage
                 .Builder("this is test",
-                7129,
-                91290,
-                "D:\\download.jpg"
-                , TextMessageType.PICTURE)
+                8016,
+                118295,
+                "1.txt"
+                , TextMessageType.POD_SPACE_PICTURE,"ZNW6493RL1C8CW")
                 .build();
         chatController.replyFileMessage(requestReplyFileMessage, null);
     }
 
     /**
-     * upload image
+     * 1upload image
      */
 
     private void uploadImage() {
         RequestUploadImage requestUploadImage = new RequestUploadImage
-                .Builder("trees.jpg")
+                .Builder("54.jpg")
                 .build();
-        System.out.println(gson.toJson(requestUploadImage));
         chatController.uploadImage(requestUploadImage);
     }
 
@@ -978,7 +978,7 @@ public class ChatMain implements ChatContract.view {
      */
     private void uploadFile() {
         RequestUploadFile requestUploadFile = new RequestUploadFile
-                .Builder("D:\\Music.rar")
+                .Builder("1.txt")
                 .build();
 
         chatController.uploadFile(requestUploadFile);
@@ -991,7 +991,7 @@ public class ChatMain implements ChatContract.view {
      */
     private void getFile() {
         RequestGetFile requestGetFile = new RequestGetFile
-                .Builder(12512, "17158ccd289-0.3253966932798973", true, "C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.txt")
+                .Builder( "RDFICOF8PJVNUE4M","2.txt")
                 .build();
         chatController.getFile(requestGetFile);
 
@@ -1000,7 +1000,7 @@ public class ChatMain implements ChatContract.view {
 
     private void getImage() {
         RequestGetImage requestGetImage = new RequestGetImage
-                .Builder(12516, "17159944353-0.8847278640747307", true, "C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.jpg")
+                .Builder("17159944353-0.8847278640747307","C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.jpg")
                 .build();
         chatController.getImage(requestGetImage);
 

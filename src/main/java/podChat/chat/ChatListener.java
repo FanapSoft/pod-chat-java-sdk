@@ -1,6 +1,8 @@
 package podChat.chat;
 
 
+import podChat.chat.file_manager.upload_file.UploadToPodSpaceResponse;
+import podChat.chat.file_manager.upload_file.UploadToPodSpaceResult;
 import podChat.mainmodel.ResultDeleteMessage;
 import podChat.model.*;
 
@@ -101,7 +103,9 @@ public interface ChatListener {
     default void onUploadFile(ChatResponse<ResultFile> response) {
 
     }
+    default void onUploadFile1(ChatResponse<UploadToPodSpaceResult> response) {
 
+    }
     default void onUploadImageFile(ChatResponse<ResultImageFile> response) {
 
     }

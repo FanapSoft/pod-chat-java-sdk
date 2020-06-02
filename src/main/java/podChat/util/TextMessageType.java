@@ -11,6 +11,12 @@ public class TextMessageType {
     public static final int VIDEO = 4;
     public static final int SOUND = 5;
     public static final int FILE = 6;
-    public static final int LINK = 7;
+    public static final int LINK = 12;
+    public static final int POD_SPACE_PICTURE = 7;
+    public static final int POD_SPACE_VIDEO = 8;
+    public static final int POD_SPACE_SOUND = 9;
+    public static final int POD_SPACE_VOICE = 10;
+    public static final  int POD_SPACE_FILE = 11;
+
 
 }

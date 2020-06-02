@@ -67,7 +67,7 @@ public class ReplyFileMessage implements ChatContract.view {
     void replyImageFileMessage() throws InterruptedException {
 
         RequestReplyFileMessage requestReplyFileMessage = new RequestReplyFileMessage
-                .Builder("this is test", 5461, 47921, "C:\\Users\\fanap-10\\Pictures\\Saved Pictures\\a.jpg", TextMessageType.PICTURE)
+                .Builder("this is test", 5461, 47921, "C:\\Users\\fanap-10\\Pictures\\Saved Pictures\\a.jpg", TextMessageType.PICTURE,"")
                 .xC(0)
                 .yC(0)
                 .hC(100)
@@ -95,7 +95,7 @@ public class ReplyFileMessage implements ChatContract.view {
     void replyFileMessage() throws InterruptedException {
 
         RequestReplyFileMessage requestReplyFileMessage = new RequestReplyFileMessage
-                .Builder("this is test", 5461, 47921, "F:\\models.txt",TextMessageType.FILE)
+                .Builder("this is test", 5461, 47921, "F:\\models.txt",TextMessageType.FILE,"")
                 .build();
         chatController.replyFileMessage(requestReplyFileMessage, null);
 

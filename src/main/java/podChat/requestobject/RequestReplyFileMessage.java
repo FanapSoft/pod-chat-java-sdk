@@ -12,6 +12,7 @@ public class RequestReplyFileMessage extends GeneralRequestObject {
     private int yC;
     private int hC;
     private int wC;
+    private String userGroupHash;
 
 
     RequestReplyFileMessage(Builder builder) {
@@ -26,6 +27,8 @@ public class RequestReplyFileMessage extends GeneralRequestObject {
         this.yC = builder.yC;
         this.hC = builder.hC;
         this.wC = builder.wC;
+        this.userGroupHash = builder.userGroupHash;
+
     }
 
     public String getMessageContent() {
@@ -112,6 +115,14 @@ public class RequestReplyFileMessage extends GeneralRequestObject {
         return this;
     }
 
+    public String getUserGroupHash() {
+        return userGroupHash;
+    }
+
+    public void setUserGroupHash(String userGroupHash) {
+        this.userGroupHash = userGroupHash;
+    }
+
     public static class Builder extends GeneralRequestObject.Builder<Builder> {
         private String messageContent;
         private long threadId;
@@ -123,14 +134,15 @@ public class RequestReplyFileMessage extends GeneralRequestObject {
         private int yC;
         private int hC;
         private int wC;
+        private String userGroupHash;
 
-
-        public Builder(String messageContent, long threadId, long messageId, String filePath, int messageType) {
+        public Builder(String messageContent, long threadId, long messageId, String filePath, int messageType, String userGroupHash) {
             this.messageContent = messageContent;
             this.threadId = threadId;
             this.messageId = messageId;
             this.filePath = filePath;
             this.messageType = messageType;
+            this.userGroupHash = userGroupHash;
         }
 
         public Builder systemMetaData(String systemMetaData) {
@@ -157,6 +169,7 @@ public class RequestReplyFileMessage extends GeneralRequestObject {
             this.hC = hC;
             return this;
         }
+
 
         public RequestReplyFileMessage build() {
             return new RequestReplyFileMessage(this);

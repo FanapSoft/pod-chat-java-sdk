@@ -61,7 +61,7 @@ public class GetFileTest  implements ChatContract.view {
     @Order(2)
     void getFile() throws InterruptedException {
         RequestGetFile requestGetFile = new RequestGetFile
-                .Builder(12512, "17158ccd289-0.3253966932798973", true, "C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.txt")
+                .Builder( "17158ccd289-0.3253966932798973", "C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.txt")
                 .build();
         chatController.getFile(requestGetFile);
         Thread.sleep(10000);

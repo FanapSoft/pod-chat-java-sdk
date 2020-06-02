@@ -60,7 +60,7 @@ public class GetImageTest implements ChatContract.view {
     @Order(2)
     void getImage() throws InterruptedException {
         RequestGetImage requestGetImage = new RequestGetImage
-                .Builder(12516, "17159944353-0.8847278640747307", true, "C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.jpg")
+                .Builder("17159944353-0.8847278640747307", "C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.jpg")
                 .build();
         chatController.getImage(requestGetImage);
         Thread.sleep(10000);

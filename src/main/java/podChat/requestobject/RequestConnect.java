@@ -15,6 +15,7 @@ public class RequestConnect extends BaseRequestObject {
     private String platformHost;
     private String fileServer;
     private Long chatId;
+    private String podSpaceServer;
 
 
     public RequestConnect(Builder builder) {
@@ -30,6 +31,7 @@ public class RequestConnect extends BaseRequestObject {
         this.token = builder.token;
         this.ssoHost = builder.ssoHost;
         this.chatId = builder.chatId;
+        this.podSpaceServer = builder.podSpaceServer;
     }
 
 
@@ -121,6 +123,14 @@ public class RequestConnect extends BaseRequestObject {
         this.chatId = chatId;
     }
 
+    public String getPodSpaceServer() {
+        return podSpaceServer;
+    }
+
+    public void setPodSpaceServer(String podSpaceServer) {
+        this.podSpaceServer = podSpaceServer;
+    }
+
     public static class Builder extends BaseRequestObject.Builder<Builder> {
         private List<String> uris;
         private String queueInput;
@@ -134,6 +144,7 @@ public class RequestConnect extends BaseRequestObject {
         private String fileServer;
         private String typeCode;
         private Long chatId;
+        private String podSpaceServer;
 
 
         public Builder(List<String> uris, String queueInput, String queueOutput,
@@ -152,6 +163,22 @@ public class RequestConnect extends BaseRequestObject {
             this.chatId = chatId;
         }
 
+        public Builder(List<String> uris, String queueInput, String queueOutput,
+                       String queueUserName, String queuePassword, String severName, String token,
+                       String ssoHost, String platformHost, String fileServer, Long chatId, String podSpaceServer) {
+            this.queueInput = queueInput;
+            this.queueOutput = queueOutput;
+            this.uris = uris;
+            this.queueUserName = queueUserName;
+            this.queuePassword = queuePassword;
+            this.fileServer = fileServer;
+            this.platformHost = platformHost;
+            this.severName = severName;
+            this.token = token;
+            this.ssoHost = ssoHost;
+            this.chatId = chatId;
+            this.podSpaceServer = podSpaceServer;
+        }
 
         public RequestConnect build() {
             return new RequestConnect(this);

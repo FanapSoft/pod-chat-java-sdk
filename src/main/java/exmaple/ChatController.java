@@ -5,6 +5,7 @@ import podChat.ProgressHandler;
 import podChat.chat.Chat;
 import podChat.chat.ChatAdapter;
 import podChat.chat.ChatListener;
+import podChat.chat.file_manager.upload_file.UploadToPodSpaceResult;
 import podChat.mainmodel.*;
 import podChat.model.*;
 import podChat.requestobject.*;
@@ -59,6 +60,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     public void uploadFile(RequestUploadFile requestUploadFile) {
         chat.uploadFile(requestUploadFile);
     }
+
 
     @Override
     public void getFile(RequestGetFile requestGetFile) {
@@ -593,6 +595,12 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     public void onUploadFile(ChatResponse<ResultFile> response) {
         super.onUploadFile(response);
         view.onUploadFile(response);
+    }
+
+    @Override
+    public void onUploadFile1(ChatResponse<UploadToPodSpaceResult> response) {
+        super.onUploadFile1(response);
+        view.onUploadFile1(response);
     }
 
     @Override

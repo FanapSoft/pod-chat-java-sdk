@@ -26,6 +26,7 @@ public class LFileUpload {
     private int yC;
     private int hC;
     private int wC;
+   private String userGroupHash;
 
 
     public String getDescription() {
@@ -174,5 +175,14 @@ public class LFileUpload {
     public LFileUpload setwC(int wC) {
         this.wC = wC;
         return this;
+    }
+
+
+    public String getUserGroupHash() {
+        return userGroupHash;
+    }
+
+    public void setUserGroupHash(String userGroupHash) {
+        this.userGroupHash = userGroupHash;
     }
 }

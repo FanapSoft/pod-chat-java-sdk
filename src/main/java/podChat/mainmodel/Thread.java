@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Thread {
     private Long id;
+    private String userGroupHash;
     private Long joinDate;
     private Participant inviter;
     private String title;
@@ -308,5 +309,13 @@ public class Thread {
 
     public void setPinMessageVO(PinMessageVO pinMessageVO) {
         this.pinMessageVO = pinMessageVO;
+    }
+
+    public String getUserGroupHash() {
+        return userGroupHash;
+    }
+
+    public void setUserGroupHash(String userGroupHash) {
+        this.userGroupHash = userGroupHash;
     }
 }

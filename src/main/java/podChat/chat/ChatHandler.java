@@ -1,5 +1,7 @@
 package podChat.chat;
 
+import podChat.model.ResultThread;
+
 public abstract class ChatHandler {
 
     public void onSent(String uniqueId, long threadId) {
@@ -82,4 +84,7 @@ public abstract class ChatHandler {
 
 
     }
+    public void onThreadCreated(ResultThread thread){}
+
+    public  void onCreateThread(ResultThread thread){}
 }
