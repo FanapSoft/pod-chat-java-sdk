@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class ChatMain implements ChatContract.view {
     public static String platformHost = "https://sandbox.pod.ir:8043";
-    public static String token = "9049a4a5952248ba88a69758601dbc72";
+    public static String token = "2755693a3b914d0ca14abff63410edb6";
     public static String ssoHost = "https://accounts.pod.ir";
     public static String fileServer = "https://core.pod.ir";
     public static String serverName = "chat-server";
@@ -34,10 +34,10 @@ public class ChatMain implements ChatContract.view {
     public static Long chatId = 4101L;
     public static String uri = "10.56.16.25:61616";
 
-    //    public static String platformHost = "http://172.16.110.235:8003/srv/bptest-core/";
-////            public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //jiji
+//    public static String platformHost = "http://172.16.110.235:8003/srv/bptest-core/";
+////    public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //jiji
 //    public static String token = "bebc31c4ead6458c90b607496dae25c6"; //alexi
-////            public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //fifi
+////    public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //fifi
 ////    public static String token = "f19933ae1b1e424db9965a243bf3bcd3"; //zizi
 //    public static String ssoHost = "http://172.16.110.76";
 //    public static String fileServer = "http://172.16.110.76:8080";
@@ -89,7 +89,7 @@ public class ChatMain implements ChatContract.view {
 //            Thread.sleep(2000);
 //            getcontact();
 //            searchContact();
-            createThread();
+//            createThread();
 //            getThreads();
 //            sendMessage();
 //            deleteMultipleMessage();
@@ -107,7 +107,7 @@ public class ChatMain implements ChatContract.view {
 //            isNameAvailable();
 //            joinThread();
 //            leaveThread();
-            replyMessage();
+//            replyMessage();
 //            replyFileMessage();
 //            Thread.sleep(2000);
 //            getDeliveryList();
@@ -149,8 +149,8 @@ public class ChatMain implements ChatContract.view {
 //            Thread.sleep(2000);
 //            getParticipant();
 //            interactiveMessage();
-            uploadImage();
-            uploadFile();
+//            uploadImage();
+//            uploadFile();
 //            getFile();
 //            getImage();
 //            spam();

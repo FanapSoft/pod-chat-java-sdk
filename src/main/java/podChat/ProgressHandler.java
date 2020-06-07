@@ -32,6 +32,7 @@ public abstract class ProgressHandler {
 
         default void onFinish(String imageJson, FileUpload fileImageUpload) {
         }
+
         default void onImageFinish(String imageJson, ChatResponse<ResultImageFile> chatResponse) {
         }
 
@@ -53,6 +54,7 @@ public abstract class ProgressHandler {
         default void onError(String jsonError, ErrorOutPut error) {
         }
     }
+
     public interface IDownloadFile {
 
         default void onProgressUpdate(String uniqueId, long bytesDownloaded, long totalBytesToDownload) {
