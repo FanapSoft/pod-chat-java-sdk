@@ -7,22 +7,27 @@ public abstract class ChatHandler {
     public void onSent(String uniqueId, long threadId) {
     }
 
-    public void onSentResult( String content) {
+    public void onSentResult(String content) {
     }
 
-    public void onDelivered(String i){}
+    public void onDelivered(String i) {
+    }
 
-    public void onGetThread(String uniqueId){}
+    public void onGetThread(String uniqueId) {
+    }
 
-    public void onRenameThread(String uniqueId){}
+    public void onRenameThread(String uniqueId) {
+    }
 
-    public void onAddParticipants(String uniqueId){}
+    public void onAddParticipants(String uniqueId) {
+    }
 
     public void onRemoveParticipants(String uniqueId) {
 
     }
 
-    public void onLeaveThread(String uniqueId){}
+    public void onLeaveThread(String uniqueId) {
+    }
 
     public void onReplyMessage(String uniqueId) {
 
@@ -32,9 +37,11 @@ public abstract class ChatHandler {
 
     }
 
-    public  void onGetHistory(String uniqueId){}
+    public void onGetHistory(String uniqueId) {
+    }
 
-    public  void onSearchHistory(String uniqueId){}
+    public void onSearchHistory(String uniqueId) {
+    }
 
     public void onGetContact(String uniqueId) {
 
@@ -84,7 +91,10 @@ public abstract class ChatHandler {
 
 
     }
-    public void onThreadCreated(ResultThread thread){}
 
-    public  void onCreateThread(ResultThread thread){}
+    public void onThreadCreated(ResultThread thread) {
+    }
+
+    public void onCreateThread(ResultThread thread) {
+    }
 }

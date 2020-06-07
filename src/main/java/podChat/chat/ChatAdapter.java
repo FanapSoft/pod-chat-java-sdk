@@ -1,5 +1,6 @@
 package podChat.chat;
 
+import podChat.chat.file_manager.upload_file.UploadToPodSpaceResult;
 import podChat.mainmodel.ResultDeleteMessage;
 import podChat.model.*;
 
@@ -121,6 +122,10 @@ public class ChatAdapter implements ChatListener {
     @Override
     public void onUploadFile(ChatResponse<ResultFile> response) {
 
+    }
+
+    @Override
+    public void onUploadFileToPodSpace(ChatResponse<UploadToPodSpaceResult> response) {
     }
 
     @Override

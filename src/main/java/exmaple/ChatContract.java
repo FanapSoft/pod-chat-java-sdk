@@ -87,7 +87,7 @@ public interface ChatContract {
         default void onUploadFile(ChatResponse<ResultFile> response) {
         }
 
-        default void onUploadFile1(ChatResponse<UploadToPodSpaceResult> response) {
+        default void onUploadFileToPodSpace(ChatResponse<UploadToPodSpaceResult> response) {
         }
 
         default void onGetFile(ChatResponse<ResultFile> response) {

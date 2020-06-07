@@ -357,10 +357,10 @@ public class ChatListenerManager {
         }
     }
 
-    public void callOnUploadFile1(ChatResponse<UploadToPodSpaceResult> response) {
+    public void callOnUploadFileToPodSpace(ChatResponse<UploadToPodSpaceResult> response) {
         for (ChatListener listener : getSynchronizedListeners()) {
             try {
-                listener.onUploadFile1(response);
+                listener.onUploadFileToPodSpace(response);
             } catch (Throwable t) {
                 callHandleCallbackError(listener, t);
             }
@@ -648,6 +648,7 @@ public class ChatListenerManager {
             }
         }
     }
+
     public void callOnCreateBot(ChatResponse<ResultCreateBot> chatResponse) {
 
         for (ChatListener listener : getSynchronizedListeners()) {

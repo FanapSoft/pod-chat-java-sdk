@@ -39,7 +39,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
     @Override
     public void uploadImage(RequestUploadImage requestUploadImage) {
-        chat.uploadImage(requestUploadImage);
+        chat.uploadImageToPodSpace(requestUploadImage);
     }
 
     @Override

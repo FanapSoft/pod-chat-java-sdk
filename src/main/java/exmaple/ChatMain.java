@@ -10,7 +10,6 @@ import podChat.mainmodel.MessageVO;
 import podChat.mainmodel.RequestSearchContact;
 import podChat.mainmodel.RequestThreadInnerMessage;
 import podChat.model.*;
-import podChat.requestobject.RequestDefineCommandBot;
 import podChat.requestobject.*;
 import podChat.util.*;
 
@@ -22,7 +21,7 @@ import java.util.List;
  */
 public class ChatMain implements ChatContract.view {
     public static String platformHost = "https://sandbox.pod.ir:8043";
-    public static String token = "ec74da98e3d446b4b98ce3f64f9b1617";
+    public static String token = "9049a4a5952248ba88a69758601dbc72";
     public static String ssoHost = "https://accounts.pod.ir";
     public static String fileServer = "https://core.pod.ir";
     public static String serverName = "chat-server";
@@ -35,9 +34,9 @@ public class ChatMain implements ChatContract.view {
     public static Long chatId = 4101L;
     public static String uri = "10.56.16.25:61616";
 
-//    public static String platformHost = "http://172.16.110.235:8003/srv/bptest-core/";
+    //    public static String platformHost = "http://172.16.110.235:8003/srv/bptest-core/";
 ////            public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //jiji
-////    public static String token = "bebc31c4ead6458c90b607496dae25c6"; //alexi
+//    public static String token = "bebc31c4ead6458c90b607496dae25c6"; //alexi
 ////            public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //fifi
 ////    public static String token = "f19933ae1b1e424db9965a243bf3bcd3"; //zizi
 //    public static String ssoHost = "http://172.16.110.76";
@@ -49,7 +48,7 @@ public class ChatMain implements ChatContract.view {
 //    public static String queueUserName = "root";
 //    public static String queuePassword = "j]Bm0RU8gLhbPUG";
 //    public static Long chatId = 4101L;
-    public static  String podSpaceServer="https://podspace.pod.ir";
+    public static String podSpaceServer = "https://podspace.pod.ir";
     static ChatController chatController;
 
     private static Logger logger = LogManager.getLogger(Async.class);
@@ -90,7 +89,7 @@ public class ChatMain implements ChatContract.view {
 //            Thread.sleep(2000);
 //            getcontact();
 //            searchContact();
-//            createThread();
+            createThread();
 //            getThreads();
 //            sendMessage();
 //            deleteMultipleMessage();
@@ -108,7 +107,7 @@ public class ChatMain implements ChatContract.view {
 //            isNameAvailable();
 //            joinThread();
 //            leaveThread();
-//            replyMessage();
+            replyMessage();
 //            replyFileMessage();
 //            Thread.sleep(2000);
 //            getDeliveryList();
@@ -150,8 +149,8 @@ public class ChatMain implements ChatContract.view {
 //            Thread.sleep(2000);
 //            getParticipant();
 //            interactiveMessage();
-//            uploadImage();
-//            uploadFile();
+            uploadImage();
+            uploadFile();
 //            getFile();
 //            getImage();
 //            spam();
@@ -161,7 +160,7 @@ public class ChatMain implements ChatContract.view {
 //            pinMessage();
 //            Thread.sleep(2000);
 //            getThreads();
-            sendFileMessage();
+//            sendFileMessage();
             Thread.sleep(2000);
 //            unPinMessage();
 //            chatController.getUserInfo();
@@ -365,6 +364,11 @@ public class ChatMain implements ChatContract.view {
     private void getcontact() {
         RequestGetContact requestGetContact = new RequestGetContact
                 .Builder()
+                .id(578L)
+                .cellphoneNumber("03253456436643")
+                .uniqueId("jiji")
+//                .email("nnnv")
+                .query("ji")
                 .build();
         chatController.getContact(requestGetContact);
     }
@@ -569,7 +573,7 @@ public class ChatMain implements ChatContract.view {
 
     private void createThreadWithFileMessage() {
         RequestUploadImage requestUploadFile = new RequestUploadImage
-                .Builder("1.txt")
+                .Builder("54.jpg")
 //                .hC(200)
                 .build();
 
@@ -586,7 +590,7 @@ public class ChatMain implements ChatContract.view {
                 .Builder(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
         }}, requestUploadFile,
-                TextMessageType.POD_SPACE_FILE)
+                TextMessageType.POD_SPACE_PICTURE)
                 .message(requestThreadInnerMessage)
                 .description("tesssssssssssst")
                 .build();
@@ -705,7 +709,7 @@ public class ChatMain implements ChatContract.view {
         RequestCreateThread requestCreateThread = new RequestCreateThread
                 .Builder<>(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
-        }})
+        }}).image("54.jpg")
                 .build();
 
         chatController.createThread(requestCreateThread);
@@ -932,7 +936,7 @@ public class ChatMain implements ChatContract.view {
      */
     private void sendFileMessage() {
         RequestFileMessage requestFileMessage = new RequestFileMessage
-                .Builder(8016, "54.jpg", TextMessageType.POD_SPACE_PICTURE,"ZNW6493RL1C8CW")
+                .Builder(8016, "54.jpg", TextMessageType.POD_SPACE_PICTURE, "ZNW6493RL1C8CW")
                 .description("this is test")
                 .build();
 
@@ -957,7 +961,7 @@ public class ChatMain implements ChatContract.view {
                 8016,
                 118295,
                 "1.txt"
-                , TextMessageType.POD_SPACE_PICTURE,"ZNW6493RL1C8CW")
+                , TextMessageType.POD_SPACE_PICTURE, "ZNW6493RL1C8CW")
                 .build();
         chatController.replyFileMessage(requestReplyFileMessage, null);
     }
@@ -991,7 +995,7 @@ public class ChatMain implements ChatContract.view {
      */
     private void getFile() {
         RequestGetFile requestGetFile = new RequestGetFile
-                .Builder( "RDFICOF8PJVNUE4M","2.txt")
+                .Builder("RDFICOF8PJVNUE4M", "2.txt")
                 .build();
         chatController.getFile(requestGetFile);
 
@@ -1000,7 +1004,7 @@ public class ChatMain implements ChatContract.view {
 
     private void getImage() {
         RequestGetImage requestGetImage = new RequestGetImage
-                .Builder("17159944353-0.8847278640747307","C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.jpg")
+                .Builder("17159944353-0.8847278640747307", "C:\\Users\\Arash\\Documents\\pod-chat-java-sdk\\resultFinal.jpg")
                 .build();
         chatController.getImage(requestGetImage);
 

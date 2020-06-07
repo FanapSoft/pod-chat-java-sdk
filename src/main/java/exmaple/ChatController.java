@@ -42,7 +42,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
     @Override
     public void uploadImage(RequestUploadImage requestUploadImage) {
-        chat.uploadImage(requestUploadImage);
+        chat.uploadImageToPodSpace(requestUploadImage);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
     @Override
     public void uploadFile(RequestUploadFile requestUploadFile) {
-        chat.uploadFile(requestUploadFile);
+        chat.uploadFileToPodSpace(requestUploadFile);
     }
 
 
@@ -164,7 +164,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
     @Override
     public void getContact(RequestGetContact request) {
-        chat.getContacts(request);
+        chat.getContactMain(request);
 
     }
 
@@ -598,9 +598,9 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
     }
 
     @Override
-    public void onUploadFile1(ChatResponse<UploadToPodSpaceResult> response) {
-        super.onUploadFile1(response);
-        view.onUploadFile1(response);
+    public void onUploadFileToPodSpace(ChatResponse<UploadToPodSpaceResult> response) {
+        super.onUploadFileToPodSpace(response);
+        view.onUploadFileToPodSpace(response);
     }
 
     @Override
