@@ -5,6 +5,7 @@ import podChat.ProgressHandler;
 import podChat.chat.Chat;
 import podChat.chat.ChatAdapter;
 import podChat.chat.ChatListener;
+import podChat.chat.file_manager.upload_file.UploadToPodSpaceResult;
 import podChat.mainmodel.*;
 import podChat.model.*;
 import podChat.requestobject.*;
@@ -41,7 +42,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
     @Override
     public void uploadImage(RequestUploadImage requestUploadImage) {
-        chat.uploadImage(requestUploadImage);
+        chat.uploadImageToPodSpace(requestUploadImage);
     }
 
     @Override
@@ -57,9 +58,19 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
     @Override
     public void uploadFile(RequestUploadFile requestUploadFile) {
-        chat.uploadFile(requestUploadFile);
+        chat.uploadFileToPodSpace(requestUploadFile);
     }
 
+
+    @Override
+    public void getFile(RequestGetFile requestGetFile) {
+        chat.getFile(requestGetFile);
+    }
+
+    @Override
+    public void getImage(RequestGetImage requestGetImage) {
+        chat.getImage(requestGetImage);
+    }
 
     @Override
     public void resendMessage(String uniqueId) {
@@ -153,7 +164,7 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
     @Override
     public void getContact(RequestGetContact request) {
-        chat.getContacts(request);
+        chat.getContactMain(request);
 
     }
 
@@ -359,12 +370,12 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
     @Override
     public void updateThreadInfo(long threadId, ThreadInfoVO threadInfoVO) {
-
+        chat.updateThreadInfo(threadId, threadInfoVO);
     }
 
     @Override
     public void updateThreadInfo(RequestThreadInfo request) {
-
+        chat.updateThreadInfo(request);
     }
 
     @Override
@@ -468,6 +479,25 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
         chat.countUnreadMessage(request);
     }
 
+    @Override
+    public void createBot(RequestCreateBot request) {
+        chat.createBot(request);
+    }
+
+    @Override
+    public void startBot(RequestStartAndStopBot request) {
+        chat.startBot(request);
+    }
+
+    @Override
+    public void stopBot(RequestStartAndStopBot request) {
+        chat.stopBot(request);
+    }
+
+    @Override
+    public void defineBotCommand(RequestDefineCommandBot request) {
+        chat.defineBotCommand(request);
+    }
 
     //View
     @Override
@@ -484,6 +514,8 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
 
     @Override
     public void onThreadInfoUpdated(ChatResponse<ResultThread> response) {
+        super.onThreadInfoUpdated(response);
+        view.onThreadInfoUpdated(response);
     }
 
     @Override
@@ -565,6 +597,23 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
         view.onUploadFile(response);
     }
 
+    @Override
+    public void onUploadFileToPodSpace(ChatResponse<UploadToPodSpaceResult> response) {
+        super.onUploadFileToPodSpace(response);
+        view.onUploadFileToPodSpace(response);
+    }
+
+    @Override
+    public void onGetFile(ChatResponse<ResultFile> response) {
+        super.onGetFile(response);
+        view.onGetFile(response);
+    }
+
+    @Override
+    public void onGetImage(ChatResponse<ResultImageFile> response) {
+        super.onGetImage(response);
+        view.onGetImage(response);
+    }
 
     @Override
     public void onUploadImageFile(ChatResponse<ResultImageFile> chatResponse) {
@@ -687,5 +736,30 @@ public class ChatController extends ChatAdapter implements ChatContract.controll
         super.onGetCurrentUserRoles(response);
         view.onGetCurrentUserRoles(response);
     }
+
+    @Override
+    public void onCreateBot(ChatResponse<ResultCreateBot> response) {
+        super.onCreateBot(response);
+        view.onCreateBot(response);
+    }
+
+    @Override
+    public void onStartBot(ChatResponse<ResultStartBot> response) {
+        super.onStartBot(response);
+        view.onStartBot(response);
+    }
+
+    @Override
+    public void onStopBot(ChatResponse<ResultStartBot> response) {
+        super.onStopBot(response);
+        view.onStopBot(response);
+    }
+
+    @Override
+    public void onDefineBotCommand(ChatResponse<ResultDefineCommandBot> response) {
+        super.onDefineBotCommand(response);
+        view.onDefineBotCommand(response);
+    }
+
 }
 

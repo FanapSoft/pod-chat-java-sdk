@@ -22,7 +22,6 @@ public class RetrofitHelperPlatformHost {
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(Date.class, new MyDateTypeAdapter())
                     .create();
-
             OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
                     .retryOnConnectionFailure(true)
                     .connectTimeout(5, TimeUnit.MINUTES)
@@ -34,13 +33,23 @@ public class RetrofitHelperPlatformHost {
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
-                    .client(okHttpClient)
+                    .client(createDefaultOkHttpClient())
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
         }
 
         return retrofit;
     }
-
+    private static OkHttpClient createDefaultOkHttpClient() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return new OkHttpClient().newBuilder()
+                .addInterceptor(interceptor)
+                .retryOnConnectionFailure(true)
+                .connectTimeout(5, TimeUnit.MINUTES)
+                .writeTimeout(5, TimeUnit.MINUTES)
+                .readTimeout(5, TimeUnit.MINUTES)
+                .build();
+    }
 
 }

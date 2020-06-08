@@ -67,7 +67,7 @@ public class EditMessage implements ChatContract.view {
     @Order(2)
     void editMessage() throws InterruptedException {
         RequestEditMessage requestEditMessage = new RequestEditMessage
-                .Builder("hi", 47542)
+                .Builder("hi", 94291)
                 .build();
         chatController.editMessage(requestEditMessage);
 
@@ -78,6 +78,10 @@ public class EditMessage implements ChatContract.view {
 
         ArgumentCaptor<ChatResponse> argument2 = ArgumentCaptor.forClass(ChatResponse.class);
         Mockito.verify(chatContract, Mockito.times(1)).onEditMessage(argument2.capture());
+
+        ArgumentCaptor<ChatResponse> argument3 = ArgumentCaptor.forClass(ChatResponse.class);
+        Mockito.verify(chatContract, Mockito.times(1)).onThreadInfoUpdated(argument3.capture());
+
 
         List<ChatResponse> sentMessage = argument.getAllValues();
         List<ChatResponse> editMessage = argument2.getAllValues();

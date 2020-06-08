@@ -19,6 +19,7 @@ public class History {
     private String query;
     private NosqlSearchMetadataCriteria metadataCriteria;
     private String[] uniqueIds;
+    private Integer messageType;
 
     public History(Builder builder) {
         this.count = builder.count;
@@ -34,9 +35,18 @@ public class History {
         this.toTime = builder.toTime;
         this.toTimeNanos = builder.toTimeNanos;
         this.uniqueIds = builder.uniqueIds;
+        this.messageType=builder.messageType;
     }
 
     private History() {
+    }
+
+    public Integer getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(Integer messageType) {
+        this.messageType = messageType;
     }
 
     public long getFromTime() {
@@ -157,6 +167,7 @@ public class History {
         private long toTime;
         private long toTimeNanos;
         private String[] uniqueIds;
+        private Integer messageType;
 
         public Builder id(long id) {
             this.id = id;
@@ -206,6 +217,11 @@ public class History {
 
         public Builder order(String order) {
             this.order = order;
+            return this;
+        }
+
+        public Builder messageType(Integer messageType) {
+            this.messageType = messageType;
             return this;
         }
 

@@ -2,6 +2,7 @@ package exmaple;
 
 import exception.ConnectionException;
 import podChat.ProgressHandler;
+import podChat.chat.file_manager.upload_file.UploadToPodSpaceResult;
 import podChat.mainmodel.*;
 import podChat.model.*;
 import podChat.requestobject.*;
@@ -24,6 +25,9 @@ public interface ChatContract {
         }
 
         default void onGetThreadList(ChatResponse<ResultThreads> thread) {
+        }
+
+        default void onUserInfo(ChatResponse<ResultUserInfo> thread) {
         }
 
         default void onGetThreadHistory(ChatResponse<ResultHistory> history) {
@@ -59,6 +63,12 @@ public interface ChatContract {
         default void onMuteThread(ChatResponse<ResultMute> outPut) {
         }
 
+        default void onJoinThread(ChatResponse<ResultThread> response) {
+        }
+
+        default void onCountUnreadMessage(ChatResponse<ResultUnreadMessageCount> response) {
+        }
+
         default void onUnMuteThread(ChatResponse<ResultMute> response) {
         }
 
@@ -71,7 +81,19 @@ public interface ChatContract {
         default void onUpdateContact(ChatResponse<ResultUpdateContact> chatResponse) {
         }
 
+        default void onUpdateProfile(ChatResponse<ResultUpdateProfile> chatResponse) {
+        }
+
         default void onUploadFile(ChatResponse<ResultFile> response) {
+        }
+
+        default void onUploadFileToPodSpace(ChatResponse<UploadToPodSpaceResult> response) {
+        }
+
+        default void onGetFile(ChatResponse<ResultFile> response) {
+        }
+
+        default void onGetImage(ChatResponse<ResultImageFile> response) {
         }
 
         default void onUploadImageFile(ChatResponse<ResultImageFile> response) {
@@ -161,6 +183,8 @@ public interface ChatContract {
         default void onUnPinThread(ChatResponse<ResultPinThread> chatResponse) {
         }
 
+        default void onIsNameAvailable(ChatResponse<ResultIsNameAvailable> chatResponse) {
+        }
 
         default void onPinMessage(ChatResponse<ResultPinMessage> chatResponse) {
         }
@@ -168,6 +192,20 @@ public interface ChatContract {
         default void onUnPinMessage(ChatResponse<ResultPinMessage> chatResponse) {
         }
 
+        default void onThreadInfoUpdated(ChatResponse<ResultThread> chatResponse) {
+        }
+
+        default void onCreateBot(ChatResponse<ResultCreateBot> chatResponse) {
+        }
+
+        default void onStartBot(ChatResponse<ResultStartBot> chatResponse) {
+        }
+
+        default void onStopBot(ChatResponse<ResultStartBot> chatResponse) {
+        }
+
+        default void onDefineBotCommand(ChatResponse<ResultDefineCommandBot> chatResponse) {
+        }
 
     }
 
@@ -186,7 +224,10 @@ public interface ChatContract {
         void uploadFile(RequestUploadFile requestUploadFile);
 
 
+        void getFile(RequestGetFile requestGetFile);
+
         //void retryUpload(RetryUpload retry, ProgressHandler.sendFileMessage handler);
+        void getImage(RequestGetImage requestGetImage);
 
         void resendMessage(String uniqueId);
 
@@ -369,5 +410,13 @@ public interface ChatContract {
         void joinThead(RequestJoinThread request);
 
         void countUnreadMessage(RequestUnreadMessageCount request);
+
+        void createBot(RequestCreateBot request);
+
+        void startBot(RequestStartAndStopBot request);
+
+        void stopBot(RequestStartAndStopBot request);
+
+        void defineBotCommand(RequestDefineCommandBot request);
     }
 }

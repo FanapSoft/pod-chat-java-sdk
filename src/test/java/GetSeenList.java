@@ -19,13 +19,11 @@ import java.util.ArrayList;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
 public class GetSeenList implements ChatContract.view {
-    long messageId = 52347;
-
     @Mock
     static ChatContract.view chatContract;
     @InjectMocks
     static ChatController chatController = Mockito.mock(ChatController.class);
-
+    long messageId = 52347;
     Gson gson = new Gson();
 
     @BeforeEach

@@ -1,28 +1,35 @@
 package podChat.requestobject;
 
 
-public class RequestThreadInfo  extends GeneralRequestObject{
+public class RequestThreadInfo extends GeneralRequestObject {
     private String image;
     private long threadId;
-    private String name;
+    private String title;
+    //    private String name;
     private String description;
     private String metadata;
 
-    RequestThreadInfo (Builder builder){
+    RequestThreadInfo(Builder builder) {
         super(builder);
         this.description = builder.description;
         this.image = builder.image;
         this.metadata = builder.metadata;
-        this.name = builder.name;
+//        this.name = builder.name;
         this.threadId = builder.threadId;
+        this.title = builder.getTitle();
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public static class Builder extends GeneralRequestObject.Builder<Builder> {
         private String image;
-        private String name;
+        //        private String name;
         private String description;
         private String metadata;
         private long threadId;
+        private String title;
 
 
         public Builder image(String image) {
@@ -36,11 +43,11 @@ public class RequestThreadInfo  extends GeneralRequestObject{
             return this;
         }
 
-
-        public Builder name(String name) {
-            this.name = name;
-            return this;
-        }
+//
+//        public Builder name(String name) {
+//            this.name = name;
+//            return this;
+//        }
 
 
         public Builder description(String description) {
@@ -54,8 +61,16 @@ public class RequestThreadInfo  extends GeneralRequestObject{
             return this;
         }
 
+        public String getTitle() {
+            return title;
+        }
 
-        public RequestThreadInfo build(){
+        public Builder setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public RequestThreadInfo build() {
             return new RequestThreadInfo(this);
         }
 
@@ -74,13 +89,13 @@ public class RequestThreadInfo  extends GeneralRequestObject{
         this.image = image;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
     public String getDescription() {
         return description;
@@ -104,6 +119,10 @@ public class RequestThreadInfo  extends GeneralRequestObject{
 
     public void setThreadId(long threadId) {
         this.threadId = threadId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 }

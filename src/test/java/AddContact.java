@@ -78,6 +78,9 @@ public class AddContact implements ChatContract.view {
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
 
         Mockito.verify(chatContract, Mockito.times(1)).onAddContact(argument.capture());
+        ArgumentCaptor<ChatResponse> argument1 = ArgumentCaptor.forClass(ChatResponse.class);
+
+        Mockito.verify(chatContract).onThreadInfoUpdated(argument1.capture());
 
         ChatResponse chatResponse = argument.getValue();
 
@@ -125,6 +128,29 @@ public class AddContact implements ChatContract.view {
         Mockito.verify(chatContract).onError(argument.capture());
 
         Assertions.assertTrue(argument.getValue().isHasError());
+
+    }
+
+    @Test
+    @Order(2)
+    void addContactUserName() throws InterruptedException {
+        RequestAddContact requestAddContact = new RequestAddContact
+                .Builder()
+                .userName("f.khojasteh")
+                .firstName("فاطمه")
+                .cellphoneNumber("09151242904")
+                .build();
+        chatController.addContact(requestAddContact);
+
+        Thread.sleep(3000);
+
+        ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
+
+        Mockito.verify(chatContract, Mockito.times(1)).onAddContact(argument.capture());
+
+        ChatResponse chatResponse = argument.getValue();
+
+        Assertions.assertTrue(!chatResponse.hasError());
 
     }
 

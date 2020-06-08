@@ -176,4 +176,26 @@ public class GetThreadTest implements ChatContract.view {
         Assertions.assertTrue(!chatResponse.hasError());
 
     }
+
+
+    @Test
+    @Order(2)
+    void getThreadIsNewList() throws InterruptedException {
+        RequestThread requestThread = new RequestThread.Builder()
+                .newMessages().build();
+
+        chatController.getThreads(requestThread);
+
+        Thread.sleep(5000);
+
+        ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
+
+        Mockito.verify(chatContract, Mockito.times(1)).onGetThreadList(argument.capture());
+
+        ChatResponse chatResponse = argument.getValue();
+
+        Assertions.assertTrue(!chatResponse.hasError());
+
+    }
+
 }

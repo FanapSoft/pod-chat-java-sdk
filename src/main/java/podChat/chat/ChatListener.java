@@ -1,6 +1,7 @@
 package podChat.chat;
 
 
+import podChat.chat.file_manager.upload_file.UploadToPodSpaceResult;
 import podChat.mainmodel.ResultDeleteMessage;
 import podChat.model.*;
 
@@ -10,6 +11,12 @@ public interface ChatListener {
     }
 
     default void onGetContacts(ChatResponse<ResultContact> response) {
+    }
+
+    default void onGetFile(ChatResponse<ResultFile> response) {
+    }
+
+    default void onGetImage(ChatResponse<ResultImageFile> response) {
     }
 
     default void onGetHistory(ChatResponse<ResultHistory> history) {
@@ -93,6 +100,10 @@ public interface ChatListener {
     }
 
     default void onUploadFile(ChatResponse<ResultFile> response) {
+
+    }
+
+    default void onUploadFileToPodSpace(ChatResponse<UploadToPodSpaceResult> response) {
 
     }
 
@@ -201,4 +212,22 @@ public interface ChatListener {
     default void onCountUnreadMessage(ChatResponse<ResultUnreadMessageCount> response) {
 
     }
+
+    default void onCreateBot(ChatResponse<ResultCreateBot> response) {
+
+    }
+
+    default void onStartBot(ChatResponse<ResultStartBot> response) {
+
+    }
+
+    default void onStopBot(ChatResponse<ResultStartBot> response) {
+
+    }
+
+    default void onDefineBotCommand(ChatResponse<ResultDefineCommandBot> response) {
+
+    }
+
+
 }

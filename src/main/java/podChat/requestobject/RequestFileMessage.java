@@ -9,6 +9,7 @@ public class RequestFileMessage {
     private String systemMetadata;
     private int messageType;
     private String description;
+    private String userGroupHash;
     private int xC;
     private int yC;
     private int hC;
@@ -24,6 +25,7 @@ public class RequestFileMessage {
         this.setyC(builder.yC);
         this.sethC(builder.hC);
         this.setwC(builder.wC);
+        this.userGroupHash=builder.userGroupHash;
     }
 
 
@@ -103,6 +105,14 @@ public class RequestFileMessage {
         return this;
     }
 
+    public String getUserGroupHash() {
+        return userGroupHash;
+    }
+
+    public void setUserGroupHash(String userGroupHash) {
+        this.userGroupHash = userGroupHash;
+    }
+
     public static class Builder {
         private long threadId;
         private String filePath;
@@ -113,11 +123,13 @@ public class RequestFileMessage {
         private int yC;
         private int hC;
         private int wC;
+        private String userGroupHash;
 
-        public Builder(long threadId, String filePath, int messageType) {
+        public Builder(long threadId, String filePath, int messageType,String userGroupHash) {
             this.threadId = threadId;
             this.filePath = filePath;
             this.messageType = messageType;
+            this.userGroupHash=userGroupHash;
         }
 
         public Builder systemMetadata(String systemMetadata) {
@@ -149,6 +161,8 @@ public class RequestFileMessage {
             this.wC = wC;
             return this;
         }
+
+
 
         public RequestFileMessage build() {
             return new RequestFileMessage(this);

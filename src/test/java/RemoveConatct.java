@@ -77,6 +77,10 @@ public class RemoveConatct implements ChatContract.view {
         ArgumentCaptor<ChatResponse> argument = ArgumentCaptor.forClass(ChatResponse.class);
 
         Mockito.verify(chatContract, Mockito.times(1)).onRemoveContact(argument.capture());
+        ArgumentCaptor<ChatResponse> argument1 = ArgumentCaptor.forClass(ChatResponse.class);
+
+        Mockito.verify(chatContract).onThreadInfoUpdated(argument1.capture());
+
 
         ResultRemoveContact resultRemoveContact = (ResultRemoveContact) argument.getValue().getResult();
 

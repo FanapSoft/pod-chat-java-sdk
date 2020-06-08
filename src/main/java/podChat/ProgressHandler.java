@@ -1,5 +1,6 @@
 package podChat;
 
+import podChat.chat.download_file.model.ResultDownloadFile;
 import podChat.mainmodel.FileUpload;
 import podChat.model.ChatResponse;
 import podChat.model.ErrorOutPut;
@@ -32,6 +33,9 @@ public abstract class ProgressHandler {
         default void onFinish(String imageJson, FileUpload fileImageUpload) {
         }
 
+        default void onImageFinish(String imageJson, ChatResponse<ResultImageFile> chatResponse) {
+        }
+
         default void onError(String jsonError, ErrorOutPut error) {
         }
     }
@@ -49,6 +53,25 @@ public abstract class ProgressHandler {
 
         default void onError(String jsonError, ErrorOutPut error) {
         }
+    }
+
+    public interface IDownloadFile {
+
+        default void onProgressUpdate(String uniqueId, long bytesDownloaded, long totalBytesToDownload) {
+        }
+
+        default void onProgressUpdate(String uniqueId, int progress) {
+        }
+
+        void onError(String uniqueId, String error, String url);
+
+        default void onLowFreeSpace(String uniqueId, String url) {
+        }
+
+        default void onFileReady(ChatResponse<ResultDownloadFile> response) {
+        }
+
+
     }
 
     public interface cancelUpload {

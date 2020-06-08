@@ -1,6 +1,7 @@
 package podChat.chat;
 
 
+import podChat.chat.file_manager.upload_file.UploadToPodSpaceResult;
 import podChat.mainmodel.ResultDeleteMessage;
 import podChat.model.*;
 
@@ -356,6 +357,35 @@ public class ChatListenerManager {
         }
     }
 
+    public void callOnUploadFileToPodSpace(ChatResponse<UploadToPodSpaceResult> response) {
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onUploadFileToPodSpace(response);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
+
+    public void callOnGetFile(ChatResponse<ResultFile> response) {
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onGetFile(response);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
+
+    public void callOnGetImage(ChatResponse<ResultImageFile> response) {
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onGetImage(response);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
 
     public void callOnThreadAddParticipant(ChatResponse<ResultAddParticipant> outPutAddParticipant) {
         for (ChatListener listener : getSynchronizedListeners()) {
@@ -613,6 +643,50 @@ public class ChatListenerManager {
         for (ChatListener listener : getSynchronizedListeners()) {
             try {
                 listener.onCountUnreadMessage(chatResponse);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
+
+    public void callOnCreateBot(ChatResponse<ResultCreateBot> chatResponse) {
+
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onCreateBot(chatResponse);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
+
+    public void callOnStartBot(ChatResponse<ResultStartBot> chatResponse) {
+
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onStartBot(chatResponse);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
+
+    public void callOnStopBot(ChatResponse<ResultStartBot> chatResponse) {
+
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onStopBot(chatResponse);
+            } catch (Throwable t) {
+                callHandleCallbackError(listener, t);
+            }
+        }
+    }
+
+    public void callOnDefineBotCommand(ChatResponse<ResultDefineCommandBot> chatResponse) {
+
+        for (ChatListener listener : getSynchronizedListeners()) {
+            try {
+                listener.onDefineBotCommand(chatResponse);
             } catch (Throwable t) {
                 callHandleCallbackError(listener, t);
             }

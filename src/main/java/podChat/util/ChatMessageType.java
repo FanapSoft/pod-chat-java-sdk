@@ -51,6 +51,10 @@ public class ChatMessageType {
     public static final int UPDATE_PROFILE = 52;
     public static final int USER_ROLES = 54;
     public static final int ALL_UNREAD_MESSAGE_COUNT = 61;
+    public static final int CREATE_BOT = 62;
+    public static final int DEFINE_BOT_COMMAND=63;
+    public static final int START_BOT = 64;
+    public static final int STOP_BOT = 65;
     public static final int ERROR = 999;
 
 }
