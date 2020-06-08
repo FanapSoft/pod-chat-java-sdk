@@ -34,7 +34,6 @@ public class RequestConnect extends BaseRequestObject {
         this.podSpaceServer = builder.podSpaceServer;
     }
 
-
     public List<String> getUris() {
         return uris;
     }

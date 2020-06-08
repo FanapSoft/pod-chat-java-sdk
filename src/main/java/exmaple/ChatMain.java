@@ -25,8 +25,7 @@ public class ChatMain implements ChatContract.view {
     public static String ssoHost = "https://accounts.pod.ir";
     public static String fileServer = "https://core.pod.ir";
     public static String serverName = "chat-server";
-    public static String queueServer = "10.56.16.25";
-    public static String queuePort = "61616";
+    public static String uri = "10.56.16.25:61616";
     public static String queueInput = "queue-in-amjadi-stomp";
     public static String queueOutput = "queue-out-amjadi-stomp";
     public static String queueUserName = "root";
@@ -80,7 +79,7 @@ public class ChatMain implements ChatContract.view {
 //            chatController.getUserInfo();
 //            addContact();
 //            Thread.sleep(2000);
-//            getcontact();
+            getcontact();
 //            Thread.sleep(2000);
 //            removeContact();
 //            Thread.sleep(2000);
