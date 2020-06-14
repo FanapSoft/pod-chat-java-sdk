@@ -4,12 +4,12 @@ public class RequestReplyMessage extends GeneralRequestObject {
     private String messageContent;
     private long threadId;
     private long messageId;
-    private String systemMetaData;
+    private String systemMetadata;
     private int messageType;
 
     RequestReplyMessage(Builder builder) {
         super(builder);
-        this.systemMetaData = builder.systemMetaData;
+        this.systemMetadata = builder.systemMetadata;
         this.messageContent = builder.messageContent;
         this.threadId = builder.threadId;
         this.messageId = builder.messageId;
@@ -40,12 +40,12 @@ public class RequestReplyMessage extends GeneralRequestObject {
         this.messageId = messageId;
     }
 
-    public String getSystemMetaData() {
-        return systemMetaData;
+    public String getSystemMetadata() {
+        return systemMetadata;
     }
 
-    public void setSystemMetaData(String systemMetaData) {
-        this.systemMetaData = systemMetaData;
+    public void setSystemMetadata(String systemMetadata) {
+        this.systemMetadata = systemMetadata;
     }
 
     public Integer getMessageType() {
@@ -60,7 +60,7 @@ public class RequestReplyMessage extends GeneralRequestObject {
         private String messageContent;
         private long threadId;
         private long messageId;
-        private String systemMetaData;
+        private String systemMetadata;
         private int messageType;
 
         public Builder(String messageContent, long threadId, long messageId, int messageType) {
@@ -72,7 +72,7 @@ public class RequestReplyMessage extends GeneralRequestObject {
 
 
         public Builder systemMetaData(String systemMetaData) {
-            this.systemMetaData = systemMetaData;
+            this.systemMetadata = systemMetaData;
             return this;
         }
 

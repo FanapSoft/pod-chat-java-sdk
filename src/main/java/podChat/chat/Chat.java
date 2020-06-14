@@ -2055,7 +2055,7 @@ public class Chat extends AsyncAdapter {
         long threadId = request.getThreadId();
         long messageId = request.getMessageId();
         String messageContent = request.getMessageContent();
-        String systemMetaData = request.getSystemMetaData();
+        String systemMetaData = request.getSystemMetadata();
         int messageType = request.getMessageType();
         String typeCode = request.getTypeCode();
 
@@ -2095,8 +2095,7 @@ public class Chat extends AsyncAdapter {
         if (Util.isNullOrEmpty(systemMetaData)) {
             jsonObject.remove("systemMetaData");
         } else {
-            jsonObject.remove("systemMetaData");
-            jsonObject.addProperty("systemMetaData", systemMetaData);
+            jsonObject.addProperty("systemMetadata", systemMetaData);
         }
 
 
