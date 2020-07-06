@@ -3193,7 +3193,7 @@ public class Chat extends AsyncAdapter {
                                                 .Builder()
                                                 .threadId(threadId)
                                                 .metadat(metaJson)
-                                                .image("https://podspace.pod.ir/nzh/drive/downloadFile?hash=" + hashCode)
+                                                .imageHashFile(hashCode)
                                                 .build();
                                         updateThreadInfo(requestThreadInfo);
                                         listenerManager.callOnLogEvent(metaJson);

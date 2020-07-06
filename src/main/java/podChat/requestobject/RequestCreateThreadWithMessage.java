@@ -15,6 +15,7 @@ public class RequestCreateThreadWithMessage extends BaseRequestObject {
     private String description;
     private String image;
     private int messageType;
+    private String metadata;
 
     RequestCreateThreadWithMessage(Builder<?> builder) {
         super(builder);
@@ -25,6 +26,7 @@ public class RequestCreateThreadWithMessage extends BaseRequestObject {
         this.description = builder.description;
         this.image = builder.image;
         this.messageType = builder.messageType;
+        this.metadata=builder.metadata;
 
     }
 
@@ -92,6 +94,14 @@ public class RequestCreateThreadWithMessage extends BaseRequestObject {
         this.messageType = messageType;
     }
 
+    public String getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
+    }
+
     public static class Builder<T extends Builder<T>> extends BaseRequestObject.Builder<Builder> {
         private final int type;
         private final List<Invitee> invitees;
@@ -100,7 +110,8 @@ public class RequestCreateThreadWithMessage extends BaseRequestObject {
         private String description;
         private String image;
         private int messageType;
-        ;
+        private String metadata;
+
 
         public Builder(int type, List<Invitee> invitees, int messageType) {
             this.invitees = invitees;
@@ -126,6 +137,10 @@ public class RequestCreateThreadWithMessage extends BaseRequestObject {
         public Builder image(String image) {
             this.image = image;
             return this;
+        }
+
+        public void metadata(String metadata) {
+            this.metadata = metadata;
         }
 
         @Override

@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class ChatMain implements ChatContract.view {
 //    public static String platformHost = "https://sandbox.pod.ir:8043";
-//    public static String token = "d0c1fe3392d14ea8ac59cc649692b89f";
+//    public static String token = "e67144cdb15840ebadc4cf7749c8fa0f";
 //    public static String ssoHost = "https://accounts.pod.ir";
 //    public static String fileServer = "https://core.pod.ir";
 //    public static String serverName = "chat-server";
@@ -32,23 +32,36 @@ public class ChatMain implements ChatContract.view {
 //    public static String queuePassword = "zalzalak";
 //    public static Long chatId = 4101L;
 //    public static String uri = "10.56.16.25:61616";
-
-    public static String platformHost = "http://172.16.110.235:8003/srv/bptest-core/";
-//    public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //jiji
-    public static String token = "bebc31c4ead6458c90b607496dae25c6"; //alexi
-//    public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //fifi
-//    public static String token = "f19933ae1b1e424db9965a243bf3bcd3"; //zizi
-    public static String ssoHost = "http://172.16.110.76";
-    public static String fileServer = "http://172.16.110.76:8080";
-    public static String serverName = "chatlocal";
-    public static String uri = "192.168.112.23:61616";
-    public static String queueInput = "queue-in-integration";
-    public static String queueOutput = "queue-out-integration";
-    public static String queueUserName = "root";
-    public static String queuePassword = "j]Bm0RU8gLhbPUG";
-    public static Long chatId = 4101L;
+//
+//    public static String platformHost = "http://172.16.110.235:8003/srv/bptest-core/";
+////    public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //jiji
+//    public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //alexi
+////    public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //fifi
+////    public static String token = "f19933ae1b1e424db9965a243bf3bcd3"; //zizi
+//    public static String ssoHost = "http://172.16.110.76";
+//    public static String fileServer = "http://172.16.110.76:8080";
+//    public static String serverName = "chatlocal";
+//    public static String uri = "192.168.112.23:61616";
+//    public static String queueInput = "queue-in-integration";
+//    public static String queueOutput = "queue-out-integration";
+//    public static String queueUserName = "root";
+//    public static String queuePassword = "j]Bm0RU8gLhbPUG";
+//    public static Long chatId = 4101L;
     public static String podSpaceServer = "https://podspace.pod.ir";
     static ChatController chatController;
+
+    public static String platformHost = "https://sandbox.pod.ir:8043";
+    public static String token = "0653ecdeaacf417a87e2017d4a118a5a";
+    public static String ssoHost = "https://accounts.pod.ir";
+    public static String fileServer = "https://core.pod.ir";
+    public static String serverName = "chat-server";
+
+    public static String queueInput = "queue-in-sdk";
+    public static String queueOutput = "queue-out-sdk";
+    public static String queueUserName = "root";
+    public static String queuePassword = "zalzalak";
+    public static Long chatId = 4101L;
+    public static String uri = "10.56.16.25:61616";
 
     private static Logger logger = LogManager.getLogger(Async.class);
     Gson gson = new Gson();
@@ -88,8 +101,8 @@ public class ChatMain implements ChatContract.view {
 //            Thread.sleep(2000);
 //            getcontact();
 //            searchContact();
-//            createThread();
-//            getThreads();
+            createThread();
+            getThreads();
 //            sendMessage();
 //            deleteMultipleMessage();
 //            deleteMessage();
@@ -98,7 +111,7 @@ public class ChatMain implements ChatContract.view {
 //            addParticipant();
 //            removeParticipant();
 //            Thread.sleep(2000);
-//            getParticipant();
+            getParticipant();
 //            chatController.getUserInfo();
 //            createThreadWithMessage();
 //            createThreadWithFileMessage();
@@ -106,16 +119,18 @@ public class ChatMain implements ChatContract.view {
 //            isNameAvailable();
 //            joinThread();
 //            leaveThread();
-            replyMessage();
+//            replyMessage();
 //            replyFileMessage();
 //            Thread.sleep(2000);
 //            getDeliveryList();
 //            getSeenList();
 //            createBot();
 //            startBot();
+//            startBot();
 //            stopBot();
 //            defineBotCommand();
 //            mute();
+//            sendMessage();
 //            Thread.sleep(2000);
 //            unmute();
 //            getHistory();
@@ -433,7 +448,7 @@ public class ChatMain implements ChatContract.view {
 
         chatController.getHistory(requestGetHistory);*/
         RequestGetHistory requestGetHistory2 = new RequestGetHistory
-                .Builder(7129)
+                .Builder(8016)
 //                .messageType(ChatMessageType.INVITATION)
 //                .uniqueIds(new String[]{"a98d00af-6cb7-4174-a82a-a8ec68af0bb1"})
                 .build();
@@ -709,7 +724,8 @@ public class ChatMain implements ChatContract.view {
         RequestCreateThread requestCreateThread = new RequestCreateThread
                 .Builder<>(ThreadType.NORMAL, new ArrayList<Invitee>() {{
             add(invitee);
-        }}).image("54.jpg")
+        }})
+//                .image("54.jpg")
                 .build();
 
         chatController.createThread(requestCreateThread);

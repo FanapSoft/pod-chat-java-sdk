@@ -8,6 +8,7 @@ public class RequestThreadInfo extends GeneralRequestObject {
     //    private String name;
     private String description;
     private String metadata;
+    private String imageHashFile;
 
     RequestThreadInfo(Builder builder) {
         super(builder);
@@ -16,12 +17,14 @@ public class RequestThreadInfo extends GeneralRequestObject {
         this.metadata = builder.metadata;
 //        this.name = builder.name;
         this.threadId = builder.threadId;
-        this.title = builder.getTitle();
+        this.title = builder.title;
+        this.imageHashFile = builder.imageHashFile;
     }
 
     public String getTitle() {
         return title;
     }
+
 
     public static class Builder extends GeneralRequestObject.Builder<Builder> {
         private String image;
@@ -30,6 +33,7 @@ public class RequestThreadInfo extends GeneralRequestObject {
         private String metadata;
         private long threadId;
         private String title;
+        private String imageHashFile;
 
 
         public Builder image(String image) {
@@ -67,6 +71,11 @@ public class RequestThreadInfo extends GeneralRequestObject {
 
         public Builder setTitle(String title) {
             this.title = title;
+            return this;
+        }
+
+        public Builder imageHashFile(String imageHashFile) {
+            this.imageHashFile = imageHashFile;
             return this;
         }
 
@@ -125,4 +134,11 @@ public class RequestThreadInfo extends GeneralRequestObject {
         this.title = title;
     }
 
+    public String getImageHashFile() {
+        return imageHashFile;
+    }
+
+    public void setImageHashFile(String imageHashFile) {
+        this.imageHashFile = imageHashFile;
+    }
 }
