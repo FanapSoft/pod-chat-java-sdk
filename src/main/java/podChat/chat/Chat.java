@@ -54,6 +54,7 @@ public class Chat extends AsyncAdapter {
     public static boolean isLoggable;
     private static Logger logger = LogManager.getLogger(Chat.class);
     private static Async async;
+    private static Async async1;
     private static Chat instance;
     private static ChatListenerManager listenerManager;
     private static Gson gson;
@@ -88,6 +89,7 @@ public class Chat extends AsyncAdapter {
         if (instance == null) {
             isLoggable = loggable;
             async = Async.getInstance();
+            async1 = Async.getInstance();
             instance = new Chat();
             gson = new Gson();
             listenerManager = new ChatListenerManager();
@@ -281,6 +283,10 @@ public class Chat extends AsyncAdapter {
         }
     }
 
+    private void resetAsync() {
+        async.clearListener();
+    }
+
     /**
      * @param requestConnect uris        {**REQUIRED**}  List of URIs
      *                       platformHost         {**REQUIRED**}  Address of the platform host
@@ -299,7 +305,7 @@ public class Chat extends AsyncAdapter {
 
     public void connect(RequestConnect requestConnect) throws ConnectionException {
         try {
-
+            resetAsync();
             async.addListener(this);
 
             setPlatformHost(requestConnect.getPlatformHost());
@@ -324,7 +330,6 @@ public class Chat extends AsyncAdapter {
             gson = new Gson();
             setPodSpaceServer(requestConnect.getPodSpaceServer());
             async.connect(queueConfigVO, requestConnect.getSeverName(), token, ssoHost);
-
 
         } catch (ConnectionException e) {
             throw e;
@@ -2083,7 +2088,7 @@ public class Chat extends AsyncAdapter {
         chatMessage.setRepliedTo(messageId);
         chatMessage.setSubjectId(threadId);
         chatMessage.setTokenIssuer(Integer.toString(TOKEN_ISSUER));
-        chatMessage.setToken(getToken());
+        chatMessage.setToken("a8fb18e305294f94bdf33a5a2cf2d462");
         chatMessage.setContent(messageContent);
         chatMessage.setMetadata(metaData);
         chatMessage.setType(ChatMessageType.MESSAGE);
@@ -4900,6 +4905,29 @@ public class Chat extends AsyncAdapter {
         return this;
     }
 
+    public Chat setListener(ChatListener listener) {
+
+        listenerManager.clearListeners();
+
+        listenerManager.addListener(listener);
+
+        return this;
+
+    }
+
+    public void clearListeners() {
+
+        listenerManager.clearListeners();
+
+
+    }
+
+    public void clearAllListeners() {
+
+        listenerManager.clearListeners();
+        async.clearListener();
+    }
+
     public long getTtl() {
         return ttl;
     }
@@ -5254,8 +5282,6 @@ public class Chat extends AsyncAdapter {
         String jsonParticipant = gson.toJson(resultParticipantChatResponse);
 
         listenerManager.callOnGetThreadParticipant(resultParticipantChatResponse);
-
-
         showInfoLog("RECEIVE_PARTICIPANT", jsonParticipant);
     }
 

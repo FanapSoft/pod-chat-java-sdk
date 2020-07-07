@@ -684,7 +684,7 @@ public class ChatMain implements ChatContract.view {
      */
     private void replyMessage() {
         RequestReplyMessage requestReplyMessage = new RequestReplyMessage
-                .Builder("7459", 7129, 108290, TextMessageType.TEXT)
+                .Builder("7459", 8016, 132311, TextMessageType.TEXT)
                 .systemMetaData("qaz1")
                 .build();
 

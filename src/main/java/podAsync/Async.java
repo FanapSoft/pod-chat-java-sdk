@@ -203,6 +203,10 @@ public class Async implements IoAdapter {
         asyncListenerManager.removeListener(listener);
         return this;
     }
+    public Async clearListener() {
+        asyncListenerManager.clearListeners();
+        return this;
+    }
 
     /**
      * Connect webSocket to the Async

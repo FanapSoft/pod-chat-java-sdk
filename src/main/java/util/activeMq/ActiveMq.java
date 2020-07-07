@@ -63,7 +63,7 @@ public class ActiveMq {
             throw new ConnectionException(ConnectionException.ConnectionExceptionType.ACTIVE_MQ_CONNECTION);
         }
     }
-
+public ActiveMq(){}
     private void connect() {
         if (reconnect.compareAndSet(false, true)) {
 
@@ -151,7 +151,7 @@ public class ActiveMq {
 
     }
 
-    private void close() {
+    public void close() {
         try {
             producer.close();
         } catch (JMSException e) {
