@@ -34,23 +34,40 @@ public class ChatMain implements ChatContract.view {
 //    public static String uri = "10.56.16.25:61616";
 
     public static String platformHost = "http://172.16.110.235:8003/srv/bptest-core/";
-//    public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //jiji
-    public static String token = "bebc31c4ead6458c90b607496dae25c6"; //alexi
-//    public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //fifi
-//    public static String token = "f19933ae1b1e424db9965a243bf3bcd3"; //zizi
+    //    public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //jiji
+//    public static String token = "bebc31c4ead6458c90b607496dae25c6"; //alexi
+    public static String token = "d3114ed2fd2a49b4a0a386e727c9e5fa"; //fifi
+    //    public static String token = "f19933ae1b1e424db9965a243bf3bcd3"; //zizi
     public static String ssoHost = "http://172.16.110.76";
     public static String fileServer = "http://172.16.110.76:8080";
     public static String serverName = "chatlocal";
-    public static String uri = "192.168.112.23:61616";
+    /*public static String uri = "192.168.112.23:61616";
     public static String queueInput = "queue-in-integration";
     public static String queueOutput = "queue-out-integration";
     public static String queueUserName = "root";
-    public static String queuePassword = "j]Bm0RU8gLhbPUG";
+    public static String queuePassword = "j]Bm0RU8gLhbPUG";*/
+    /*public static String uri = "localhost:61616";//"192.168.112.23:61616";
+    public static String queueInput = "queue-out-safavi_chat";
+    public static String queueOutput = "queue-in-safavi_chat";
+    public static String queueUserName = "admin";//"root";
+    public static String queuePassword = "password";//"j]Bm0RU8gLhbPUG";*/
+
+    /**** new config *******/
+    public static String uri = "192.168.112.228:61616";
+//    public static String uri = "192.168.112.227:61616";
+    public static String queueInput = "queue-in-integration";
+    public static String queueOutput = "queue-out-integration";
+    public static String queueUserName = "dev";
+    public static String queuePassword = "dev9g5";
     public static Long chatId = 4101L;
     public static String podSpaceServer = "https://podspace.pod.ir";
+    public static Integer readThreadCount = 5;
+    public static Integer readMinThreadCount = 1;
+    public static Integer AUTO_ACKNOWLEDGE = 1;
+    public static Integer CLIENT_ACKNOWLEDGE = 2;
     static ChatController chatController;
 
-    private static Logger logger = LogManager.getLogger(Async.class);
+    private static Logger logger = LogManager.getLogger(ChatMain.class);
     Gson gson = new Gson();
 
     void init() {
@@ -65,6 +82,8 @@ public class ChatMain implements ChatContract.view {
                     queueOutput,
                     queueUserName,
                     queuePassword,
+                    readThreadCount,
+                    AUTO_ACKNOWLEDGE,
                     serverName,
                     token,
                     ssoHost,
@@ -76,7 +95,7 @@ public class ChatMain implements ChatContract.view {
 
             chatController.connect(requestConnect);
 
-//            chatController.getUserInfo();
+            chatController.getUserInfo();
 //            addContact();
 //            Thread.sleep(2000);
 //            getcontact();
@@ -1041,6 +1060,10 @@ public class ChatMain implements ChatContract.view {
                 chatController.seenMessage(messageVO.getId(), messageVO.getParticipant().getId());
             }
         }
+
+    }
+
+    void registerDevice(ChatResponse<ResultThread> asyncResponse) {
 
     }
 

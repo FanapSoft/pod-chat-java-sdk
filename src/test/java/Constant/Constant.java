@@ -34,6 +34,10 @@ public class Constant {
     public static String queueOutput = "queue-out-integration";
     public static String queueUserName = "root";
     public static String queuePassword = "j]Bm0RU8gLhbPUG";
+    public static Integer readThreadCount = 20;
+    public static Integer readMinThreadCount = 1;
+    public static Integer AUTO_ACKNOWLEDGE = 1;
+    public static Integer CLIENT_ACKNOWLEDGE = 2;
     public static Long chatId = 4101L;
 
 

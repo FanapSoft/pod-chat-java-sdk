@@ -106,6 +106,11 @@ public class Async implements IoAdapter {
             setToken(token);
             setServerName(serverName);
             setSsoHost(ssoHost);
+            if (queueConfigVO.getReceivePoolSize() == null) {
+                queueConfigVO.setReceivePoolSize(MainConfig.readThreadMinCount);
+            } else {
+                queueConfigVO.setReceivePoolSize(Math.min(queueConfigVO.getReceivePoolSize(), MainConfig.readThreadCount));
+            }
 
             activeMq = new ActiveMq(this, queueConfigVO);
 

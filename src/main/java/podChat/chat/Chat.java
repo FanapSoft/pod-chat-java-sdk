@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import config.MainConfig;
 import config.QueueConfigVO;
 import exception.ConnectionException;
 import okhttp3.MediaType;
@@ -317,7 +318,9 @@ public class Chat extends AsyncAdapter {
                     requestConnect.getQueueInput(),
                     requestConnect.getQueueOutput(),
                     requestConnect.getQueueUserName(),
-                    requestConnect.getQueuePassword());
+                    requestConnect.getQueuePassword(),
+                    requestConnect.getReadThreadCount(),
+                    requestConnect.getAcknowledgeMode());
 
             contactApi = RetrofitHelperPlatformHost.getInstance(getPlatformHost()).create(ContactApi.class);
 

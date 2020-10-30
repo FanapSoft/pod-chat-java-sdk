@@ -9,6 +9,8 @@ public class RequestConnect extends BaseRequestObject {
     private String queueOutput;
     private String queueUserName;
     private String queuePassword;
+    private Integer readThreadCount;
+    private Integer acknowledgeMode;
     private String severName;
     private String token;
     private String ssoHost;
@@ -25,6 +27,8 @@ public class RequestConnect extends BaseRequestObject {
         this.queueOutput = builder.queueOutput;
         this.queueUserName = builder.queueUserName;
         this.queuePassword = builder.queuePassword;
+        this.readThreadCount = builder.readThreadCount;
+        this.acknowledgeMode = builder.acknowledgeMode;
         this.fileServer = builder.fileServer;
         this.platformHost = builder.platformHost;
         this.severName = builder.severName;
@@ -130,12 +134,30 @@ public class RequestConnect extends BaseRequestObject {
         this.podSpaceServer = podSpaceServer;
     }
 
+    public Integer getReadThreadCount() {
+        return readThreadCount;
+    }
+
+    public void setReadThreadCount(Integer readThreadCount) {
+        this.readThreadCount = readThreadCount;
+    }
+
+    public Integer getAcknowledgeMode() {
+        return acknowledgeMode;
+    }
+
+    public void setAcknowledgeMode(Integer acknowledgeMode) {
+        this.acknowledgeMode = acknowledgeMode;
+    }
+
     public static class Builder extends BaseRequestObject.Builder<Builder> {
         private List<String> uris;
         private String queueInput;
         private String queueOutput;
         private String queueUserName;
         private String queuePassword;
+        private Integer readThreadCount;
+        private Integer acknowledgeMode;
         private String severName;
         private String token;
         private String ssoHost;
@@ -146,9 +168,17 @@ public class RequestConnect extends BaseRequestObject {
         private String podSpaceServer;
 
 
-        public Builder(List<String> uris, String queueInput, String queueOutput,
-                       String queueUserName, String queuePassword, String severName, String token,
-                       String ssoHost, String platformHost, String fileServer, Long chatId) {
+        public Builder(List<String> uris,
+                       String queueInput,
+                       String queueOutput,
+                       String queueUserName,
+                       String queuePassword,
+                       String severName,
+                       String token,
+                       String ssoHost,
+                       String platformHost,
+                       String fileServer,
+                       Long chatId) {
             this.queueInput = queueInput;
             this.queueOutput = queueOutput;
             this.uris = uris;
@@ -162,14 +192,55 @@ public class RequestConnect extends BaseRequestObject {
             this.chatId = chatId;
         }
 
-        public Builder(List<String> uris, String queueInput, String queueOutput,
-                       String queueUserName, String queuePassword, String severName, String token,
-                       String ssoHost, String platformHost, String fileServer, Long chatId, String podSpaceServer) {
+        public Builder(List<String> uris,
+                       String queueInput,
+                       String queueOutput,
+                       String queueUserName,
+                       String queuePassword,
+                       String severName,
+                       String token,
+                       String ssoHost,
+                       String platformHost,
+                       String fileServer,
+                       Long chatId,
+                       String podSpaceServer) {
             this.queueInput = queueInput;
             this.queueOutput = queueOutput;
             this.uris = uris;
             this.queueUserName = queueUserName;
             this.queuePassword = queuePassword;
+            this.fileServer = fileServer;
+            this.platformHost = platformHost;
+            this.severName = severName;
+            this.token = token;
+            this.ssoHost = ssoHost;
+            this.chatId = chatId;
+            this.podSpaceServer = podSpaceServer;
+        }
+
+
+
+        public Builder(List<String> uris,
+                       String queueInput,
+                       String queueOutput,
+                       String queueUserName,
+                       String queuePassword,
+                       Integer readThreadCount,
+                       Integer acknowledgeMode,
+                       String severName,
+                       String token,
+                       String ssoHost,
+                       String platformHost,
+                       String fileServer,
+                       Long chatId,
+                       String podSpaceServer) {
+            this.queueInput = queueInput;
+            this.queueOutput = queueOutput;
+            this.uris = uris;
+            this.queueUserName = queueUserName;
+            this.queuePassword = queuePassword;
+            this.readThreadCount = readThreadCount;
+            this.acknowledgeMode = acknowledgeMode;
             this.fileServer = fileServer;
             this.platformHost = platformHost;
             this.severName = severName;

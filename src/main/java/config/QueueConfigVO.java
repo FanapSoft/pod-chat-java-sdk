@@ -14,14 +14,18 @@ public class QueueConfigVO {
     private String queueUserName;
     private String queuePassword;
     private int queueReconnectTime;
+    private Integer receivePoolSize;
+    private Integer acknowledgeMode;
 
-    public QueueConfigVO(List<String> uris, String queueInput, String queueOutput, String queueUserName, String queuePassword) {
+    public QueueConfigVO(List<String> uris, String queueInput, String queueOutput, String queueUserName, String queuePassword, Integer receivePoolSize, Integer acknowledgeMode) {
         this.uris = uris;
         this.queueInput = queueInput;
         this.queueOutput = queueOutput;
         this.queueUserName = queueUserName;
         this.queuePassword = queuePassword;
         this.queueReconnectTime = 20000;
+        this.receivePoolSize = receivePoolSize;
+        this.acknowledgeMode = acknowledgeMode;
     }
 
     public String getQueueInput() {
@@ -79,5 +83,21 @@ public class QueueConfigVO {
 
     public void setUris(List<String> uris) {
         this.uris = uris;
+    }
+
+    public Integer getReceivePoolSize() {
+        return receivePoolSize;
+    }
+
+    public void setReceivePoolSize(Integer receivePoolSize) {
+        this.receivePoolSize = receivePoolSize;
+    }
+
+    public Integer getAcknowledgeMode() {
+        return acknowledgeMode;
+    }
+
+    public void setAcknowledgeMode(Integer acknowledgeMode) {
+        this.acknowledgeMode = acknowledgeMode;
     }
 }

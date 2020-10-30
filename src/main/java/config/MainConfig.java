@@ -16,6 +16,8 @@ import java.util.Properties;
 public class MainConfig {
     private static Logger logger = LogManager.getLogger(MainConfig.class);
     public static String sentryUrl;
+    public static Integer readThreadCount;
+    public static Integer readThreadMinCount;
 
     public void setConfig() {
         try {
@@ -25,6 +27,8 @@ public class MainConfig {
             prop.load(input);
 
             sentryUrl = prop.getProperty("sentry.config");
+            readThreadCount = Integer.valueOf(prop.getProperty("consumerMaxCount.config"));
+            readThreadMinCount = Integer.valueOf(prop.getProperty("consumerMinCount.config"));
 
 
         } catch (IOException ex) {
