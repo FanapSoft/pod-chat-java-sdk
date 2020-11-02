@@ -313,7 +313,9 @@ public class ActiveMq {
                 try {
                     Message message = consumer.receive();
                     try {
-                        message.acknowledge();
+                        if (acknowledgeMode == Session.CLIENT_ACKNOWLEDGE) {
+                            message.acknowledge();
+                        }
                         if (message instanceof BytesMessage) {
                             BytesMessage bytesMessage = (BytesMessage) message;
                             byte[] buffer = new byte[(int) bytesMessage.getBodyLength()];
@@ -324,7 +326,7 @@ public class ActiveMq {
                             }
 
                             String json = new String(buffer/*, "utf-8"*/);
-
+                            showInfoLog("Consumer " + serial + " received Message!", json);
                             ioAdapter.onReceiveMessage(json);
 
                         }
