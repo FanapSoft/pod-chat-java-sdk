@@ -13,64 +13,54 @@ import podChat.model.*;
 import podChat.requestobject.*;
 import podChat.util.*;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Created By Khojasteh on 7/27/2019
  */
 public class ChatMain implements ChatContract.view {
-//    public static String platformHost = "https://sandbox.pod.ir:8043";
-//    public static String token = "d0c1fe3392d14ea8ac59cc649692b89f";
-//    public static String ssoHost = "https://accounts.pod.ir";
-//    public static String fileServer = "https://core.pod.ir";
-//    public static String serverName = "chat-server";
-//    public static String uri = "10.56.16.25:61616";
-//    public static String queueInput = "queue-in-amjadi-stomp";
-//    public static String queueOutput = "queue-out-amjadi-stomp";
-//    public static String queueUserName = "root";
-//    public static String queuePassword = "zalzalak";
-//    public static Long chatId = 4101L;
-//    public static String uri = "10.56.16.25:61616";
-
-    public static String platformHost = "http://172.16.110.235:8003/srv/bptest-core/";
-    //    public static String token = "3c4d62b6068043aa898cf7426d5cae68"; //jiji
-//    public static String token = "bebc31c4ead6458c90b607496dae25c6"; //alexi
-    public static String token = "d3114ed2fd2a49b4a0a386e727c9e5fa"; //fifi
-    //    public static String token = "f19933ae1b1e424db9965a243bf3bcd3"; //zizi
-    public static String ssoHost = "http://172.16.110.76";
-    public static String fileServer = "http://172.16.110.76:8080";
-    public static String serverName = "chatlocal";
-    /*public static String uri = "192.168.112.23:61616";
-    public static String queueInput = "queue-in-integration";
-    public static String queueOutput = "queue-out-integration";
-    public static String queueUserName = "root";
-    public static String queuePassword = "j]Bm0RU8gLhbPUG";*/
-    /*public static String uri = "localhost:61616";//"192.168.112.23:61616";
-    public static String queueInput = "queue-out-safavi_chat";
-    public static String queueOutput = "queue-in-safavi_chat";
-    public static String queueUserName = "admin";//"root";
-    public static String queuePassword = "password";//"j]Bm0RU8gLhbPUG";*/
-
-    /**** new config *******/
-    public static String uri = "192.168.112.228:61616";
-//    public static String uri = "192.168.112.227:61616";
-    public static String queueInput = "queue-in-integration";
-    public static String queueOutput = "queue-out-integration";
-    public static String queueUserName = "dev";
-    public static String queuePassword = "dev9g5";
+    public static String platformHost;
+    public static String token;
+    public static String ssoHost;
+    public static String fileServer;
+    public static String serverName;
+    public static String uri;
+    public static String queueInput;
+    public static String queueOutput;
+    public static String queueUserName;
+    public static String queuePassword;
     public static Long chatId = 4101L;
-    public static String podSpaceServer = "https://podspace.pod.ir";
-    public static Integer readThreadCount = 5;
-    public static Integer readMinThreadCount = 1;
+    public static String podSpaceServer;
+    public static Integer readThreadCount;
+    public static Integer readMinThreadCount;
     public static Integer AUTO_ACKNOWLEDGE = 1;
     public static Integer CLIENT_ACKNOWLEDGE = 2;
+    InputStream inputAll = this.getClass().getClassLoader().getResourceAsStream("config.properties");
+    Properties propAll = new Properties();
     static ChatController chatController;
 
     private static Logger logger = LogManager.getLogger(ChatMain.class);
     Gson gson = new Gson();
 
-    void init() {
+    void init() throws IOException {
+        propAll.load(inputAll);
+        platformHost = propAll.getProperty("platformHost");
+        token = propAll.getProperty("token");
+        ssoHost = propAll.getProperty("ssoHost");
+        fileServer = propAll.getProperty("fileServer");
+        serverName = propAll.getProperty("serverName");
+        uri = propAll.getProperty("uri");
+        queueInput = propAll.getProperty("queueInput");
+        queueOutput = propAll.getProperty("queueOutput");
+        queueUserName = propAll.getProperty("queueUserName");
+        queuePassword = propAll.getProperty("queuePassword");
+        podSpaceServer = propAll.getProperty("podSpaceServer");
+        readThreadCount = Integer.valueOf(propAll.getProperty("consumerMaxCount.config"));
+        readMinThreadCount = Integer.valueOf(propAll.getProperty("consumerMinCount.config"));
         chatController = new ChatController(this);
         try {
 
@@ -82,8 +72,8 @@ public class ChatMain implements ChatContract.view {
                     queueOutput,
                     queueUserName,
                     queuePassword,
-                    readThreadCount,
-                    AUTO_ACKNOWLEDGE,
+                    5,
+                    CLIENT_ACKNOWLEDGE,
                     serverName,
                     token,
                     ssoHost,
@@ -95,7 +85,7 @@ public class ChatMain implements ChatContract.view {
 
             chatController.connect(requestConnect);
 
-            chatController.getUserInfo();
+//            chatController.getUserInfo();
 //            addContact();
 //            Thread.sleep(2000);
 //            getcontact();
@@ -108,7 +98,8 @@ public class ChatMain implements ChatContract.view {
 //            getcontact();
 //            searchContact();
 //            createThread();
-//            getThreads();
+                getThreads();
+
 //            sendMessage();
 //            deleteMultipleMessage();
 //            deleteMessage();
@@ -125,7 +116,7 @@ public class ChatMain implements ChatContract.view {
 //            isNameAvailable();
 //            joinThread();
 //            leaveThread();
-            replyMessage();
+//            replyMessage();
 //            replyFileMessage();
 //            Thread.sleep(2000);
 //            getDeliveryList();
@@ -648,6 +639,15 @@ public class ChatMain implements ChatContract.view {
                 .threadIds(new ArrayList<Integer>() {{
                     add(7330);
                     add(7129);
+                    add(8108);
+                    add(8096);
+                    add(8095);
+                    add(8094);
+                    add(8092);
+                    add(8090);
+                    add(8089);
+                    add(8088);
+                    add(8087);
                 }})
 //                .newMessages()
                 .build();
