@@ -47,6 +47,7 @@ public class ChatMain implements ChatContract.view {
     Gson gson = new Gson();
 
     void init() throws IOException {
+        //test commit and push
         propAll.load(inputAll);
         platformHost = propAll.getProperty("platformHost");
         token = propAll.getProperty("token");
